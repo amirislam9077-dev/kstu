@@ -364,7 +364,7 @@ const ViewChar = () => {
   );
   const formRef = React.useRef(null);
   const [sendStatus, setSendStatus] = React.useState({ state: 'idle', message: '' });
-  const backendBaseUrl = process.env.REACT_APP_BACKEND_URL || 'https://backend-1-b53o.onrender.com';
+  const backendBaseUrl = process.env.REACT_APP_BACKEND_URL || 'https://backend-2-q4lr.onrender.com';
   const hasItems = items.length > 0;
   const navigate = useNavigate();
 
