@@ -1,6 +1,5 @@
 import React from 'react';
 import '../App.css';
-import { useNavigate } from 'react-router-dom';
 
 export const hireLooks = [
   {
@@ -91,47 +90,32 @@ export const hireLooks = [
 ];
 
 const Hire = () => {
-  const navigate = useNavigate();
-
-  const handleViewProduct = (look) => {
-    navigate(`/hire/${look.id}`);
-  };
-
   return (
-    <section id="hire" className="formal-section">
-      <div className="formal-wrapper">
-        <div className="formal-text">
-          <p className="formal-eyebrow">Hire Collection</p>
-        </div>
-
-        <div className="formal-gallery">
-          {hireLooks.map((look) => (
-            <div className="formal-card" key={look.id}>
-              <button
-                type="button"
-                className="formal-media"
-                onClick={() => handleViewProduct(look)}
-                aria-label={`View ${look.title}`}
-              >
-                <img src={look.image} alt={look.title} className="formal-image" />
-                <div className="formal-card-overlay">
-                  <h3>{look.title}</h3>
-                  <p>{look.description}</p>
-                </div>
-              </button>
-              <div className="formal-card-footer">
-                <span className="formal-price">{look.price}</span>
-                <button
-                  className="formal-cart-btn"
-                  type="button"
-                  onClick={() => handleViewProduct(look)}
-                >
-                  View Details
+    <section id="hire" className="products">
+      <h1 className="products-header">Hire Collection</h1>
+      <div className="products-grid">
+        {hireLooks.map((look) => (
+          <div className="product-card" key={look.id}>
+            <div className="product-media-wrapper">
+              <img
+                src={look.image}
+                alt={look.title}
+                className="product-image"
+                style={{ objectFit: 'contain' }}
+              />
+              <div className="product-actions">
+                <button className="action-btn" type="button">
+                  Add to Cart
                 </button>
               </div>
             </div>
-          ))}
-        </div>
+            <div className="product-body">
+              <h3 className="product-title">{look.title}</h3>
+              <p className="product-subtitle">{look.price}</p>
+              <p className="product-details">{look.description}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

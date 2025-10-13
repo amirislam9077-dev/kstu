@@ -67,7 +67,7 @@ const Custom = () => {
   };
 
   return (
-    <section id="custom" className="formal-section">
+    <section id="custom" className="products">
       <div className="formal-wrapper">
         <div className="formal-text">
           <p className="formal-eyebrow">Custom Atelier</p>
@@ -81,30 +81,30 @@ const Custom = () => {
           </button>
         </div>
 
-        <div className="formal-gallery">
+        <div className="products-grid">
           {customLooks.map((item) => (
-            <div className="formal-card" key={item.id}>
-              <button
-                type="button"
-                className="formal-media"
-                onClick={() => handleViewProduct(item)}
-                aria-label={`View ${item.title}`}
-              >
-                <img src={item.image} alt={item.title} className="formal-image" />
-                <div className="formal-card-overlay">
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
+            <div className="product-card" key={item.id}>
+              <div className="product-media-wrapper">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="product-image"
+                  style={{ objectFit: 'contain' }}
+                />
+                <div className="product-actions">
+                  <button
+                    className="action-btn"
+                    type="button"
+                    onClick={() => handleViewProduct(item)}
+                  >
+                    View Details
+                  </button>
                 </div>
-              </button>
-              <div className="formal-card-footer">
-                <span className="formal-price">{item.price}</span>
-                <button
-                  className="formal-cart-btn"
-                  type="button"
-                  onClick={() => handleViewProduct(item)}
-                >
-                  Add to Cart
-                </button>
+              </div>
+              <div className="product-body">
+                <h3 className="product-title">{item.title}</h3>
+                <p className="product-subtitle">{item.price}</p>
+                <p className="product-details">{item.description}</p>
               </div>
             </div>
           ))}

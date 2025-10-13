@@ -22,6 +22,11 @@ function Header({ onContactClick, onAboutClick, onOffPlanClick, onValuationClick
       </div>
 
       <div className="nav-rail nav-right">
+        <button className="nav-link about-btn">Sale</button>
+        <button className="nav-link about-btn">Formal</button>
+        <button className="nav-link about-btn">Bridal</button>
+        <button className="nav-link about-btn">Hire</button>
+        <button className="nav-link about-btn">Custom</button>
         <button className="nav-link about-btn" onClick={onValuationClick}>Property Valuation</button>
         <SignIn />
         <button className="nav-link cta">Request a Call</button>

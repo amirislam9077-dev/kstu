@@ -1,13 +1,27 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
 const AddCart = ({ items, subtotal, onClose, onIncrease, onDecrease, onRemove, onViewCart }) => {
+  const navigate = useNavigate();
   const formatCurrency = (value) => `Rs.${value.toLocaleString('en-IN', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
   const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
   const hasItems = items.length > 0;
+
+  const handleContinueShopping = () => {
+    if (typeof onClose === 'function') {
+      onClose();
+    }
+
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
 
   return (
     <div className="cart-overlay" role="dialog" aria-modal="true">
@@ -94,8 +108,8 @@ const AddCart = ({ items, subtotal, onClose, onIncrease, onDecrease, onRemove, o
                 <span>{formatCurrency(subtotal)}</span>
               </div>
               <p className="cart-tax-note">Tax included and shipping calculated at checkout</p>
-              <button type="button" className="cart-checkout-btn">
-                Checkout
+              <button type="button" className="cart-checkout-btn" onClick={handleContinueShopping}>
+                Continue Shopping
               </button>
               <button
                 type="button"

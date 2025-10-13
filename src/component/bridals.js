@@ -134,40 +134,35 @@ const Bridal = () => {
   };
 
   return (
-    <section id="bridal" className="formal-section">
-      <div className="formal-wrapper">
-        <div className="formal-text">
-          <p className="formal-eyebrow">Bridal Collection</p>
-        </div>
-
-        <div className="formal-gallery">
-          {bridalLooks.map((look) => (
-            <div className="formal-card" key={look.id}>
-              <button
-                type="button"
-                className="formal-media"
-                onClick={() => handleViewProduct(look)}
-                aria-label={`View ${look.title}`}
-              >
-                <img src={look.image} alt={look.title} className="formal-image" />
-                <div className="formal-card-overlay">
-                  <h3>{look.title}</h3>
-                  <p>{look.description}</p>
-                </div>
-              </button>
-              <div className="formal-card-footer">
-                <span className="formal-price">{look.price}</span>
+    <section id="bridal" className="products">
+      <h1 className="products-header">Bridal Collection</h1>
+      <div className="products-grid">
+        {bridalLooks.map((look) => (
+          <div className="product-card" key={look.id}>
+            <div className="product-media-wrapper">
+              <img
+                src={look.image}
+                alt={look.title}
+                className="product-image"
+                style={{ objectFit: 'contain' }}
+              />
+              <div className="product-actions">
                 <button
-                  className="formal-cart-btn"
+                  className="action-btn"
                   type="button"
                   onClick={() => handleViewProduct(look)}
                 >
-                  Add to Cart
+                  View Details
                 </button>
               </div>
             </div>
-          ))}
-        </div>
+            <div className="product-body">
+              <h3 className="product-title">{look.title}</h3>
+              <p className="product-subtitle">{look.price}</p>
+              <p className="product-details">{look.description}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

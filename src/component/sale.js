@@ -139,8 +139,8 @@ const Formal = () => {
   };
 
   return (
-    <section id="formal" className="products">
-      <h1 className="products-header">Formal Collection</h1>
+    <section id="sale" className="products">
+      <h1 className="products-header">Sale Collection</h1>
       <div className="products-grid">
         {formalLooks.map((look) => (
           <div className="product-card" key={look.id}>

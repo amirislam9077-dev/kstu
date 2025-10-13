@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import './App.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './navbar';
+import Slider from './component/slider';
 import Hero5 from './component/hero5';
 import Midbar from './component/midbar';
 import Banner5 from './component/banner5';
-import Message from './component/message';
 import Product from './component/product';
 import Product5 from './component/product5';
+import Product6 from './component/product6';
 import Login from './component/login';
 import Footer from './component/footer';
 import ContactFloat from './component/contactFloat';
@@ -19,6 +20,8 @@ import FormalPro from './component/formalpro';
 import BridalPro from './component/bridalspro';
 import HirePro from './component/hirepro';
 import CustomPro from './component/custompro';
+import SalePage from './pages/SalePage';
+import SalePro from './component/salepro';
 import ViewChar from './component/viewchar';
 import Thanks from './component/thanks';
 
@@ -55,9 +58,9 @@ const HomePage = () => (
     <Hero5 />
     <Midbar />
     <Banner5 />
-    <Message />
     <Product />
     <Product5 />
+    <Product6 />
   </>
 );
 
@@ -68,6 +71,7 @@ function App() {
     <div className="App">
       <ScrollToTop />
       <Navbar />
+      {location.pathname === '/' && <Slider />}
       <main className="main-content">
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -79,6 +83,8 @@ function App() {
           <Route path="/hire" element={<HirePage />} />
           <Route path="/custom/:productId" element={<CustomPro />} />
           <Route path="/custom" element={<CustomPage />} />
+          <Route path="/sale/:productId" element={<SalePro />} />
+          <Route path="/sale" element={<SalePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/viewcart" element={<ViewChar />} />
           <Route path="/thanks" element={<Thanks />} />

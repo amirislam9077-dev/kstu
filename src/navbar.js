@@ -58,7 +58,7 @@ const Navbar = () => {
   };
 
   const handleSectionNavigation = (sectionId) => {
-    if (sectionId === 'formal' || sectionId === 'bridal' || sectionId === 'hire' || sectionId === 'custom') {
+    if (sectionId === 'sale' || sectionId === 'formal' || sectionId === 'bridal' || sectionId === 'hire' || sectionId === 'custom') {
       const targetPath = `/${sectionId}`;
       if (location.pathname !== targetPath) {
         navigate(targetPath);
@@ -126,16 +126,39 @@ const Navbar = () => {
 
         <div className="header-right">
           <button
-            className="book-fitting-btn"
-            onClick={() => handleSectionNavigation('midbar')}
+            type="button"
+            className="about-btn"
+            onClick={() => handleSectionNavigation('sale')}
           >
-            BOOK A FITTING
+            Sale
           </button>
           <button
+            type="button"
             className="about-btn"
-            onClick={() => handleSectionNavigation('about')}
+            onClick={() => handleSectionNavigation('formal')}
           >
-            About Us
+            Formal
+          </button>
+          <button
+            type="button"
+            className="about-btn"
+            onClick={() => handleSectionNavigation('bridal')}
+          >
+            Bridal
+          </button>
+          <button
+            type="button"
+            className="about-btn"
+            onClick={() => handleSectionNavigation('hire')}
+          >
+            Hire
+          </button>
+          <button
+            type="button"
+            className="about-btn"
+            onClick={() => handleSectionNavigation('custom')}
+          >
+            Custom
           </button>
           <button
             className="sign-in-btn"
@@ -145,12 +168,6 @@ const Navbar = () => {
             }}
           >
             Sign In
-          </button>
-          <button className="account-btn" aria-label="Account">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="7" r="4" />
-              <path d="M5.5 21a8.38 8.38 0 0 1 13 0" />
-            </svg>
           </button>
           <button
             className="cart-btn"
@@ -171,6 +188,9 @@ const Navbar = () => {
       <div className={`nav-flyout${menuOpen ? ' open' : ''}`}>
         <ul className="nav-flyout-list">
           <li>
+            <a href="/sale" onClick={(event) => handleSectionLinkClick(event, 'sale')}>Sale</a>
+          </li>
+          <li>
             <a href="/formal" onClick={(event) => handleSectionLinkClick(event, 'formal')}>Formal</a>
           </li>
           <li>
@@ -181,6 +201,28 @@ const Navbar = () => {
           </li>
           <li>
             <a href="/custom" onClick={(event) => handleSectionLinkClick(event, 'custom')}>Custom</a>
+          </li>
+          <li>
+            <button
+              type="button"
+              onClick={() => {
+                navigate('/login');
+                setMenuOpen(false);
+              }}
+            >
+              Sign In
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              onClick={() => {
+                navigate('/viewcart');
+                setMenuOpen(false);
+              }}
+            >
+              View Cart
+            </button>
           </li>
         </ul>
       </div>

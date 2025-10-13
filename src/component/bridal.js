@@ -36,23 +36,30 @@ const bridalLooks = [
 
 const Bridal = () => {
   return (
-    <section id="bridal" className="bridal-section">
-      <div className="bridal-wrapper">
-        <div className="bridal-text">
-          <p className="bridal-eyebrow">Bridal Collection</p>
-        </div>
-
-        <div className="bridal-gallery">
-          {bridalLooks.map((look) => (
-            <div className="bridal-card" key={look.title}>
-              <img src={look.image} alt={look.title} className="bridal-image" />
-              <div className="bridal-card-overlay">
-                <h3>{look.title}</h3>
-                <p>{look.description}</p>
+    <section id="bridal" className="products">
+      <h1 className="products-header">Bridal Collection</h1>
+      <div className="products-grid">
+        {bridalLooks.map((look) => (
+          <div className="product-card" key={look.title}>
+            <div className="product-media-wrapper">
+              <img
+                src={look.image}
+                alt={look.title}
+                className="product-image"
+                style={{ objectFit: 'contain' }}
+              />
+              <div className="product-actions">
+                <button className="action-btn" type="button">
+                  View Details
+                </button>
               </div>
             </div>
-          ))}
-        </div>
+            <div className="product-body">
+              <h3 className="product-title">{look.title}</h3>
+              <p className="product-details">{look.description}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

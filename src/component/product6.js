@@ -11,9 +11,7 @@ function ProductCard({ image, title, subtitle, details, logo, imageFit }) {
           style={{ objectFit: imageFit || 'cover' }}
         />
         <div className="product-actions">
-          <button className="action-btn" type="button">
-            Add to Cart
-          </button>
+          <button className="action-btn" type="button">Add to Cart</button>
         </div>
       </div>
       <div className="product-body">
@@ -28,28 +26,28 @@ function ProductCard({ image, title, subtitle, details, logo, imageFit }) {
   );
 }
 
-const Product = forwardRef((props, ref) => {
+const Product6 = forwardRef((props, ref) => {
   const cards = [
     {
-      image: 'https://www.destinychic.com.au/cdn/shop/files/DestinyChic_Formal_29_01_0302.jpg?v=1708439188&width=720',
-      title: 'Radha',
-      subtitle: 'Rs.95,000.00',
+      image: 'https://www.deepakperwani.com/images/thumbs/0009486_drs1137.jpeg',
+      title: 'Aurora',
+      subtitle: 'Rs.110,000.',
       details: '',
       logo: '',
       imageFit: 'contain'
     },
     {
-      image: 'https://www.destinychic.com.au/cdn/shop/files/DestinyChic_Formal_29_01_0178.jpg?v=1708430720&width=720',
-      title: 'Joona',
-      subtitle: 'Rs.90,000.00',
+      image: 'https://www.deepakperwani.com/images/thumbs/0008385_drs1100.jpeg',
+      title: 'Celestia',
+      subtitle: 'Rs.86,500',
       details: '',
       logo: '',
       imageFit: 'contain'
     },
     {
-      image: 'https://www.destinychic.com.au/cdn/shop/files/Screenshot2025-05-20at2.04.56PM.png?v=1747714024&width=720',
-      title: 'Adaye',
-      subtitle: 'Rs.72,000',
+      image: 'https://www.deepakperwani.com/images/thumbs/0008431_drs1112.jpeg',
+      title: 'Lunara',
+      subtitle: 'Rs.58,750',
       details: '',
       logo: '',
       imageFit: 'contain'
@@ -58,7 +56,6 @@ const Product = forwardRef((props, ref) => {
 
   return (
     <section className="products" ref={ref}>
-      <h1 className="products-header">New Arrivals</h1>
       <div className="products-grid">
         {cards.map((c) => (
           <ProductCard key={c.title} {...c} />
@@ -68,8 +65,8 @@ const Product = forwardRef((props, ref) => {
   );
 });
 
-Product.displayName = 'Product';
+Product6.displayName = 'Product6';
 
-export default Product;
+export default Product6;
 
 
