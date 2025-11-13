@@ -1,6 +1,13 @@
 import React, { forwardRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function ProductCard({ image, title, subtitle, details, logo, imageFit }) {
+function ProductCard({ image, title, subtitle, details, logo, imageFit, productId }) {
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    navigate(`/product5/${productId}`);
+  };
+
   return (
     <div className="product-card product-primary">
       <div className="product-media-wrapper">
@@ -11,7 +18,7 @@ function ProductCard({ image, title, subtitle, details, logo, imageFit }) {
           style={{ objectFit: imageFit || 'cover' }}
         />
         <div className="product-actions">
-          <button className="action-btn" type="button">Add to Cart</button>
+          <button className="action-btn" type="button" onClick={handleAddToCart}>Add to Cart</button>
         </div>
       </div>
       <div className="product-body">
@@ -34,7 +41,8 @@ const Product5 = forwardRef((props, ref) => {
       subtitle: 'Rs.311,000.',
       details: '',
       logo: '',
-      imageFit: 'contain'
+      imageFit: 'contain',
+      productId: 'shehrzad'
     },
     {
       image: 'https://www.destinychic.com.au/cdn/shop/files/DestinyChic_Formal_29_01_0178.jpg?v=1708430720&width=720',
@@ -42,7 +50,8 @@ const Product5 = forwardRef((props, ref) => {
       subtitle: 'Rs.90,000.00',
       details: '',
       logo: '',
-      imageFit: 'contain'
+      imageFit: 'contain',
+      productId: 'joona-product5'
     },
     {
       image: 'https://www.destinychic.com.au/cdn/shop/files/Screenshot2025-05-20at2.04.56PM.png?v=1747714024&width=720',
@@ -50,7 +59,8 @@ const Product5 = forwardRef((props, ref) => {
       subtitle: 'Rs.72,000',
       details: '',
       logo: '',
-      imageFit: 'contain'
+      imageFit: 'contain',
+      productId: 'adaye-product5'
     }
   ];
 

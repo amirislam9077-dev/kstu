@@ -1,6 +1,13 @@
 import React, { forwardRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function ProductCard({ image, title, subtitle, details, logo, imageFit }) {
+function ProductCard({ image, title, subtitle, details, logo, imageFit, productId }) {
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    navigate(`/product6/${productId}`);
+  };
+
   return (
     <div className="product-card product-primary">
       <div className="product-media-wrapper">
@@ -11,7 +18,7 @@ function ProductCard({ image, title, subtitle, details, logo, imageFit }) {
           style={{ objectFit: imageFit || 'cover' }}
         />
         <div className="product-actions">
-          <button className="action-btn" type="button">Add to Cart</button>
+          <button className="action-btn" type="button" onClick={handleAddToCart}>Add to Cart</button>
         </div>
       </div>
       <div className="product-body">
@@ -34,7 +41,8 @@ const Product6 = forwardRef((props, ref) => {
       subtitle: 'Rs.110,000.',
       details: '',
       logo: '',
-      imageFit: 'contain'
+      imageFit: 'contain',
+      productId: 'aurora'
     },
     {
       image: 'https://www.deepakperwani.com/images/thumbs/0008385_drs1100.jpeg',
@@ -42,7 +50,8 @@ const Product6 = forwardRef((props, ref) => {
       subtitle: 'Rs.86,500',
       details: '',
       logo: '',
-      imageFit: 'contain'
+      imageFit: 'contain',
+      productId: 'celestia'
     },
     {
       image: 'https://www.deepakperwani.com/images/thumbs/0008431_drs1112.jpeg',
@@ -50,7 +59,8 @@ const Product6 = forwardRef((props, ref) => {
       subtitle: 'Rs.58,750',
       details: '',
       logo: '',
-      imageFit: 'contain'
+      imageFit: 'contain',
+      productId: 'lunara'
     }
   ];
 

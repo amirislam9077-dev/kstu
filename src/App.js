@@ -22,6 +22,8 @@ import HirePro from './component/hirepro';
 import CustomPro from './component/custompro';
 import SalePage from './pages/SalePage';
 import SalePro from './component/salepro';
+import Product5Pro from './component/product5pro';
+import Product6Pro from './component/product6pro';
 import ViewChar from './component/viewchar';
 import Thanks from './component/thanks';
 
@@ -85,6 +87,8 @@ function App() {
           <Route path="/custom" element={<CustomPage />} />
           <Route path="/sale/:productId" element={<SalePro />} />
           <Route path="/sale" element={<SalePage />} />
+          <Route path="/product5/:productId" element={<Product5Pro />} />
+          <Route path="/product6/:productId" element={<Product6Pro />} />
           <Route path="/login" element={<Login />} />
           <Route path="/viewcart" element={<ViewChar />} />
           <Route path="/thanks" element={<Thanks />} />
