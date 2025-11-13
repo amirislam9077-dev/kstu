@@ -170,9 +170,11 @@ const FormalPro = () => {
 
     setLensPosition({ x: lensX, y: lensY });
 
+    // Calculate background position - invert X for mirror effect
     const percentX = ((lensX + LENS_SIZE / 2) / width) * 100;
     const percentY = ((lensY + LENS_SIZE / 2) / height) * 100;
-    setZoomBackgroundPosition(`${percentX}% ${percentY}%`);
+    // Invert X position for mirror effect (100 - percentX)
+    setZoomBackgroundPosition(`${100 - percentX}% ${percentY}%`);
   };
 
   React.useEffect(() => {
