@@ -1536,6 +1536,11 @@
     padding: 28px 14px 40px;
   }
 
+  .viewchar-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
   .viewchar-table-header,
   .viewchar-row {
     grid-template-columns: 1fr;
@@ -1551,7 +1556,8 @@
 
   .viewchar-summary {
     padding: 20px 18px 24px;
-    max-width: 320px;
+    max-width: 100%;
+    position: static;
   }
 
   .viewchar-table {
@@ -1561,6 +1567,247 @@
   .viewchar-table-header,
   .viewchar-row {
     padding: 14px 0;
+  }
+}
+
+/* iPhone 12 Pro and similar (390px - 428px) */
+@media (max-width: 428px) {
+  .viewchar-page {
+    padding: 20px 16px 32px;
+  }
+
+  .viewchar-header {
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+  }
+
+  .viewchar-header h1 {
+    font-size: 18px;
+    letter-spacing: 1.2px;
+  }
+
+  .viewchar-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .viewchar-table {
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+  }
+
+  .viewchar-table-header {
+    display: none;
+  }
+
+  .viewchar-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px 14px;
+  }
+
+  .viewchar-product {
+    grid-template-columns: 64px 1fr;
+    gap: 12px;
+  }
+
+  .viewchar-product img {
+    width: 64px;
+    height: 85px;
+    border-radius: 10px;
+  }
+
+  .viewchar-product-info h3 {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .viewchar-meta {
+    font-size: 9px;
+  }
+
+  .viewchar-price,
+  .viewchar-quantity,
+  .viewchar-total {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    font-size: 11px;
+    align-items: center;
+  }
+
+  .viewchar-price::before {
+    content: 'Price:';
+    font-size: 10px;
+    color: #6d6d6d;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  .viewchar-total::before {
+    content: 'Total:';
+    font-size: 10px;
+    color: #6d6d6d;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  .viewchar-quantity::before {
+    content: 'Quantity:';
+    font-size: 10px;
+    color: #6d6d6d;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  .cart-qty-control {
+    justify-content: flex-end;
+    gap: 4px;
+  }
+
+  .cart-qty-control button {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+
+  .cart-qty-control span {
+    min-width: 28px;
+    font-size: 12px;
+  }
+
+  .viewchar-qty-remove {
+    margin-left: 8px;
+    background: #f44336;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .viewchar-payment-summary {
+    padding: 16px 18px;
+    gap: 10px;
+  }
+
+  .viewchar-payment-summary h3 {
+    font-size: 12px;
+    letter-spacing: 0.6px;
+  }
+
+  .viewchar-payment-summary dl div {
+    font-size: 11px;
+  }
+
+  .viewchar-payment-summary p {
+    font-size: 9px;
+  }
+
+  .viewchar-summary {
+    padding: 18px 16px 20px;
+    border-radius: 14px;
+    position: static;
+    top: auto;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.06);
+  }
+
+  .viewchar-checkout-form {
+    gap: 20px;
+  }
+
+  .viewchar-section {
+    gap: 12px;
+    padding-top: 16px;
+  }
+
+  .viewchar-section-title {
+    font-size: 11px;
+    letter-spacing: 0.6px;
+  }
+
+  .viewchar-section-link {
+    font-size: 10px;
+  }
+
+  .viewchar-section-subtitle {
+    font-size: 10px;
+  }
+
+  .viewchar-field {
+    gap: 4px;
+    font-size: 9px;
+  }
+
+  .viewchar-input,
+  .viewchar-select {
+    padding: 10px 12px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+
+  .viewchar-textarea {
+    padding: 10px 12px;
+    font-size: 12px;
+    border-radius: 8px;
+    min-height: 60px;
+  }
+
+  .viewchar-field-hint {
+    font-size: 8px;
+  }
+
+  .viewchar-checkbox {
+    gap: 6px;
+    font-size: 9px;
+  }
+
+  .viewchar-send-order {
+    padding: 12px 16px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    width: 100%;
+  }
+
+  .viewchar-nav-buttons {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .viewchar-nav-buttons button {
+    width: 100%;
+  }
+
+  .viewchar-empty {
+    padding: 60px 16px;
+    gap: 14px;
+  }
+
+  .viewchar-back {
+    padding: 10px 16px;
+    font-size: 11px;
+  }
+
+  .viewchar-payment-info {
+    font-size: 10px;
+    padding: 12px;
+  }
+
+  .viewchar-payment-info p {
+    font-size: 9px;
+    line-height: 1.5;
+  }
+
+  .viewchar-status {
+    font-size: 10px;
+    padding: 10px 12px;
   }
 }
 
