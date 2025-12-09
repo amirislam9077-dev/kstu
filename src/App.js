@@ -11,7 +11,6 @@ import Product5 from './component/product5';
 import Product6 from './component/product6';
 import Login from './component/login';
 import Footer from './component/footer';
-import ContactFloat from './component/contactFloat';
 import FormalPage from './pages/FormalPage';
 import BridalPage from './pages/BridalPage';
 import HirePage from './pages/HirePage';
@@ -95,7 +94,6 @@ function App() {
         </Routes>
         {location.pathname !== '/thanks' && <Footer />}
       </main>
-      <ContactFloat />
     </div>
   );
 }

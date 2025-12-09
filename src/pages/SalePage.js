@@ -1,10 +1,10 @@
 import React from 'react';
-import Sale from '../component/sale';
 
 const SalePage = () => {
   return (
     <div className="sale-page">
-      <Sale />
+      <h1>Sale Collection</h1>
+      <p>This page is currently unavailable.</p>
     </div>
   );
 };

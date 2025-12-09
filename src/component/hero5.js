@@ -40,7 +40,6 @@ const Hero5 = () => {
 
   return (
     <section className="hero5-section">
-      <a href="#contact" className="hero5-contact-btn">Contact Us</a>
       <div className="hero5-gallery">
         {heroCategories.map((category) => (
           <div

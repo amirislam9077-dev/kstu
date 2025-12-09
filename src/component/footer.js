@@ -23,7 +23,6 @@ const Footer = () => {
           <h3 className="footer-heading">Customer Service</h3>
           <ul>
             <li><a href="#about">About Us</a></li>
-            <li><a href="#contact">Contact Us</a></li>
             <li><a href="#blog">Blog</a></li>
             <li><a href="#custom-dresses">Custom Dresses</a></li>
             <li><a href="#terms">Terms of Service</a></li>

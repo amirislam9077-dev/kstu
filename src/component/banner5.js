@@ -36,7 +36,6 @@ const Banner5 = () => {
 
   return (
     <section className="banner5-section">
-      <div className="banner5-contact">Contact Us</div>
       <div className="banner5-grid">
         {bannerTiles.map((tile) => (
           <div

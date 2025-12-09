@@ -225,6 +225,7 @@ const CustomPro = () => {
       }
 
       const templateParams = {
+        to_email: 'khurramstudio07@gmail.com',
         customer_name: name,
         customer_email: email,
         preferred_size: size,
