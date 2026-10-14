@@ -6,7 +6,8 @@ import AddCart from './addcart';
 import {
   createLineId,
   readStoredCartItems,
-  persistCartItems
+  persistCartItems,
+  parsePrice
 } from '../utils/cartStorage';
 
 const FormalInquiryForm = ({ product, selectedSize, onSizeChange }) => {
@@ -71,13 +72,14 @@ const FormalInquiryForm = ({ product, selectedSize, onSizeChange }) => {
   );
 };
 
-const Product5Pro = () => {
+// Shared product page: other collections pass their own items and name.
+const Product5Pro = ({ items = product5Items, collectionName = 'Product5' }) => {
   const { productId } = useParams();
   const navigate = useNavigate();
 
   const product = useMemo(
-    () => product5Items.find((item) => item.id === productId),
-    [productId]
+    () => items.find((item) => item.id === productId),
+    [items, productId]
   );
 
   const galleryImages = React.useMemo(() => {
@@ -197,7 +199,7 @@ const Product5Pro = () => {
       return;
     }
 
-    const priceNumeric = Number(product.price.replace(/[^0-9.]/g, '')) || 0;
+    const priceNumeric = parsePrice(product.price);
     const sizeValue = selectedSize || product.sizes?.[0] || null;
     const lineId = createLineId(product.id, sizeValue);
     const itemPayload = {
@@ -209,7 +211,7 @@ const Product5Pro = () => {
       image: product.image,
       size: sizeValue,
       sku: product.sku,
-      collection: 'Product5'
+      collection: collectionName
     };
 
     setCartItems((prev) => {

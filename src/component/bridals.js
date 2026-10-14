@@ -14,12 +14,12 @@ export const bridalLooks = [
     title: 'Evangeline',
     description: 'Bridal couture gown featuring hand-beaded lace bodice and cascading tulle skirt.',
     image:
-      'https://images.pexels.com/photos/3617553/pexels-photo-3617553.jpeg?auto=compress&cs=tinysrgb&w=900',
+      'https://www.mariab.pk/cdn/shop/files/D-9AFront_A_71a7de19-867b-4b0b-ad62-9cd5297154a9_2400x2400.jpg?v=1764230410',
     gallery: [
-      'https://images.pexels.com/photos/3617553/pexels-photo-3617553.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://www.mariab.pk/cdn/shop/files/D-9AFront_A_71a7de19-867b-4b0b-ad62-9cd5297154a9_2400x2400.jpg?v=1764230410',
       ...sharedGalleryImages
     ],
-    price: '$2,450',
+    price: 'Rs.685,000',
     availability: 'Made to order',
     sku: 'BRIDAL-EVANGELINE',
     sizes: ['XS', 'S', 'M', 'L'],
@@ -37,12 +37,12 @@ export const bridalLooks = [
     title: 'Melody',
     description: 'Minimalist satin column gown with pearl button back detailing.',
     image:
-      'https://images.pexels.com/photos/949225/pexels-photo-949225.jpeg?auto=compress&cs=tinysrgb&w=900',
+      'https://www.mariab.pk/cdn/shop/files/D-8BFront_A_1aa4233c-0883-4837-ac68-05ae5fe34bf2_2400x2400.jpg?v=1764230355',
     gallery: [
-      'https://images.pexels.com/photos/949225/pexels-photo-949225.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://www.mariab.pk/cdn/shop/files/D-8BFront_A_1aa4233c-0883-4837-ac68-05ae5fe34bf2_2400x2400.jpg?v=1764230355',
       ...sharedGalleryImages
     ],
-    price: '$1,980',
+    price: 'Rs.554,000',
     availability: 'In stock',
     sku: 'BRIDAL-MELODY',
     sizes: ['XS', 'S', 'M'],
@@ -60,12 +60,12 @@ export const bridalLooks = [
     title: 'Odessa',
     description: 'Romantic off-the-shoulder gown with floral appliqué and soft shimmer.',
     image:
-      'https://images.pexels.com/photos/3014858/pexels-photo-3014858.jpeg?auto=compress&cs=tinysrgb&w=900',
+      'https://www.mariab.pk/cdn/shop/files/D-9BFront_A_d96ff5a0-50ef-48ac-9db2-1efd905b1e1d_2400x2400.jpg?v=1764230477',
     gallery: [
-      'https://images.pexels.com/photos/3014858/pexels-photo-3014858.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://www.mariab.pk/cdn/shop/files/D-9BFront_A_d96ff5a0-50ef-48ac-9db2-1efd905b1e1d_2400x2400.jpg?v=1764230477',
       ...sharedGalleryImages
     ],
-    price: '$2,250',
+    price: 'Rs.630,000',
     availability: 'Limited availability',
     sku: 'BRIDAL-ODESSA',
     sizes: ['S', 'M', 'L'],
@@ -83,12 +83,12 @@ export const bridalLooks = [
     title: 'Celestine',
     description: 'Illusion neckline gown with layered organza and hand-beaded bodice.',
     image:
-      'https://images.pexels.com/photos/949224/pexels-photo-949224.jpeg?auto=compress&cs=tinysrgb&w=900',
+      'https://www.mariab.pk/cdn/shop/files/D-10AFront_A_92b97791-08cf-49a9-8802-88adced7acac_2400x2400.jpg?v=1764230585',
     gallery: [
-      'https://images.pexels.com/photos/949224/pexels-photo-949224.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://www.mariab.pk/cdn/shop/files/D-10AFront_A_92b97791-08cf-49a9-8802-88adced7acac_2400x2400.jpg?v=1764230585',
       ...sharedGalleryImages
     ],
-    price: '$2,300',
+    price: 'Rs.644,000',
     availability: 'Pre-order, ships in 5 weeks',
     sku: 'BRIDAL-CELESTINE',
     sizes: ['XS', 'S', 'M', 'L'],
@@ -106,12 +106,12 @@ export const bridalLooks = [
     title: 'Aurielle',
     description: 'Sequined corset gown with detachable overskirt designed for dramatic aisles.',
     image:
-      'https://images.pexels.com/photos/256737/pexels-photo-256737.jpeg?auto=compress&cs=tinysrgb&w=900',
+      'https://www.mariab.pk/cdn/shop/files/D-10BFront_A_40a42f00-92ba-4df6-bb5f-a09180685421_2400x2400.jpg?v=1764230651',
     gallery: [
-      'https://images.pexels.com/photos/256737/pexels-photo-256737.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      'https://www.mariab.pk/cdn/shop/files/D-10BFront_A_40a42f00-92ba-4df6-bb5f-a09180685421_2400x2400.jpg?v=1764230651',
       ...sharedGalleryImages
     ],
-    price: '$2,600',
+    price: 'Rs.728,000',
     availability: 'Made to order',
     sku: 'BRIDAL-AURIELLE',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
@@ -123,14 +123,37 @@ export const bridalLooks = [
       Veil: 'Matching beaded veil available',
       Accessories: 'Optional cape'
     }
+  },
+  {
+    id: 'seraphina',
+    title: 'Seraphina',
+    description: 'Elegant bridal gown with intricate embellishments and timeless silhouette.',
+    image:
+      'https://www.mariab.pk/cdn/shop/files/D-4Front_A_000e1a04-8902-4660-8063-48d468ed0579_2400x2400.jpg?v=1762857821',
+    gallery: [
+      'https://www.mariab.pk/cdn/shop/files/D-4Front_A_000e1a04-8902-4660-8063-48d468ed0579_2400x2400.jpg?v=1762857821',
+      ...sharedGalleryImages
+    ],
+    price: 'Rs.770,000',
+    availability: 'Made to order',
+    sku: 'BRIDAL-SERAPHINA',
+    sizes: ['XS', 'S', 'M', 'L'],
+    details: {
+      Description: 'Exquisite bridal gown with hand-embroidered details and flowing train.',
+      Color: 'Ivory',
+      Fabric: 'Silk with intricate embellishments',
+      Cut: 'Classic A-line silhouette',
+      Veil: 'Embellished cathedral veil included',
+      Accessories: 'Matching jewelry set'
+    }
   }
 ];
 
 const Bridal = () => {
   const navigate = useNavigate();
 
-  const handleViewProduct = (look) => {
-    navigate(`/bridal/${look.id}`);
+  const handleViewProduct = (productId) => {
+    navigate(`/bridal/${productId}`);
   };
 
   return (
@@ -139,7 +162,11 @@ const Bridal = () => {
       <div className="products-grid">
         {bridalLooks.map((look) => (
           <div className="product-card" key={look.id}>
-            <div className="product-media-wrapper">
+            <div
+              className="product-media-wrapper"
+              onClick={() => handleViewProduct(look.id)}
+              style={{ cursor: 'pointer' }}
+            >
               <img
                 src={look.image}
                 alt={look.title}
@@ -150,7 +177,10 @@ const Bridal = () => {
                 <button
                   className="action-btn"
                   type="button"
-                  onClick={() => handleViewProduct(look)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleViewProduct(look.id);
+                  }}
                 >
                   View Details
                 </button>

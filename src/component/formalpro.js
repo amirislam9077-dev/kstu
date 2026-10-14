@@ -6,7 +6,8 @@ import AddCart from './addcart';
 import {
   createLineId,
   readStoredCartItems,
-  persistCartItems
+  persistCartItems,
+  parsePrice
 } from '../utils/cartStorage';
 
 const FormalInquiryForm = ({ product, selectedSize, onSizeChange }) => {
@@ -170,11 +171,9 @@ const FormalPro = () => {
 
     setLensPosition({ x: lensX, y: lensY });
 
-    // Calculate background position - invert X for mirror effect
     const percentX = ((lensX + LENS_SIZE / 2) / width) * 100;
     const percentY = ((lensY + LENS_SIZE / 2) / height) * 100;
-    // Invert X position for mirror effect (100 - percentX)
-    setZoomBackgroundPosition(`${100 - percentX}% ${percentY}%`);
+    setZoomBackgroundPosition(`${percentX}% ${percentY}%`);
   };
 
   React.useEffect(() => {
@@ -197,7 +196,7 @@ const FormalPro = () => {
       return;
     }
 
-    const priceNumeric = Number(product.price.replace(/[^0-9.]/g, '')) || 0;
+    const priceNumeric = parsePrice(product.price);
     const sizeValue = selectedSize || product.sizes?.[0] || null;
     const lineId = createLineId(product.id, sizeValue);
     const itemPayload = {
@@ -205,6 +204,7 @@ const FormalPro = () => {
       id: product.id,
       title: product.title,
       price: priceNumeric,
+      priceDisplay: product.price,
       quantity: 1,
       image: product.image,
       size: sizeValue,

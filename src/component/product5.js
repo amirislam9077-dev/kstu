@@ -1,82 +1,59 @@
 import React, { forwardRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { product5Items } from './product5data';
 
-function ProductCard({ image, title, subtitle, details, logo, imageFit, productId }) {
+// Product grid in the Sana Safinaz style: four per row, a tall picture that
+// switches to a second view on hover, then name, style code and price.
+
+export function ProductCard({ product, basePath = '/product5' }) {
   const navigate = useNavigate();
 
-  const handleAddToCart = () => {
-    navigate(`/product5/${productId}`);
+  const openProduct = () => {
+    navigate(`${basePath}/${product.id}`);
   };
 
   return (
-    <div className="product-card product-primary">
-      <div className="product-media-wrapper">
-        <img
-          src={image}
-          alt={title}
-          className="product-image"
-          style={{ objectFit: imageFit || 'cover' }}
-        />
-        <div className="product-actions">
-          <button className="action-btn" type="button" onClick={handleAddToCart}>Add to Cart</button>
-        </div>
+    <div
+      className="shop-card"
+      role="button"
+      tabIndex={0}
+      onClick={openProduct}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openProduct();
+        }
+      }}
+    >
+      <div className="shop-card-media">
+        <img src={product.image} alt={product.title} className="shop-card-image" loading="lazy" />
+        {product.hoverImage && (
+          <img
+            src={product.hoverImage}
+            alt=""
+            aria-hidden="true"
+            className="shop-card-image shop-card-image--hover"
+            loading="lazy"
+          />
+        )}
       </div>
-      <div className="product-body">
-        <h3 className="product-title">{title}</h3>
-        <p className="product-subtitle">{subtitle}</p>
-        <p className="product-details">{details}</p>
-        <div className="product-footer">
-          {logo ? <img src={logo} alt="brand" className="product-brand" /> : <span />}
-        </div>
-      </div>
+      <h3 className="shop-card-title">{product.title}</h3>
+      <p className="shop-card-code">{product.code || product.sku}</p>
+      <p className="shop-card-price">{product.price}</p>
     </div>
   );
 }
 
-const Product5 = forwardRef((props, ref) => {
-  const cards = [
-    {
-      image: 'https://www.destinychic.com.au/cdn/shop/files/DestinyChic_Formal_29_01_0302.jpg?v=1708439188&width=720',
-      title: 'Shehrzad',
-      subtitle: 'Rs.311,000.',
-      details: '',
-      logo: '',
-      imageFit: 'contain',
-      productId: 'shehrzad'
-    },
-    {
-      image: 'https://www.destinychic.com.au/cdn/shop/files/DestinyChic_Formal_29_01_0178.jpg?v=1708430720&width=720',
-      title: 'Joona',
-      subtitle: 'Rs.90,000.00',
-      details: '',
-      logo: '',
-      imageFit: 'contain',
-      productId: 'joona-product5'
-    },
-    {
-      image: 'https://www.destinychic.com.au/cdn/shop/files/Screenshot2025-05-20at2.04.56PM.png?v=1747714024&width=720',
-      title: 'Adaye',
-      subtitle: 'Rs.72,000',
-      details: '',
-      logo: '',
-      imageFit: 'contain',
-      productId: 'adaye-product5'
-    }
-  ];
-
-  return (
-    <section className="products" ref={ref}>
-      <div className="products-grid">
-        {cards.map((c) => (
-          <ProductCard key={c.title} {...c} />
-        ))}
-      </div>
-    </section>
-  );
-});
+const Product5 = forwardRef((props, ref) => (
+  <section id="unstitched" className="shop-grid-section" ref={ref}>
+    <div className="shop-grid">
+      {product5Items.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  </section>
+));
 
 Product5.displayName = 'Product5';
 
 export default Product5;
-
-

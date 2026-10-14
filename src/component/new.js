@@ -19,7 +19,7 @@ export const formalLooks = [
       'https://www.destinychic.com.au/cdn/shop/files/Screenshot2025-05-20at11.07.37AM.png?v=1747703685&width=900',
       ...sharedGalleryImages
     ],
-    price: '$1,890',
+    price: 'Rs.529,000',
     availability: 'In stock',
     sku: 'FORMAL-SERALYN',
     sizes: ['XS/S', 'S/M', 'M/L'],
@@ -43,7 +43,7 @@ export const formalLooks = [
       'https://www.destinychic.com.au/cdn/shop/files/20250731_154310.jpg?v=1754019257&width=900',
       ...sharedGalleryImages
     ],
-    price: '$1,650',
+    price: 'Rs.462,000',
     availability: 'Pre-order, ships in 4 weeks',
     sku: 'FORMAL-KAYLANA',
     sizes: ['XS/S', 'S/M', 'M/L'],
@@ -67,7 +67,7 @@ export const formalLooks = [
       'https://www.destinychic.com.au/cdn/shop/files/20250626_111348.jpg?v=1754288705&width=900',
       ...sharedGalleryImages
     ],
-    price: '$2,150',
+    price: 'Rs.602,000',
     availability: 'Limited availability',
     sku: 'FORMAL-ANTHEA-BLUE',
     sizes: ['S/M', 'M/L'],
@@ -91,7 +91,7 @@ export const formalLooks = [
       'https://www.destinychic.com.au/cdn/shop/files/DestinyChic_Formal_29_01_0865_7ec213a8-8dc0-4395-8a78-da7e294f9658.jpg?v=1710198641&width=900',
       ...sharedGalleryImages
     ],
-    price: '$2,050',
+    price: 'Rs.574,000',
     availability: 'In stock',
     sku: 'FORMAL-ANTHEA-SPLIT',
     sizes: ['XS/S', 'S/M', 'M/L'],
@@ -115,7 +115,7 @@ export const formalLooks = [
       'https://www.destinychic.com.au/cdn/shop/files/Screenshot2025-05-20at2.04.56PM.png?v=1747714024&width=1200',
       ...sharedGalleryImages
     ],
-    price: '$2,480',
+    price: 'Rs.694,000',
     availability: 'Made to order',
     sku: 'FORMAL-SCARLET-RADIANCE',
     sizes: ['XS/S', 'S/M', 'M/L', 'L/XL'],

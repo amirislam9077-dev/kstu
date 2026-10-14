@@ -7,28 +7,28 @@ const slides = [
     headline: 'Discover New Formal Arrivals',
     subheadline: 'Handcrafted silhouettes designed to shine at every celebration.',
     image: 'https://www.deepakperwani.com/images/thumbs/0010724_2.jpeg',
-    imageFit: 'contain'
+    imageFit: 'cover'
   },
   {
     id: 'bridal-elegance',
     headline: 'Bespoke Bridal Couture',
     subheadline: 'Curated gowns tailored to your story and every timeless moment.',
     image: 'https://www.deepakperwani.com/images/thumbs/0010526_4.jpeg',
-    imageFit: 'contain'
+    imageFit: 'cover'
   },
   {
     id: 'custom-designs',
     headline: 'Design Your Dream Dress',
     subheadline: 'Collaborate with our atelier to bring your signature vision to life.',
     image: 'https://www.deepakperwani.com/images/thumbs/0010724_2.jpeg',
-    imageFit: 'contain'
+    imageFit: 'cover'
   },
   {
     id: 'signature-couture',
     headline: 'Signature Couture Capsule',
     subheadline: 'A limited-edition showcase of hand-beaded artistry.',
     image: 'https://www.deepakperwani.com/images/thumbs/0011015_w.jpeg',
-    imageFit: 'contain'
+    imageFit: 'cover'
   }
 ];
 
@@ -52,7 +52,7 @@ const Slider = () => {
     }
 
     const timer = window.setInterval(() => {
-      goToSlide(activeIndex + 1);
+      setActiveIndex((index) => (index + 1) % items.length);
     }, AUTOPLAY_INTERVAL);
 
     return () => window.clearInterval(timer);

@@ -14,9 +14,18 @@ const Navbar = () => {
       setScrolled(window.scrollY > 80);
     };
 
+    // Homepage sections don't scroll the window; they report the section shown instead.
+    const handleSectionChange = (event) => {
+      setScrolled(event.detail.index > 0);
+    };
+
     handleScroll();
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('fullpage:change', handleSectionChange);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('fullpage:change', handleSectionChange);
+    };
   }, []);
 
   useEffect(() => {
@@ -39,7 +48,9 @@ const Navbar = () => {
       requestAnimationFrame(() => {
         if (pendingScroll === 'top') {
           window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.dispatchEvent(new CustomEvent('fullpage:goto', { detail: { index: 0 } }));
         } else {
+          window.dispatchEvent(new CustomEvent('fullpage:goto', { detail: { id: pendingScroll } }));
           const section = document.querySelector(`#${pendingScroll}`);
           if (section) {
             section.scrollIntoView({ behavior: 'smooth' });
@@ -51,6 +62,7 @@ const Navbar = () => {
   }, [location.pathname, pendingScroll]);
 
   const scrollToSection = (sectionId) => {
+    window.dispatchEvent(new CustomEvent('fullpage:goto', { detail: { id: sectionId } }));
     const section = document.querySelector(`#${sectionId}`);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
@@ -58,7 +70,7 @@ const Navbar = () => {
   };
 
   const handleSectionNavigation = (sectionId) => {
-    if (sectionId === 'sale' || sectionId === 'formal' || sectionId === 'bridal' || sectionId === 'hire' || sectionId === 'custom') {
+    if (['sale', 'formal', 'bridal', 'hire', 'custom', 'party', 'new-arrival', 'wedding-formal', 'ready-to-wear', 'unstitched'].includes(sectionId)) {
       const targetPath = `/${sectionId}`;
       if (location.pathname !== targetPath) {
         navigate(targetPath);
@@ -90,12 +102,15 @@ const Navbar = () => {
       navigate('/');
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.dispatchEvent(new CustomEvent('fullpage:goto', { detail: { index: 0 } }));
     }
     setMenuOpen(false);
   };
 
+  const isHomePage = location.pathname === '/';
+
   return (
-    <nav className={`luxury-header${scrolled ? ' scrolled' : ''}`}>
+    <nav className={`luxury-header${scrolled || !isHomePage ? ' scrolled' : ''}`}>
       <div className="header-container">
         <div className="header-left">
           <button
@@ -128,6 +143,13 @@ const Navbar = () => {
           <button
             type="button"
             className="about-btn"
+            onClick={() => handleSectionNavigation('new-arrival')}
+          >
+            New Arrival
+          </button>
+          <button
+            type="button"
+            className="about-btn"
             onClick={() => handleSectionNavigation('sale')}
           >
             Sale
@@ -149,16 +171,30 @@ const Navbar = () => {
           <button
             type="button"
             className="about-btn"
-            onClick={() => handleSectionNavigation('hire')}
+            onClick={() => handleSectionNavigation('wedding-formal')}
           >
-            Hire
+            Wedding Formal
           </button>
           <button
             type="button"
             className="about-btn"
-            onClick={() => handleSectionNavigation('custom')}
+            onClick={() => handleSectionNavigation('ready-to-wear')}
           >
-            Custom
+            Ready to Wear
+          </button>
+          <button
+            type="button"
+            className="about-btn"
+            onClick={() => handleSectionNavigation('unstitched')}
+          >
+            Unstitched
+          </button>
+          <button
+            type="button"
+            className="about-btn"
+            onClick={() => handleSectionNavigation('party')}
+          >
+            Party
           </button>
           <button
             className="sign-in-btn"
@@ -188,6 +224,9 @@ const Navbar = () => {
       <div className={`nav-flyout${menuOpen ? ' open' : ''}`}>
         <ul className="nav-flyout-list">
           <li>
+            <a href="/new-arrival" onClick={(event) => handleSectionLinkClick(event, 'new-arrival')}>New Arrival</a>
+          </li>
+          <li>
             <a href="/sale" onClick={(event) => handleSectionLinkClick(event, 'sale')}>Sale</a>
           </li>
           <li>
@@ -197,10 +236,16 @@ const Navbar = () => {
             <a href="/bridal" onClick={(event) => handleSectionLinkClick(event, 'bridal')}>Bridal</a>
           </li>
           <li>
-            <a href="/hire" onClick={(event) => handleSectionLinkClick(event, 'hire')}>Hire</a>
+            <a href="/wedding-formal" onClick={(event) => handleSectionLinkClick(event, 'wedding-formal')}>Wedding Formal</a>
           </li>
           <li>
-            <a href="/custom" onClick={(event) => handleSectionLinkClick(event, 'custom')}>Custom</a>
+            <a href="/ready-to-wear" onClick={(event) => handleSectionLinkClick(event, 'ready-to-wear')}>Ready to Wear</a>
+          </li>
+          <li>
+            <a href="/unstitched" onClick={(event) => handleSectionLinkClick(event, 'unstitched')}>Unstitched</a>
+          </li>
+          <li>
+            <a href="/party" onClick={(event) => handleSectionLinkClick(event, 'party')}>Party</a>
           </li>
           <li>
             <button

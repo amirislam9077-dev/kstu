@@ -2,11 +2,16 @@ import React, { useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../App.css';
 import { hireLooks } from './hire';
+import { formalLooks } from './formal';
+import { formalLooks as saleLooks } from './sale';
+import { bridalLooks } from './bridals';
+import { customLooks } from './custom';
 import AddCart from './addcart';
 import {
   createLineId,
   readStoredCartItems,
-  persistCartItems
+  persistCartItems,
+  parsePrice
 } from '../utils/cartStorage';
 
 const HireInquiryForm = ({ product, selectedSize, onSizeChange }) => {
@@ -75,10 +80,10 @@ const HirePro = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
 
-  const product = useMemo(
-    () => hireLooks.find((item) => item.id === productId),
-    [productId]
-  );
+  const product = useMemo(() => {
+    const allProducts = [...hireLooks, ...formalLooks, ...saleLooks, ...bridalLooks, ...customLooks];
+    return allProducts.find((item) => item.id === productId);
+  }, [productId]);
 
   const galleryImages = React.useMemo(() => {
     if (!product) {
@@ -195,7 +200,7 @@ const HirePro = () => {
       return;
     }
 
-    const priceNumeric = Number(product.price.replace(/[^0-9.]/g, '')) || 0;
+    const priceNumeric = parsePrice(product.price);
     const sizeValue = selectedSize || product.sizes?.[0] || null;
     const lineId = createLineId(product.id, sizeValue);
     const itemPayload = {
@@ -203,6 +208,7 @@ const HirePro = () => {
       id: product.id,
       title: product.title,
       price: priceNumeric,
+      priceDisplay: product.price,
       quantity: 1,
       image: product.image,
       size: sizeValue,

@@ -9,8 +9,7 @@ const bannerTiles = [
     cta: 'Shop Dresses',
     href: '/sale',
     image:
-      'https://www.destinychic.com.au/cdn/shop/files/Screenshot2025-05-20at2.04.56PM.png?v=1747714024&width=480',
-    imageFit: 'contain'
+      'https://www.deepakperwani.com/images/thumbs/0010672_dove.jpeg'
   },
   {
     title: 'Made for You',
@@ -18,8 +17,7 @@ const bannerTiles = [
     cta: 'Sales',
     href: '/sale',
     image:
-      'https://www.destinychic.com.au/cdn/shop/files/Screenshot2025-04-23at12.50.08PM_0895611f-6b5d-4b51-85b8-268093c9c6c5.png?v=1745377232&width=480',
-    imageFit: 'contain'
+      'https://www.deepakperwani.com/images/thumbs/0012600_drs1135.jpeg'
   }
 ];
 
@@ -41,6 +39,7 @@ const Banner5 = () => {
           <div
             className="banner5-tile"
             key={tile.title}
+            style={{ '--bg-image': `url(${tile.image})` }}
             role="button"
             tabIndex={0}
             onClick={() => handleTileClick(tile)}
@@ -55,7 +54,7 @@ const Banner5 = () => {
               src={tile.image}
               alt={tile.title}
               className="banner5-image"
-              style={{ objectFit: tile.imageFit || 'cover' }}
+              style={{ objectFit: tile.imageFit || 'contain' }}
             />
             <div className="banner5-overlay">
               <h3 className="banner5-title">{tile.title}</h3>

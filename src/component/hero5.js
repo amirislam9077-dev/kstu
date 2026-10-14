@@ -6,25 +6,25 @@ const heroCategories = [
   {
     title: 'Formal Dresses',
     image:
-      'https://www.destinychic.com.au/cdn/shop/files/Untitled_design_-_2024-03-20T142943.292.png?v=1710908989&width=720',
+      'https://www.deepakperwani.com/images/thumbs/0013371_3217.jpeg',
     path: '/formal'
   },
   {
     title: 'Bridal Dresses',
     image:
-      'https://www.destinychic.com.au/cdn/shop/files/DestinyChic_Formal_29_01_0311.jpg?v=1708439184&width=720',
+      'https://www.deepakperwani.com/images/thumbs/0014282_3346.jpeg',
     path: '/bridal'
   },
   {
-    title: 'Hire Dresses',
+    title: 'WEDDING FORMALS',
     image:
-      'https://www.destinychic.com.au/cdn/shop/files/WR6-017_1_8b944173-d80d-4a8c-b7ef-48ffb27924f2.jpg?v=1708043991&width=720',
+      'https://www.deepakperwani.com/images/thumbs/0012337_3058.jpeg',
     path: '/hire'
   },
   {
-    title: 'Custom Dresses',
+    title: 'Ready to Wear',
     image:
-      'https://www.destinychic.com.au/cdn/shop/files/Destiny_13_0081_f18781ae-1cf3-4a68-88dc-0addb536fd6a.jpg?v=1708481764&width=720',
+      'https://www.mariab.pk/cdn/shop/files/RTW_Web_1124X1460_1bdd776b-faae-47e2-b597-7f97f0cd9c14.jpg?v=1789455466&width=1500',
     path: '/custom'
   }
 ];

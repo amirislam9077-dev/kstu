@@ -2,7 +2,7 @@ import React from 'react';
 import SignIn from './sign';
 import logoImage from '../logo.svg';
 
-function Header({ onAboutClick, onOffPlanClick, onValuationClick, onCeoClick, onHomeClick }) {
+function Header({ onAboutClick, onOffPlanClick, onValuationClick, onCeoClick, onHomeClick, onSaleClick }) {
   return (
     <nav className="site-header">
       <div className="nav-rail nav-left">
@@ -21,7 +21,7 @@ function Header({ onAboutClick, onOffPlanClick, onValuationClick, onCeoClick, on
       </div>
 
       <div className="nav-rail nav-right">
-        <button className="nav-link about-btn">Sale</button>
+        <button className="nav-link about-btn" onClick={onSaleClick}>Sale</button>
         <button className="nav-link about-btn">Formal</button>
         <button className="nav-link about-btn">Bridal</button>
         <button className="nav-link about-btn">Hire</button>

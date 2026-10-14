@@ -1,12 +1,8 @@
 import React from 'react';
+import Sale from '../component/sale';
 
 const SalePage = () => {
-  return (
-    <div className="sale-page">
-      <h1>Sale Collection</h1>
-      <p>This page is currently unavailable.</p>
-    </div>
-  );
+  return <Sale />;
 };
 
 export default SalePage;

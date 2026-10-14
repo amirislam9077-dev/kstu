@@ -2,6 +2,7 @@ import React from 'react';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 import { CART_STORAGE_KEY, readStoredCartItems, persistCartItems } from '../utils/cartStorage';
+import { BACKEND_URL } from '../utils/api';
 
 const COUNTRIES = [
   'Afghanistan',
@@ -364,7 +365,7 @@ const ViewChar = () => {
   );
   const formRef = React.useRef(null);
   const [sendStatus, setSendStatus] = React.useState({ state: 'idle', message: '' });
-  const backendBaseUrl = process.env.REACT_APP_BACKEND_URL || 'https://backend-2-q4lr.onrender.com';
+  const backendBaseUrl = BACKEND_URL;
   const hasItems = items.length > 0;
   const navigate = useNavigate();
 
@@ -445,7 +446,7 @@ const ViewChar = () => {
         name: formData.get('name')?.trim() || '',
         address: formData.get('address')?.trim() || '',
         city: formData.get('city') || '',
-        phone: formData.get('phone')?.trim() || '',
+        phone: formData.get('phone')?.trim() ? `+92${formData.get('phone').trim()}` : '',
         shippingMethod: formData.get('shippingMethod')?.trim() || '',
         wantsEmails: formData.get('wantsEmails') === 'on',
         saveInfo: formData.get('saveInfo') === 'on',
@@ -627,27 +628,16 @@ const ViewChar = () => {
                 <div className="viewchar-section-header">
                   <h3 className="viewchar-section-title">Delivery</h3>
                 </div>
-                <div className="viewchar-field-grid">
-                  <label className="viewchar-field">
-                    <span>Remarks</span>
-                    <textarea
-                      name="remarks"
-                      className="viewchar-textarea"
-                      placeholder="Add any remarks"
-                      rows={3}
-                    />
-                  </label>
-                  <label className="viewchar-field">
-                    <span>Country/Region</span>
-                    <select name="country" className="viewchar-select" defaultValue="Pakistan" required>
-                      {COUNTRIES.map((country) => (
-                        <option key={country} value={country}>
-                          {country}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                </div>
+                <label className="viewchar-field">
+                  <span>Country/Region</span>
+                  <select name="country" className="viewchar-select" defaultValue="Pakistan" required>
+                    {COUNTRIES.map((country) => (
+                      <option key={country} value={country}>
+                        {country}
+                      </option>
+                    ))}
+                  </select>
+                </label>
 
                 <label className="viewchar-field">
                   <span>Your name</span>
@@ -675,38 +665,45 @@ const ViewChar = () => {
 
                 <label className="viewchar-field">
                   <span>Phone</span>
-                  <input
-                    name="phone"
-                    type="tel"
-                    className="viewchar-input viewchar-input--error"
-                    placeholder="+92 3"
-                    required
-                  />
+                  <div className="viewchar-phone">
+                    <span className="viewchar-phone-prefix">+92</span>
+                    <input
+                      name="phone"
+                      type="tel"
+                      inputMode="numeric"
+                      className="viewchar-input viewchar-input--error"
+                      placeholder="3XXXXXXXXX"
+                      maxLength={10}
+                      pattern="3[0-9]{9}"
+                      title="10 digits starting with 3, e.g. 3001234567"
+                      onInput={(event) => {
+                        // Digits only; drop a leading 0, 92 or 0092 the customer may type out of habit
+                        event.target.value = event.target.value
+                          .replace(/\D/g, '')
+                          .replace(/^(00)?92/, '')
+                          .replace(/^0+/, '')
+                          .slice(0, 10);
+                      }}
+                      required
+                    />
+                  </div>
                   <span className="viewchar-field-hint">Enter a valid phone number. i.e number format +923XXXXXXXXX</span>
+                </label>
+
+                <label className="viewchar-field">
+                  <span>Remarks</span>
+                  <textarea
+                    name="remarks"
+                    className="viewchar-textarea"
+                    placeholder="Add any remarks"
+                    rows={3}
+                  />
                 </label>
 
                 <label className="viewchar-checkbox">
                   <input name="saveInfo" type="checkbox" />
                   <span>Save this information for next time</span>
                 </label>
-              </section>
-
-              <section className="viewchar-section">
-                <div className="viewchar-section-header">
-                  <h3 className="viewchar-section-title">Shipping method</h3>
-                </div>
-                <label className="viewchar-field">
-                  <span>Preferred shipping method</span>
-                  <input
-                    name="shippingMethod"
-                    type="text"
-                    className="viewchar-input"
-                    placeholder="e.g. Express Courier, Standard Delivery"
-                  />
-                </label>
-                <p className="viewchar-field-hint">
-                  Enter your shipping address above to see available options or specify your preference here.
-                </p>
               </section>
 
               <section className="viewchar-section">

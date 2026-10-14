@@ -6,7 +6,8 @@ import AddCart from './addcart';
 import {
   createLineId,
   readStoredCartItems,
-  persistCartItems
+  persistCartItems,
+  parsePrice
 } from '../utils/cartStorage';
 
 const BridalInquiryForm = ({ product, selectedSize, onSizeChange }) => {
@@ -195,7 +196,7 @@ const BridalPro = () => {
       return;
     }
 
-    const priceNumeric = Number(product.price.replace(/[^0-9.]/g, '')) || 0;
+    const priceNumeric = parsePrice(product.price);
     const sizeValue = selectedSize || product.sizes?.[0] || null;
     const lineId = createLineId(product.id, sizeValue);
     const itemPayload = {

@@ -8,6 +8,21 @@ const AddCart = ({ items, subtotal, onClose, onIncrease, onDecrease, onRemove, o
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}`;
+
+  // Check if we have mixed currencies
+  const hasDollar = items.some(item => item.priceDisplay && item.priceDisplay.includes('$'));
+  const hasRupee = items.some(item => !item.priceDisplay || item.priceDisplay.includes('Rs'));
+
+  const formatSubtotal = (value) => {
+    if (hasDollar && hasRupee) {
+      return `Mixed currencies`;
+    } else if (hasDollar) {
+      return `$${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    } else {
+      return formatCurrency(value);
+    }
+  };
+
   const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
   const hasItems = items.length > 0;
 
@@ -63,7 +78,7 @@ const AddCart = ({ items, subtotal, onClose, onIncrease, onDecrease, onRemove, o
                           </span>
                         )}
                       </div>
-                      <div className="cart-line-price">{formatCurrency(item.price)}</div>
+                      <div className="cart-line-price">{item.priceDisplay || formatCurrency(item.price)}</div>
                       <div className="cart-line-footer">
                         <div className="cart-qty-control">
                           <button
@@ -82,14 +97,25 @@ const AddCart = ({ items, subtotal, onClose, onIncrease, onDecrease, onRemove, o
                             +
                           </button>
                         </div>
-                        <div className="cart-line-total">{formatCurrency(item.price * item.quantity)}</div>
+                        <div className="cart-line-total">
+                          {item.priceDisplay && item.priceDisplay.includes('$')
+                            ? `$${(item.price * item.quantity).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                            : formatCurrency(item.price * item.quantity)
+                          }
+                        </div>
                         <button
                           type="button"
                           className="cart-line-remove"
                           onClick={() => onRemove(lineKey)}
                           aria-label={`Remove ${item.title}`}
+                          title="Remove"
                         >
-                          ×
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M3 6h18" />
+                            <path d="M8 6V4h8v2" />
+                            <path d="M6 6l1 14h10l1-14" />
+                            <path d="M10 11v6M14 11v6" />
+                          </svg>
                         </button>
                       </div>
                     </div>
@@ -101,11 +127,11 @@ const AddCart = ({ items, subtotal, onClose, onIncrease, onDecrease, onRemove, o
             <footer className="cart-panel-footer">
               <div className="cart-summary-row">
                 <span>Subtotal:</span>
-                <span>{formatCurrency(subtotal)}</span>
+                <span>{formatSubtotal(subtotal)}</span>
               </div>
               <div className="cart-summary-row strong">
                 <span>Total:</span>
-                <span>{formatCurrency(subtotal)}</span>
+                <span>{formatSubtotal(subtotal)}</span>
               </div>
               <p className="cart-tax-note">Tax included and shipping calculated at checkout</p>
               <button type="button" className="cart-checkout-btn" onClick={handleContinueShopping}>

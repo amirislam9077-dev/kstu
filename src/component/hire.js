@@ -9,7 +9,7 @@ export const hireLooks = [
     description: 'Floor-length champagne sequin gown with adjustable corset back.',
     image:
       'https://www.panacheapparels.com/cdn/shop/files/DSF1024.jpg?v=1740573017&width=1800',
-    price: '$320 hire',
+    price: 'Rs.89,600 hire',
     availability: 'Hire for 4 days',
     sku: 'HIRE-LUMINA',
     sizes: ['6', '8', '10', '12'],
@@ -26,7 +26,7 @@ export const hireLooks = [
     description: 'Tailored black velvet tuxedo with satin lapels and matching trousers.',
     image:
       'https://www.mariab.pk/cdn/shop/files/D-1BFront_A_f109f62e-8c01-4e4c-ae68-19e6a535aed0_2400x2400.jpg?v=1764229231',
-    price: '$280 hire',
+    price: 'Rs.78,400 hire',
     availability: 'Hire for 3 days',
     sku: 'HIRE-NOIR-TUX',
     sizes: ['S', 'M', 'L', 'XL'],
@@ -43,7 +43,7 @@ export const hireLooks = [
     description: 'Statement red crepe dress with detachable cape overlay.',
     image:
       'https://www.panacheapparels.com/cdn/shop/files/46_b3d55b30-0e19-4972-9f85-5f7d5cfc9df0.jpg?v=1740572835&width=1800',
-    price: '$250 hire',
+    price: 'Rs.70,000 hire',
     availability: 'Hire for 4 days',
     sku: 'HIRE-SCARLET-CAPE',
     sizes: ['8', '10', '12'],
@@ -60,7 +60,7 @@ export const hireLooks = [
     description: 'Ivory beaded top with flowing skirt for engagement shoots or receptions.',
     image:
       'https://www.panacheapparels.com/cdn/shop/files/18_46e5c080-e561-423c-83e9-4407d99b8ecb.jpg?v=1740572879&width=1800',
-    price: '$300 hire',
+    price: 'Rs.84,000 hire',
     availability: 'Hire for 5 days',
     sku: 'HIRE-OPAL',
     sizes: ['S', 'M', 'L'],
@@ -77,7 +77,7 @@ export const hireLooks = [
     description: 'Modern blue dinner suit with tonal waistcoat and pocket square.',
     image:
       'https://www.mariab.pk/cdn/shop/files/D-1AFront_A_86263b23-42c8-4653-9760-a7c782a1cac3_2400x2400.jpg?v=1764229120',
-    price: '$260 hire',
+    price: 'Rs.72,800 hire',
     availability: 'Hire for 3 days',
     sku: 'HIRE-AZURE',
     sizes: ['38', '40', '42', '44'],
