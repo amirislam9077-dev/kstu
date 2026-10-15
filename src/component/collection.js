@@ -83,7 +83,7 @@ const ShopByCollection = () => {
       <div className="collection-slider">
         <div className="collection-track" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
           {slides.map((slide) => (
-            <Link key={slide.id} to={slide.path} className="collection-slide">
+            <Link key={slide.id} to={slide.path} className="collection-slide" style={{ '--slide-bg': `url(${slide.image})` }}>
               <img src={slide.image} alt={slide.alt} className="collection-image" />
             </Link>
           ))}
