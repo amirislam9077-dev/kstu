@@ -14,9 +14,9 @@ const bannerTiles = [
   },
   {
     title: 'Made for You',
-    subtitle: 'Hurry! 50% Off Ends Soon',
-    cta: 'Sales',
-    href: '/sale',
+    subtitle: 'Watch our suits on TikTok ▶',
+    cta: 'TikTok',
+    href: '/tiktok',
     image:
       'https://www.deepakperwani.com/images/thumbs/0012600_drs1135.jpeg'
   }
