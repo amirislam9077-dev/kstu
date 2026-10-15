@@ -44,7 +44,7 @@ const Footer = () => {
           <ul className="footer-social-list">
             <li><a href="https://www.instagram.com" aria-label="Instagram">Instagram</a></li>
             <li><a href="https://www.facebook.com" aria-label="Facebook">Facebook</a></li>
-            <li><a href="https://www.tiktok.com" aria-label="TikTok">TikTok</a></li>
+            <li><a href="https://www.tiktok.com/@umaimasimbykhurramstudio" target="_blank" rel="noreferrer" aria-label="TikTok">TikTok</a></li>
           </ul>
         </div>
       </div>
