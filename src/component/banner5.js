@@ -13,12 +13,14 @@ const bannerTiles = [
       'https://www.deepakperwani.com/images/thumbs/0010672_dove.jpeg'
   },
   {
-    title: 'Made for You',
-    subtitle: 'Watch our suits on TikTok ▶',
+    title: 'Watch on TikTok',
+    subtitle: 'See our suits in our videos',
     cta: 'TikTok',
     href: '/tiktok',
-    image:
-      'https://www.deepakperwani.com/images/thumbs/0012600_drs1135.jpeg'
+    tiktok: true,
+    // Cover of a Khurram Studio TikTok video, kept in /public (TikTok's own links expire)
+    image: '/images/tiktok-cover.jpg',
+    imageFit: 'cover'
   }
 ];
 
@@ -57,7 +59,22 @@ const Banner5 = () => {
               className="banner5-image"
               style={{ objectFit: tile.imageFit || 'contain' }}
             />
-            <div className="banner5-overlay">
+            <div className={`banner5-overlay${tile.tiktok ? ' banner5-overlay--tiktok' : ''}`}>
+              {tile.tiktok && (
+                <>
+                  <span className="banner5-tiktok-logo" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" width="22" height="22" fill="currentColor">
+                      <path d="M33.6 5h-6.9v26.4a5.9 5.9 0 1 1-4.2-5.7v-7a12.8 12.8 0 1 0 11.1 12.7V18.7a15.6 15.6 0 0 0 9.1 2.9v-6.9A9.2 9.2 0 0 1 33.6 5z" />
+                    </svg>
+                    TikTok
+                  </span>
+                  <span className="banner5-play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </span>
+                </>
+              )}
               {tile.badge && <span className="banner5-sale">{tile.badge}</span>}
               <h3 className="banner5-title">{tile.title}</h3>
               <p className="banner5-subtitle">{tile.subtitle}</p>
