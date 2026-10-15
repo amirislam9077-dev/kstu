@@ -4,6 +4,7 @@ import '../App.css';
 
 const bannerTiles = [
   {
+    badge: 'Sale',
     title: 'Flat 50% Off',
     subtitle: 'Exclusive offer — don’t miss the deal, limited time only!',
     cta: 'Shop Dresses',
@@ -57,6 +58,7 @@ const Banner5 = () => {
               style={{ objectFit: tile.imageFit || 'contain' }}
             />
             <div className="banner5-overlay">
+              {tile.badge && <span className="banner5-sale">{tile.badge}</span>}
               <h3 className="banner5-title">{tile.title}</h3>
               <p className="banner5-subtitle">{tile.subtitle}</p>
             </div>
