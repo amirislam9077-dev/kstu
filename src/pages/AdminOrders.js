@@ -110,6 +110,14 @@ const AdminOrders = () => {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [loggingIn, setLoggingIn] = useState(false);
+  const [slowServer, setSlowServer] = useState(false);
+
+  // The free server sleeps when idle and takes up to ~1 minute to wake.
+  // Start waking it as soon as this page opens.
+  useEffect(() => {
+    fetch(`${BACKEND_URL}/`).catch(() => {});
+  }, []);
   const [filters, setFilters] = useState(EMPTY_FILTERS);
   const [appliedFilters, setAppliedFilters] = useState(EMPTY_FILTERS);
   const [page, setPage] = useState(1);
@@ -195,13 +203,36 @@ const AdminOrders = () => {
       return;
     }
     setLoginError('');
+    setLoggingIn(true);
+    const slowTimer = window.setTimeout(() => setSlowServer(true), 4000);
     try {
-      await request('/admin/orders/filters', {}, credentials);
+      // A sleeping server can drop the first request: try again a few times
+      let lastError = null;
+      for (let attempt = 0; attempt < 4; attempt += 1) {
+        try {
+          await request('/admin/orders/filters', {}, credentials);
+          lastError = null;
+          break;
+        } catch (err) {
+          lastError = err;
+          if (err.status) break; // the server answered (e.g. wrong password): don't retry
+          await new Promise((resolve) => setTimeout(resolve, 5000));
+        }
+      }
+      if (lastError) throw lastError;
       saveLogin(credentials);
       setLogin(credentials);
       setPasswordInput('');
     } catch (err) {
-      setLoginError(err.message === 'Failed to fetch' ? `Can't reach the backend at ${BACKEND_URL}.` : err.message);
+      setLoginError(
+        err.message === 'Failed to fetch'
+          ? 'The server is not responding. Please wait a minute and try again.'
+          : err.message
+      );
+    } finally {
+      window.clearTimeout(slowTimer);
+      setSlowServer(false);
+      setLoggingIn(false);
     }
   };
 
@@ -271,7 +302,12 @@ const AdminOrders = () => {
             autoComplete="current-password"
           />
           {loginError && <p className="admin-error">{loginError}</p>}
-          <button type="submit">Log in</button>
+          {slowServer && (
+            <p className="admin-login-wait">The server is waking up — this can take up to a minute. Please wait…</p>
+          )}
+          <button type="submit" disabled={loggingIn}>
+            {loggingIn ? 'Logging in…' : 'Log in'}
+          </button>
         </form>
       </section>
     );
