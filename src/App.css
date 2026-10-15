@@ -6689,3 +6689,60 @@ a.collection-tagline:hover {
     gap: 16px 12px;
   }
 }
+
+/* Phones: show the whole slider picture; a blurred copy fills the sides */
+@media (max-width: 768px) {
+  .fullpage .slider-frame::before {
+    content: '';
+    position: absolute;
+    inset: -40px;
+    background-image: var(--slide-bg);
+    background-size: cover;
+    background-position: center;
+    filter: blur(28px) brightness(0.55);
+  }
+
+  .fullpage .slider-image {
+    position: relative;
+    object-fit: contain !important;
+    filter: none;
+  }
+
+  .fullpage .slider-frame:hover .slider-image {
+    transform: none;
+  }
+
+  .fullpage .slider-section .slider-frame {
+    padding-top: var(--header-height, 72px);
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 768px) {
+  .fullpage .slider-overlay {
+    align-items: flex-end;
+    padding-bottom: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .fullpage .slider-controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 32px;
+    justify-content: center;
+    z-index: 3;
+  }
+}
+
+.slider-frame picture {
+  display: contents;
+}
+
+/* A slide with its own phone picture fills the phone screen */
+@media (max-width: 768px) {
+  .fullpage .slider-image.has-mobile {
+    object-fit: cover !important;
+  }
+}

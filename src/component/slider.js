@@ -1,34 +1,39 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import '../App.css';
 
+// image: wide picture for computers; mobileImage (optional): tall picture for phones
 const slides = [
   {
     id: 'formal-sale',
     headline: 'Discover New Formal Arrivals',
     subheadline: 'Handcrafted silhouettes designed to shine at every celebration.',
     image: 'https://www.deepakperwani.com/images/thumbs/0010724_2.jpeg',
-    imageFit: 'cover'
+    imageFit: 'cover',
+    mobileImage: 'https://www.deepakperwani.com/images/thumbs/0014180_3332.jpeg'
   },
   {
     id: 'bridal-elegance',
     headline: 'Bespoke Bridal Couture',
     subheadline: 'Curated gowns tailored to your story and every timeless moment.',
     image: 'https://www.deepakperwani.com/images/thumbs/0010526_4.jpeg',
-    imageFit: 'cover'
+    imageFit: 'cover',
+    mobileImage: 'https://www.deepakperwani.com/images/thumbs/0014204_3335.jpeg'
   },
   {
     id: 'custom-designs',
     headline: 'Design Your Dream Dress',
     subheadline: 'Collaborate with our atelier to bring your signature vision to life.',
     image: 'https://www.deepakperwani.com/images/thumbs/0010724_2.jpeg',
-    imageFit: 'cover'
+    imageFit: 'cover',
+    mobileImage: 'https://www.deepakperwani.com/images/thumbs/0014229_3339.jpeg'
   },
   {
     id: 'signature-couture',
     headline: 'Signature Couture Capsule',
     subheadline: 'A limited-edition showcase of hand-beaded artistry.',
     image: 'https://www.deepakperwani.com/images/thumbs/0011015_w.jpeg',
-    imageFit: 'cover'
+    imageFit: 'cover',
+    mobileImage: 'https://www.deepakperwani.com/images/thumbs/0014276_3345.jpeg'
   }
 ];
 
@@ -66,14 +71,17 @@ const Slider = () => {
 
   return (
     <section className="slider-section" aria-label="Featured highlights">
-      <div className="slider-frame">
-        <img
-          key={activeSlide.id}
-          src={activeSlide.image}
-          alt={activeSlide.headline}
-          className="slider-image"
-          style={{ objectFit: activeSlide.imageFit || 'cover' }}
-        />
+      <div className="slider-frame" style={{ '--slide-bg': `url(${activeSlide.image})` }}>
+        {/* mobileImage: a tall picture for phones (fills the screen); without it phones show the whole wide picture */}
+        <picture key={activeSlide.id}>
+          {activeSlide.mobileImage && <source media="(max-width: 768px)" srcSet={activeSlide.mobileImage} />}
+          <img
+            src={activeSlide.image}
+            alt={activeSlide.headline}
+            className={`slider-image${activeSlide.mobileImage ? ' has-mobile' : ''}`}
+            style={{ objectFit: activeSlide.imageFit || 'cover' }}
+          />
+        </picture>
         <div className="slider-overlay">
           <div className="slider-controls">
             {items.map((slide, index) => (
