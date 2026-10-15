@@ -34,13 +34,8 @@ const Footer = () => {
         <div className="footer-column footer-hours">
           <h3 className="footer-heading">We Are Open</h3>
           <ul>
-            <li>Monday: 10am-5pm</li>
-            <li>Tuesday: 10am-5pm</li>
-            <li>Wednesday: 10am-5pm</li>
-            <li>Thursday: 10am-5pm</li>
-            <li>Friday: 10am-5pm</li>
-            <li>Saturday: 10am-5pm</li>
-            <li>Sunday: CLOSED</li>
+            <li>Monday – Saturday: 10am-5pm</li>
+            <li>Sunday: Closed</li>
           </ul>
         </div>
 
