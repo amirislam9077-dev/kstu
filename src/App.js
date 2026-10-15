@@ -28,6 +28,7 @@ import PartyPage from './pages/PartyPage';
 import PartyPro from './component/partypro';
 import { collections, CollectionPage, CollectionProductPage } from './pages/CollectionPage';
 import AdminOrders from './pages/AdminOrders';
+import TikTokPage from './pages/TikTokPage';
 
 const ScrollToTop = () => {
   const location = useLocation();
@@ -110,6 +111,7 @@ function App() {
             <Route key={slug} path={`/${slug}`} element={<CollectionPage slug={slug} />} />,
             <Route key={`${slug}-product`} path={`/${slug}/:productId`} element={<CollectionProductPage slug={slug} />} />
           ])}
+          <Route path="/tiktok" element={<TikTokPage />} />
           <Route path="/admin" element={<Navigate to="/admin/orders" replace />} />
           <Route path="/admin/orders" element={<AdminOrders />} />
           <Route path="/login" element={<Login />} />

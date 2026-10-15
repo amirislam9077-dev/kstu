@@ -10,7 +10,8 @@ const MOBILE_LINKS = [
   ['wedding-formal', 'Wedding Formal'],
   ['ready-to-wear', 'Ready to Wear'],
   ['unstitched', 'Unstitched'],
-  ['party', 'Party']
+  ['party', 'Party'],
+  ['tiktok', 'TikTok']
 ];
 
 const Navbar = () => {
@@ -81,7 +82,7 @@ const Navbar = () => {
   };
 
   const handleSectionNavigation = (sectionId) => {
-    if (['sale', 'formal', 'bridal', 'hire', 'custom', 'party', 'new-arrival', 'wedding-formal', 'ready-to-wear', 'unstitched'].includes(sectionId)) {
+    if (['sale', 'formal', 'bridal', 'hire', 'custom', 'party', 'new-arrival', 'wedding-formal', 'ready-to-wear', 'unstitched', 'tiktok'].includes(sectionId)) {
       const targetPath = `/${sectionId}`;
       if (location.pathname !== targetPath) {
         navigate(targetPath);
@@ -208,6 +209,13 @@ const Navbar = () => {
             Party
           </button>
           <button
+            type="button"
+            className="about-btn"
+            onClick={() => handleSectionNavigation('tiktok')}
+          >
+            TikTok
+          </button>
+          <button
             className="sign-in-btn"
             onClick={() => {
               navigate('/login');
@@ -270,6 +278,9 @@ const Navbar = () => {
           </li>
           <li>
             <a href="/party" onClick={(event) => handleSectionLinkClick(event, 'party')}>Party</a>
+          </li>
+          <li>
+            <a href="/tiktok" onClick={(event) => handleSectionLinkClick(event, 'tiktok')}>TikTok</a>
           </li>
           <li>
             <button
