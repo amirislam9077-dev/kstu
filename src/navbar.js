@@ -2,6 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 
+const MOBILE_LINKS = [
+  ['new-arrival', 'New Arrival'],
+  ['sale', 'Sale'],
+  ['formal', 'Formal'],
+  ['bridal', 'Bridal'],
+  ['wedding-formal', 'Wedding Formal'],
+  ['ready-to-wear', 'Ready to Wear'],
+  ['unstitched', 'Unstitched'],
+  ['party', 'Party']
+];
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -220,6 +231,19 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
+      </div>
+      {/* Phones: all menu links always visible in one row (swipe sideways for more) */}
+      <div className="mobile-nav-strip">
+        {MOBILE_LINKS.map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            className={`mobile-nav-link${location.pathname === `/${id}` ? ' active' : ''}`}
+            onClick={() => handleSectionNavigation(id)}
+          >
+            {label}
+          </button>
+        ))}
       </div>
       <div className={`nav-flyout${menuOpen ? ' open' : ''}`}>
         <ul className="nav-flyout-list">
