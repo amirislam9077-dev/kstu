@@ -1,4 +1,5 @@
 import React, { Children, useCallback, useEffect, useRef, useState } from 'react';
+import { useNavigationType } from 'react-router-dom';
 import '../App.css';
 
 // Full-screen vertical sections: one scroll moves to the next section, which
@@ -6,14 +7,29 @@ import '../App.css';
 // inside themselves first, then move on at their top/bottom edge.
 
 const TRANSITION_MS = 1200;
+const SECTION_KEY = 'homeSection';
+
+// The section the visitor was on, so "Back" returns to it instead of the top
+const readSavedSection = () => {
+  try {
+    return parseInt(window.sessionStorage.getItem(SECTION_KEY), 10) || 0;
+  } catch (error) {
+    return 0;
+  }
+};
 
 const FullPage = ({ children }) => {
   const panels = Children.toArray(children).filter(Boolean);
   const count = panels.length;
-  const [activeIndex, setActiveIndex] = useState(0);
+  // POP = arrived with the browser's/website's Back; a menu click starts at the top
+  const navigationType = useNavigationType();
+  const [initialIndex] = useState(() =>
+    navigationType === 'POP' ? Math.min(Math.max(readSavedSection(), 0), count - 1) : 0
+  );
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
   const panelRefs = useRef([]);
   const lockedRef = useRef(false);
-  const activeRef = useRef(0);
+  const activeRef = useRef(initialIndex);
   const containerRef = useRef(null);
 
   const goTo = useCallback(
@@ -34,11 +50,20 @@ const FullPage = ({ children }) => {
 
   // Tell the navbar which section is showing so it can switch to its solid style.
   useEffect(() => {
-    window.dispatchEvent(new CustomEvent('fullpage:change', { detail: { index: activeIndex } }));
+    const announce = () => window.dispatchEvent(new CustomEvent('fullpage:change', { detail: { index: activeIndex } }));
+    announce();
+    // Again after the navbar has started listening (it mounts alongside this page)
+    const timer = window.setTimeout(announce, 0);
     const panel = panelRefs.current[activeIndex];
     if (panel) {
       panel.scrollTop = 0;
     }
+    try {
+      window.sessionStorage.setItem(SECTION_KEY, String(activeIndex));
+    } catch (error) {
+      // storage blocked: Back just starts at the top
+    }
+    return () => window.clearTimeout(timer);
   }, [activeIndex]);
 
   // Sections start below the fixed header; its height changes on small screens.

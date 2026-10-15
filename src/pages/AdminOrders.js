@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { BACKEND_URL } from '../utils/api';
+import AdminDiscounts from './AdminDiscounts';
 import '../App.css';
 
 // Admin page: lists saved orders from the MySQL database with filters, order
@@ -57,6 +58,51 @@ const saveLogin = (value) => {
   } catch (error) {
     // storage blocked; the login just won't survive a reload
   }
+};
+
+// The slip needs the admin login headers, so it's fetched and shown from a local blob URL
+const SlipImage = ({ orderId, login }) => {
+  const [src, setSrc] = useState('');
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    let url = '';
+    let cancelled = false;
+    fetch(`${BACKEND_URL}/admin/orders/${orderId}/slip`, {
+      headers: { 'x-admin-email': login?.email || '', 'x-admin-key': login?.password || '' }
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('slip');
+        }
+        return response.blob();
+      })
+      .then((blob) => {
+        if (!cancelled) {
+          url = URL.createObjectURL(blob);
+          setSrc(url);
+        }
+      })
+      .catch(() => !cancelled && setFailed(true));
+    return () => {
+      cancelled = true;
+      if (url) {
+        URL.revokeObjectURL(url);
+      }
+    };
+  }, [orderId, login]);
+
+  if (failed) {
+    return <p className="admin-muted">The deposit slip could not be loaded.</p>;
+  }
+  if (!src) {
+    return <p className="admin-muted">Loading deposit slip…</p>;
+  }
+  return (
+    <a href={src} target="_blank" rel="noreferrer" className="admin-slip" title="Open full size">
+      <img src={src} alt={`Deposit slip for order ${orderId}`} />
+    </a>
+  );
 };
 
 const AdminOrders = () => {
@@ -248,6 +294,8 @@ const AdminOrders = () => {
         </div>
       </div>
 
+      <AdminDiscounts request={request} />
+
       <div className="admin-status-tabs">
         <button type="button" className={appliedFilters.status === '' ? 'active' : ''} onClick={() => showStatus('')}>
           All <span>{allCount}</span>
@@ -432,7 +480,18 @@ const AdminOrders = () => {
               </dd>
               <dt>Email sent</dt>
               <dd>{openOrder.email_sent ? 'Yes' : 'No'}</dd>
+              <dt>Bank</dt>
+              <dd>{openOrder.bank_name || '-'}</dd>
+              <dt>Reference No</dt>
+              <dd>{openOrder.reference_no || '-'}</dd>
             </dl>
+
+            <h3>Deposit slip</h3>
+            {openOrder.has_slip ? (
+              <SlipImage orderId={openOrder.id} login={login} />
+            ) : (
+              <p className="admin-muted">No deposit slip attached.</p>
+            )}
 
             <h3>Items</h3>
             <table className="admin-items">

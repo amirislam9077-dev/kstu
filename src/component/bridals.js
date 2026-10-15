@@ -1,12 +1,7 @@
 import React from 'react';
 import '../App.css';
-import { useNavigate } from 'react-router-dom';
-
-const sharedGalleryImages = [
-  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
-  'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80',
-  'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=900&q=80'
-];
+import { ProductCard } from './product5';
+import BackButton from './backbutton';
 
 export const bridalLooks = [
   {
@@ -14,10 +9,13 @@ export const bridalLooks = [
     title: 'Evangeline',
     description: 'Bridal couture gown featuring hand-beaded lace bodice and cascading tulle skirt.',
     image:
-      'https://www.mariab.pk/cdn/shop/files/D-9AFront_A_71a7de19-867b-4b0b-ad62-9cd5297154a9_2400x2400.jpg?v=1764230410',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/FX-26V1-14-A.jpg?width=800',
+    hoverImage: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/FX-26V1-14-B.jpg?width=800',
     gallery: [
-      'https://www.mariab.pk/cdn/shop/files/D-9AFront_A_71a7de19-867b-4b0b-ad62-9cd5297154a9_2400x2400.jpg?v=1764230410',
-      ...sharedGalleryImages
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/FX-26V1-14-A.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/FX-26V1-14-B.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/FX-26V1-14-C.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/FX-26V1-14-D.jpg?width=800'
     ],
     price: 'Rs.685,000',
     availability: 'Made to order',
@@ -37,10 +35,13 @@ export const bridalLooks = [
     title: 'Melody',
     description: 'Minimalist satin column gown with pearl button back detailing.',
     image:
-      'https://www.mariab.pk/cdn/shop/files/D-8BFront_A_1aa4233c-0883-4837-ac68-05ae5fe34bf2_2400x2400.jpg?v=1764230355',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/FX-26V1-10-A.jpg?width=800',
+    hoverImage: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/FX-26V1-10-B.jpg?width=800',
     gallery: [
-      'https://www.mariab.pk/cdn/shop/files/D-8BFront_A_1aa4233c-0883-4837-ac68-05ae5fe34bf2_2400x2400.jpg?v=1764230355',
-      ...sharedGalleryImages
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/FX-26V1-10-A.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/FX-26V1-10-B.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/FX-26V1-10-C.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/FX-26V1-10-D.jpg?width=800'
     ],
     price: 'Rs.554,000',
     availability: 'In stock',
@@ -60,10 +61,13 @@ export const bridalLooks = [
     title: 'Odessa',
     description: 'Romantic off-the-shoulder gown with floral appliqué and soft shimmer.',
     image:
-      'https://www.mariab.pk/cdn/shop/files/D-9BFront_A_d96ff5a0-50ef-48ac-9db2-1efd905b1e1d_2400x2400.jpg?v=1764230477',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-07-A.jpg?width=800',
+    hoverImage: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-07-B.jpg?width=800',
     gallery: [
-      'https://www.mariab.pk/cdn/shop/files/D-9BFront_A_d96ff5a0-50ef-48ac-9db2-1efd905b1e1d_2400x2400.jpg?v=1764230477',
-      ...sharedGalleryImages
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-07-A.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-07-B.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-07-C.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-07-D.jpg?width=800'
     ],
     price: 'Rs.630,000',
     availability: 'Limited availability',
@@ -83,10 +87,13 @@ export const bridalLooks = [
     title: 'Celestine',
     description: 'Illusion neckline gown with layered organza and hand-beaded bodice.',
     image:
-      'https://www.mariab.pk/cdn/shop/files/D-10AFront_A_92b97791-08cf-49a9-8802-88adced7acac_2400x2400.jpg?v=1764230585',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-10-A.jpg?width=800',
+    hoverImage: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-10-B.jpg?width=800',
     gallery: [
-      'https://www.mariab.pk/cdn/shop/files/D-10AFront_A_92b97791-08cf-49a9-8802-88adced7acac_2400x2400.jpg?v=1764230585',
-      ...sharedGalleryImages
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-10-A.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-10-B.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-10-C.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-10-D.jpg?width=800'
     ],
     price: 'Rs.644,000',
     availability: 'Pre-order, ships in 5 weeks',
@@ -106,10 +113,13 @@ export const bridalLooks = [
     title: 'Aurielle',
     description: 'Sequined corset gown with detachable overskirt designed for dramatic aisles.',
     image:
-      'https://www.mariab.pk/cdn/shop/files/D-10BFront_A_40a42f00-92ba-4df6-bb5f-a09180685421_2400x2400.jpg?v=1764230651',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-03-A_cd272fc6-4e15-4d90-8b33-090f3276634a.jpg?width=800',
+    hoverImage: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-03-B_107ca4c9-738d-4453-b4d7-fe5dd6c9c9d3.jpg?width=800',
     gallery: [
-      'https://www.mariab.pk/cdn/shop/files/D-10BFront_A_40a42f00-92ba-4df6-bb5f-a09180685421_2400x2400.jpg?v=1764230651',
-      ...sharedGalleryImages
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-03-A_cd272fc6-4e15-4d90-8b33-090f3276634a.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-03-B_107ca4c9-738d-4453-b4d7-fe5dd6c9c9d3.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-03-D_e7ac7bab-d252-49de-8b72-085d76067c67.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-03-F_a52506a1-133f-45c8-8c88-832dce8a4cc2.jpg?width=800'
     ],
     price: 'Rs.728,000',
     availability: 'Made to order',
@@ -129,10 +139,13 @@ export const bridalLooks = [
     title: 'Seraphina',
     description: 'Elegant bridal gown with intricate embellishments and timeless silhouette.',
     image:
-      'https://www.mariab.pk/cdn/shop/files/D-4Front_A_000e1a04-8902-4660-8063-48d468ed0579_2400x2400.jpg?v=1762857821',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-06-A_ed7bb65b-eb8a-49eb-bc56-a9cf0b16bf33.jpg?width=800',
+    hoverImage: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-06-C_c051faeb-643a-4e49-b541-0fffa0a2cc2d.jpg?width=800',
     gallery: [
-      'https://www.mariab.pk/cdn/shop/files/D-4Front_A_000e1a04-8902-4660-8063-48d468ed0579_2400x2400.jpg?v=1762857821',
-      ...sharedGalleryImages
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-06-A_ed7bb65b-eb8a-49eb-bc56-a9cf0b16bf33.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-06-C_c051faeb-643a-4e49-b541-0fffa0a2cc2d.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-06-D_1339f6f9-739c-442c-a785-1c93911178bb.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/EX-26V1-06-E_a60bdfe7-02fb-4595-a217-90467f11d82d.jpg?width=800'
     ],
     price: 'Rs.770,000',
     availability: 'Made to order',
@@ -146,56 +159,60 @@ export const bridalLooks = [
       Veil: 'Embellished cathedral veil included',
       Accessories: 'Matching jewelry set'
     }
+  },
+  {
+    id: 'fx-855',
+    title: 'Chashmona',
+    description: 'This dazzling multi-hued Lehega Set with twinkling works of signature gota patti hand embroidery along with intricate embellishments featuring sequins, kinari, diamntes and panni work over a vivid can',
+    image: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/products/d-0_front_1.jpg?width=800',
+    hoverImage: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/products/d-0_closeup_1.jpg?width=800',
+    gallery: [
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/products/d-0_front_1.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/products/d-0_closeup_1.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/products/d-0_side_1.jpg?width=800'
+    ],
+    price: 'Rs.225,000',
+    availability: 'Made to order',
+    sku: 'FX-855',
+    sizes: ['Made to measure'],
+    details: {
+      Description: 'This dazzling multi-hued Lehega Set with twinkling works of signature gota patti hand embroidery along with intricate embellishments featuring sequins, kinari, diamntes and panni work over a vivid can',
+      Category: 'Wedding Formal'
+    }
+  },
+  {
+    id: 'fx-860',
+    title: 'Harleen',
+    description: 'Inspired by the magical sight of the forest, where the sunlight filters through the lush canopy of trees and lights up the woods with its incandescent gleam.',
+    image: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/products/d-00_front.jpg?width=800',
+    hoverImage: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/products/d-00_closeup.jpg?width=800',
+    gallery: [
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/products/d-00_front.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/products/d-00_closeup.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/products/d-00_side.jpg?width=800'
+    ],
+    price: 'Rs.200,000',
+    availability: 'Made to order',
+    sku: 'FX-860',
+    sizes: ['Made to measure'],
+    details: {
+      Description: 'Inspired by the magical sight of the forest, where the sunlight filters through the lush canopy of trees and lights up the woods with its incandescent gleam.',
+      Category: 'Wedding Formal'
+    }
   }
 ];
 
-const Bridal = () => {
-  const navigate = useNavigate();
-
-  const handleViewProduct = (productId) => {
-    navigate(`/bridal/${productId}`);
-  };
-
-  return (
-    <section id="bridal" className="products">
-      <h1 className="products-header">Bridal Collection</h1>
-      <div className="products-grid">
-        {bridalLooks.map((look) => (
-          <div className="product-card" key={look.id}>
-            <div
-              className="product-media-wrapper"
-              onClick={() => handleViewProduct(look.id)}
-              style={{ cursor: 'pointer' }}
-            >
-              <img
-                src={look.image}
-                alt={look.title}
-                className="product-image"
-                style={{ objectFit: 'contain' }}
-              />
-              <div className="product-actions">
-                <button
-                  className="action-btn"
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleViewProduct(look.id);
-                  }}
-                >
-                  View Details
-                </button>
-              </div>
-            </div>
-            <div className="product-body">
-              <h3 className="product-title">{look.title}</h3>
-              <p className="product-subtitle">{look.price}</p>
-              <p className="product-details">{look.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-};
+const Bridal = () => (
+  <section id="bridal" className="shop-grid-section collection-page">
+    <BackButton />
+    <h1 className="collection-page-title">Bridal</h1>
+    <p className="collection-page-count">{bridalLooks.length} products</p>
+    <div className="shop-grid">
+      {bridalLooks.map((look) => (
+        <ProductCard key={look.id} product={look} basePath="/bridal" />
+      ))}
+    </div>
+  </section>
+);
 
 export default Bridal;

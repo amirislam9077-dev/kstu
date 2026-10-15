@@ -4,6 +4,7 @@ import { ProductCard } from '../component/product5';
 import Product5Pro from '../component/product5pro';
 import { product5Items } from '../component/product5data';
 import { newArrivalItems, weddingFormalItems, readyToWearItems } from '../component/collectionsdata';
+import BackButton from '../component/backbutton';
 
 // Pages for the menu links that share one layout: a product grid at
 // /<slug> and a product page at /<slug>/<productId>.
@@ -19,6 +20,7 @@ export const CollectionPage = ({ slug }) => {
 
   return (
     <section className="shop-grid-section collection-page">
+      <BackButton />
       <h1 className="collection-page-title">{collection.title}</h1>
       <p className="collection-page-count">{collection.items.length} products</p>
       <div className="shop-grid">
@@ -34,5 +36,5 @@ export const CollectionProductPage = ({ slug }) => {
   const { productId } = useParams();
   const collection = collections[slug];
 
-  return <Product5Pro key={productId} items={collection.items} collectionName={collection.title} />;
+  return <Product5Pro key={productId} items={collection.items} collectionName={collection.title} discountKey={slug} />;
 };

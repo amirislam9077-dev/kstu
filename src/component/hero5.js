@@ -19,13 +19,13 @@ const heroCategories = [
     title: 'WEDDING FORMALS',
     image:
       'https://www.deepakperwani.com/images/thumbs/0012337_3058.jpeg',
-    path: '/hire'
+    path: '/wedding-formal'
   },
   {
     title: 'Ready to Wear',
     image:
       'https://www.mariab.pk/cdn/shop/files/RTW_Web_1124X1460_1bdd776b-faae-47e2-b597-7f97f0cd9c14.jpg?v=1789455466&width=1500',
-    path: '/custom'
+    path: '/ready-to-wear'
   }
 ];
 

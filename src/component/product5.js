@@ -1,12 +1,15 @@
 import React, { forwardRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { product5Items } from './product5data';
+import { useDiscountedPrice } from '../utils/discounts';
 
 // Product grid in the Sana Safinaz style: four per row, a tall picture that
 // switches to a second view on hover, then name, style code and price.
 
 export function ProductCard({ product, basePath = '/product5' }) {
   const navigate = useNavigate();
+  // '/sale' -> 'sale': the collection whose discount applies
+  const price = useDiscountedPrice(basePath.replace(/^\//, ''), product.price);
 
   const openProduct = () => {
     navigate(`${basePath}/${product.id}`);
@@ -26,6 +29,7 @@ export function ProductCard({ product, basePath = '/product5' }) {
       }}
     >
       <div className="shop-card-media">
+        {price.percent > 0 && <span className="sale-badge">-{price.percent}%</span>}
         <img src={product.image} alt={product.title} className="shop-card-image" loading="lazy" />
         {product.hoverImage && (
           <img
@@ -39,7 +43,10 @@ export function ProductCard({ product, basePath = '/product5' }) {
       </div>
       <h3 className="shop-card-title">{product.title}</h3>
       <p className="shop-card-code">{product.code || product.sku}</p>
-      <p className="shop-card-price">{product.price}</p>
+      <p className="shop-card-price">
+        {price.percent > 0 && <span className="price-old">{price.original}</span>}
+        <span className={price.percent > 0 ? 'price-new' : undefined}>{price.final}</span>
+      </p>
     </div>
   );
 }

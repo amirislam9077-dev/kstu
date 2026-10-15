@@ -4,6 +4,86 @@ import { useNavigate } from 'react-router-dom';
 import { CART_STORAGE_KEY, readStoredCartItems, persistCartItems } from '../utils/cartStorage';
 import { BACKEND_URL } from '../utils/api';
 
+// Phone photos are several MB: resize to at most 1600px and save as JPEG before sending
+const shrinkImage = (file, maxSide = 1600, quality = 0.82) =>
+  new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(img.width * scale);
+      canvas.height = Math.round(img.height * scale);
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(url);
+      resolve(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error('Unreadable image'));
+    };
+    img.src = url;
+  });
+
+// Banks and mobile wallets in Pakistan for the deposit slip
+const PAKISTAN_BANKS = [
+  'Allied Bank (ABL)',
+  'Askari Bank',
+  'Bank Al Habib',
+  'Bank Alfalah',
+  'Bank Islami',
+  'Bank of Khyber',
+  'Bank of Punjab (BOP)',
+  'Dubai Islamic Bank',
+  'Faysal Bank',
+  'First Women Bank',
+  'Habib Bank (HBL)',
+  'Habib Metropolitan Bank',
+  'JS Bank',
+  'MCB Bank',
+  'MCB Islamic Bank',
+  'Meezan Bank',
+  'National Bank of Pakistan (NBP)',
+  'Samba Bank',
+  'Silkbank',
+  'Sindh Bank',
+  'Soneri Bank',
+  'Standard Chartered',
+  'Summit Bank',
+  'United Bank (UBL)',
+  'Al Baraka Bank',
+  'Bank of Azad Jammu & Kashmir',
+  'Zarai Taraqiati Bank (ZTBL)',
+  'HBL Microfinance Bank',
+  'Mobilink Microfinance Bank',
+  'Telenor Microfinance Bank',
+  'U Microfinance Bank',
+  'Khushhali Microfinance Bank',
+  'JazzCash',
+  'Easypaisa',
+  'SadaPay',
+  'NayaPay',
+  'Raast',
+  'Other'
+];
+
+// Messages under each box when it's empty or wrong
+const FIELD_MESSAGES = {
+  email: 'Please enter your email.',
+  emailInvalid: 'Please enter a valid email, e.g. name@gmail.com.',
+  name: 'Please enter your name.',
+  address: 'Please enter your address.',
+  city: 'Please select your city.',
+  phone: 'Please enter your phone number.',
+  phoneInvalid: 'Enter 10 digits starting with 3, e.g. 3001234567.',
+  depositSlip: 'Please attach your deposit slip picture.',
+  referenceNo: 'Please enter the reference number.',
+  bankName: 'Please select your bank.'
+};
+
 const COUNTRIES = [
   'Afghanistan',
   'Åland Islands',
@@ -365,6 +445,45 @@ const ViewChar = () => {
   );
   const formRef = React.useRef(null);
   const [sendStatus, setSendStatus] = React.useState({ state: 'idle', message: '' });
+  const [depositSlip, setDepositSlip] = React.useState(null); // { name, dataUrl }
+  const [slipError, setSlipError] = React.useState('');
+  const [fieldErrors, setFieldErrors] = React.useState({});
+
+  // Typing in a box clears that box's message
+  const clearFieldError = (event) => {
+    const { name } = event.target;
+    if (name && fieldErrors[name]) {
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[name];
+        return next;
+      });
+    }
+  };
+  const inputClass = (name, base = 'viewchar-input') => `${base}${fieldErrors[name] ? ' viewchar-input--error' : ''}`;
+  const fieldError = (name) => fieldErrors[name] && <span className="viewchar-field-error">{fieldErrors[name]}</span>;
+
+  const handleSlipChange = async (event) => {
+    const file = event.target.files && event.target.files[0];
+    if (!file) {
+      return;
+    }
+    setSlipError('');
+    if (!file.type.startsWith('image/')) {
+      setSlipError('Please choose a picture (JPG or PNG).');
+      return;
+    }
+    try {
+      setDepositSlip({ name: file.name, dataUrl: await shrinkImage(file) });
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next.depositSlip;
+        return next;
+      });
+    } catch (error) {
+      setSlipError('This picture could not be read. Please try another one.');
+    }
+  };
   const backendBaseUrl = BACKEND_URL;
   const hasItems = items.length > 0;
   const navigate = useNavigate();
@@ -448,6 +567,9 @@ const ViewChar = () => {
         city: formData.get('city') || '',
         phone: formData.get('phone')?.trim() ? `+92${formData.get('phone').trim()}` : '',
         shippingMethod: formData.get('shippingMethod')?.trim() || '',
+        bankName: formData.get('bankName')?.trim() || '',
+        referenceNo: formData.get('referenceNo')?.trim() || '',
+        depositSlip: depositSlip?.dataUrl || '',
         wantsEmails: formData.get('wantsEmails') === 'on',
         saveInfo: formData.get('saveInfo') === 'on',
         items: items.map((item) => ({
@@ -461,11 +583,29 @@ const ViewChar = () => {
         subtotal
       };
 
-      if (!payload.email || !payload.name || !payload.phone || !payload.address || !payload.city) {
-        setSendStatus({
-          state: 'error',
-          message: 'Please provide your name, email, phone, address, and city before sending the order.'
-        });
+      const phoneDigits = formData.get('phone')?.trim() || '';
+      const errors = {};
+      if (!payload.email) errors.email = FIELD_MESSAGES.email;
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) errors.email = FIELD_MESSAGES.emailInvalid;
+      if (!payload.name) errors.name = FIELD_MESSAGES.name;
+      if (!payload.address) errors.address = FIELD_MESSAGES.address;
+      if (!payload.city) errors.city = FIELD_MESSAGES.city;
+      if (!phoneDigits) errors.phone = FIELD_MESSAGES.phone;
+      else if (!/^3\d{9}$/.test(phoneDigits)) errors.phone = FIELD_MESSAGES.phoneInvalid;
+      if (!payload.depositSlip) errors.depositSlip = FIELD_MESSAGES.depositSlip;
+      if (!payload.referenceNo) errors.referenceNo = FIELD_MESSAGES.referenceNo;
+      if (!payload.bankName) errors.bankName = FIELD_MESSAGES.bankName;
+
+      setFieldErrors(errors);
+      if (Object.keys(errors).length) {
+        setSendStatus({ state: 'error', message: 'Please fill in the boxes marked in red.' });
+        // Bring the first box with a problem into view
+        const first = formRef.current.querySelector(`[name="${Object.keys(errors)[0]}"]`) ||
+          formRef.current.querySelector('.viewchar-slip');
+        if (first) {
+          first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (typeof first.focus === 'function') first.focus({ preventScroll: true });
+        }
         return;
       }
 
@@ -494,12 +634,14 @@ const ViewChar = () => {
         setSendStatus({ state: 'success', message: result.message || 'Order sent successfully.' });
         setItems([]);
         formRef.current.reset();
+        setDepositSlip(null);
+        setFieldErrors({});
         navigate('/thanks', { replace: true });
       } catch (error) {
         setSendStatus({ state: 'error', message: error.message || 'Failed to send the order. Please try again.' });
       }
     },
-    [backendBaseUrl, hasItems, items, navigate, setItems, subtotal]
+    [backendBaseUrl, depositSlip, hasItems, items, navigate, setItems, subtotal]
   );
 
   const handleBack = () => {
@@ -604,6 +746,8 @@ const ViewChar = () => {
               ref={formRef}
               className="viewchar-checkout-form"
               onSubmit={handleSendOrder}
+              onInput={clearFieldError}
+              onChange={clearFieldError}
               noValidate
               data-state={sendStatus.state}
             >
@@ -616,7 +760,8 @@ const ViewChar = () => {
                 </div>
                 <label className="viewchar-field">
                   <span>Email</span>
-                  <input name="email" type="email" className="viewchar-input" placeholder="Email" required />
+                  <input name="email" type="email" className={inputClass('email')} placeholder="Email" required />
+                  {fieldError('email')}
                 </label>
                 <label className="viewchar-checkbox">
                   <input name="wantsEmails" type="checkbox" defaultChecked />
@@ -641,17 +786,19 @@ const ViewChar = () => {
 
                 <label className="viewchar-field">
                   <span>Your name</span>
-                  <input name="name" type="text" className="viewchar-input" placeholder="Your name" required />
+                  <input name="name" type="text" className={inputClass('name')} placeholder="Your name" required />
+                  {fieldError('name')}
                 </label>
 
                 <label className="viewchar-field">
                   <span>Address</span>
-                  <input name="address" type="text" className="viewchar-input" placeholder="Address" required />
+                  <input name="address" type="text" className={inputClass('address')} placeholder="Address" required />
+                  {fieldError('address')}
                 </label>
 
                 <label className="viewchar-field">
                   <span>City</span>
-                  <select name="city" className="viewchar-select" defaultValue="" required>
+                  <select name="city" className={inputClass('city', 'viewchar-select')} defaultValue="" required>
                     <option value="" disabled>
                       Select city
                     </option>
@@ -661,6 +808,7 @@ const ViewChar = () => {
                       </option>
                     ))}
                   </select>
+                  {fieldError('city')}
                 </label>
 
                 <label className="viewchar-field">
@@ -671,7 +819,7 @@ const ViewChar = () => {
                       name="phone"
                       type="tel"
                       inputMode="numeric"
-                      className="viewchar-input viewchar-input--error"
+                      className={inputClass('phone')}
                       placeholder="3XXXXXXXXX"
                       maxLength={10}
                       pattern="3[0-9]{9}"
@@ -687,7 +835,57 @@ const ViewChar = () => {
                       required
                     />
                   </div>
-                  <span className="viewchar-field-hint">Enter a valid phone number. i.e number format +923XXXXXXXXX</span>
+                  {fieldError('phone') || <span className="viewchar-field-note">10 digits after +92, e.g. 3001234567</span>}
+                </label>
+
+                <div className="viewchar-field">
+                  <span>Deposit slip picture</span>
+                  <label className={`viewchar-slip${depositSlip ? ' has-file' : ''}${fieldErrors.depositSlip ? ' has-error' : ''}`}>
+                    <input type="file" accept="image/*" onChange={handleSlipChange} />
+                    {depositSlip ? (
+                      <>
+                        <img src={depositSlip.dataUrl} alt="Deposit slip preview" />
+                        <span className="viewchar-slip-text">
+                          {depositSlip.name}
+                          <small>Tap to change</small>
+                        </span>
+                      </>
+                    ) : (
+                      <span className="viewchar-slip-text">
+                        Attach a photo of your bank deposit slip
+                        <small>JPG or PNG</small>
+                      </span>
+                    )}
+                  </label>
+                  {slipError ? <span className="viewchar-field-error">{slipError}</span> : fieldError('depositSlip')}
+                </div>
+
+                <label className="viewchar-field">
+                  <span>Reference No</span>
+                  <input
+                    name="referenceNo"
+                    type="text"
+                    className={inputClass('referenceNo')}
+                    placeholder="Transaction / reference number on the slip"
+                    maxLength={100}
+                    required
+                  />
+                  {fieldError('referenceNo')}
+                </label>
+
+                <label className="viewchar-field">
+                  <span>Bank name</span>
+                  <select name="bankName" className={inputClass('bankName', 'viewchar-select')} defaultValue="" required>
+                    <option value="" disabled>
+                      Select your bank
+                    </option>
+                    {PAKISTAN_BANKS.map((bank) => (
+                      <option key={bank} value={bank}>
+                        {bank}
+                      </option>
+                    ))}
+                  </select>
+                  {fieldError('bankName')}
                 </label>
 
                 <label className="viewchar-field">

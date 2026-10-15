@@ -6052,3 +6052,494 @@
     padding: 20px;
   }
 }
+
+/* ===== Sale discount: badge, old (crossed-out) price and new price ===== */
+.sale-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #c62828;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.sale-badge--inline {
+  position: static;
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.price-old {
+  margin-right: 8px;
+  color: #999;
+  font-weight: 400;
+  text-decoration: line-through;
+}
+
+.price-new {
+  color: #c62828;
+}
+
+/* Admin: sale discounts */
+.admin-discounts {
+  padding: 18px;
+  margin-bottom: 18px;
+  background: #fff;
+  border-radius: 12px;
+}
+
+.admin-discounts-head h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.admin-discounts-head p {
+  margin: 4px 0 14px;
+  font-size: 12px;
+  color: #777;
+}
+
+.admin-discounts-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.admin-discounts-grid label {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  color: #555;
+}
+
+.admin-percent {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.admin-percent input {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.admin-discounts-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.admin-discounts-ok {
+  font-size: 13px;
+  color: #1e7b34;
+}
+
+.admin-discounts-error {
+  font-size: 13px;
+  color: #b3261e;
+}
+
+@media (max-width: 680px) {
+  .admin-discounts-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Checkout: deposit slip picture */
+.viewchar-slip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+  padding: 10px 14px;
+  border: 1.5px dashed #c9c9c9;
+  border-radius: 10px;
+  background: #fafafa;
+  cursor: pointer;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.viewchar-slip.has-file {
+  border-style: solid;
+  border-color: #1e7b34;
+  background: #f3faf5;
+}
+
+.viewchar-slip input[type='file'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.viewchar-slip img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.viewchar-slip-text {
+  display: grid;
+  gap: 2px;
+  font-size: 13px;
+  color: #333;
+  word-break: break-all;
+}
+
+.viewchar-slip-text small {
+  font-size: 11px;
+  color: #888;
+}
+
+.admin-slip {
+  display: block;
+  max-width: 100%;
+}
+
+.admin-slip img {
+  display: block;
+  max-width: 100%;
+  max-height: 420px;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+}
+
+/* Checkout: message under an empty / wrong box */
+.viewchar-field-error {
+  font-size: 11px;
+  font-weight: 600;
+  color: #c62828;
+  letter-spacing: 0.2px;
+  text-transform: none;
+}
+
+.viewchar-field-note {
+  font-size: 10px;
+  color: #888;
+  letter-spacing: 0.2px;
+  text-transform: none;
+}
+
+.viewchar-slip.has-error {
+  border-color: #d9534f;
+  background: #fdf3f2;
+}
+
+/* "← Back" on the collection pages */
+.page-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+  padding: 8px 14px 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  background: #fff;
+  color: #222;
+  font-family: 'Montserrat', 'Segoe UI', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.page-back-btn:hover {
+  background: #111;
+  border-color: #111;
+  color: #fff;
+}
+
+.collection-page .page-back-btn {
+  max-width: 1300px;
+}
+
+/* Shop By Collection: heading links to New Arrival */
+a.collection-tagline,
+.collection-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.collection-title-link:hover,
+a.collection-tagline:hover {
+  opacity: 0.7;
+}
+
+.full-banner-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* ===== Product picture: zoom in place, following the cursor ===== */
+.zoom-frame {
+  cursor: zoom-in;
+  touch-action: pan-y;
+}
+
+.zoom-frame.is-zoomed {
+  cursor: zoom-out;
+}
+
+.zoom-frame img {
+  transition: transform 0.35s ease-out;
+  will-change: transform;
+  user-select: none;
+}
+
+/* While zoomed the picture follows the cursor closely */
+.zoom-frame.is-zoomed img {
+  transition: transform 0.12s ease-out;
+}
+
+.zoom-hint {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #333;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  pointer-events: none;
+}
+
+.zoom-hint-touch {
+  display: none;
+}
+
+/* Phones and tablets: no hover, so tell them to tap */
+@media (hover: none) {
+  .zoom-hint-hover {
+    display: none;
+  }
+
+  .zoom-hint-touch {
+    display: inline;
+  }
+}
+
+/* ===================================================================
+   Phones (iPhone 12 Pro = 390px wide and similar)
+   =================================================================== */
+@media (max-width: 480px) {
+  /* Homepage section dots: smaller and out of the way */
+  .fullpage-dots {
+    right: 6px;
+    gap: 8px;
+  }
+
+  .fullpage-dot {
+    width: 7px;
+    height: 7px;
+    border-color: rgba(0, 0, 0, 0.25);
+    opacity: 0.85;
+  }
+
+  /* Category cards: full width, no empty strip on the left */
+  .hero5-section,
+  .fullpage .hero5-section {
+    padding: 12px 12px 24px;
+  }
+
+  .hero5-gallery {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .hero5-card {
+    border-radius: 12px;
+  }
+
+  .hero5-image,
+  .fullpage .hero5-image {
+    height: 70vh;
+  }
+
+  /* Banners: full width, one under the other */
+  .banner5-section,
+  .fullpage .banner5-section {
+    padding: 0;
+    height: auto;
+  }
+
+  .banner5-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .banner5-tile,
+  .fullpage .banner5-tile {
+    height: 62vh;
+    padding-bottom: 0;
+  }
+
+  .banner5-contact,
+  .hero5-contact-btn {
+    display: none;
+  }
+
+  /* Shop By Collection: text then picture, no empty space below */
+  .fullpage .collection-section {
+    height: auto;
+    align-content: start;
+  }
+
+  .collection-content {
+    gap: 24px;
+    padding: 28px 20px 20px;
+  }
+
+  .collection-title {
+    font-size: 24px;
+  }
+
+  .collection-slider {
+    aspect-ratio: 960 / 660;
+  }
+
+  /* Collection pages */
+  .collection-page {
+    padding: 100px 12px 32px;
+  }
+
+  .collection-page-title {
+    font-size: 21px;
+    letter-spacing: 2px;
+  }
+
+  .sale-badge {
+    top: 8px;
+    left: 8px;
+    padding: 3px 7px;
+    font-size: 11px;
+  }
+
+  .shop-card-price {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 6px;
+  }
+
+  .price-old {
+    margin-right: 0;
+  }
+
+  /* Product page */
+  .formal-pro-page {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  /* Cart page: heading below the menu bar, each item as a neat card */
+  .viewchar-page {
+    padding: 104px 14px 40px;
+  }
+
+  .viewchar-header {
+    margin-bottom: 18px;
+  }
+
+  .viewchar-table-header {
+    display: none;
+  }
+
+  .viewchar-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'product product'
+      'qty total';
+    gap: 12px;
+    align-items: center;
+    padding: 14px;
+  }
+
+  .viewchar-product {
+    grid-area: product;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .viewchar-product img {
+    width: 72px;
+    height: 90px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #f3f3f3;
+    font-size: 0;
+  }
+
+  .viewchar-product-info h3 {
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  .viewchar-price {
+    display: none;
+  }
+
+  .viewchar-quantity {
+    grid-area: qty;
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    width: auto;
+    height: 38px;
+    padding: 0 4px;
+    gap: 2px;
+  }
+
+  .viewchar-quantity::before {
+    content: none;
+  }
+
+  .viewchar-quantity button,
+  .viewchar-quantity span {
+    min-width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .viewchar-total {
+    grid-area: total;
+    justify-self: end;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .viewchar-total::before,
+  .viewchar-price::before {
+    content: none;
+  }
+
+  /* Admin page */
+  .admin-topbar h1 {
+    font-size: 22px;
+  }
+
+  .admin-filters > * {
+    flex: 1 1 140px;
+  }
+}

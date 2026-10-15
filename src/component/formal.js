@@ -1,6 +1,7 @@
 import React from 'react';
 import '../App.css';
 import { ProductCard } from './product5';
+import BackButton from './backbutton';
 
 export const formalLooks = [
   {
@@ -223,6 +224,7 @@ export const formalLooks = [
 
 const Formal = () => (
   <section id="formal" className="shop-grid-section collection-page">
+    <BackButton />
     <h1 className="collection-page-title">Formal</h1>
     <p className="collection-page-count">{formalLooks.length} products</p>
     <div className="shop-grid">

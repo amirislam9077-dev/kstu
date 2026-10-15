@@ -1,6 +1,7 @@
 import React from 'react';
 import '../App.css';
-import { useNavigate } from 'react-router-dom';
+import { ProductCard } from './product5';
+import BackButton from './backbutton';
 
 const sharedGalleryImages = [
   'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
@@ -14,10 +15,13 @@ export const formalLooks = [
     title: 'Radhaaa',
     description: 'Stunning embellished formal wear with luxurious sequin work.',
     image:
-      'https://www.mariab.pk/cdn/shop/files/SFW2594Front_A_3af5c868-3f9d-4794-addd-46b05a3070a8_2400x2400.jpg?v=1765283898',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/SF-W26-39-A.jpg?width=800',
+    hoverImage: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/SF-W26-39-B.jpg?width=800',
     gallery: [
-      'https://www.mariab.pk/cdn/shop/files/SFW2594Front_A_3af5c868-3f9d-4794-addd-46b05a3070a8_2400x2400.jpg?v=1765283898',
-      ...sharedGalleryImages
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/SF-W26-39-A.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/SF-W26-39-B.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/SF-W26-39-C.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/SF-W26-39-D.jpg?width=800'
     ],
     price: 'Rs.462,000',
     availability: 'In stock',
@@ -38,9 +42,9 @@ export const formalLooks = [
     title: 'Joona',
     description: 'Sophisticated formal attire with elegant design.',
     image:
-      'https://www.mariab.pk/cdn/shop/files/DWW2582MehroonFront_A_2400x2400.jpg?v=1765284123',
+      'https://www.mariab.pk/cdn/shop/files/DWW2582MehroonFront_A_2400x2400.jpg?v=1765284123&width=800',
     gallery: [
-      'https://www.mariab.pk/cdn/shop/files/DWW2582MehroonFront_A_2400x2400.jpg?v=1765284123',
+      'https://www.mariab.pk/cdn/shop/files/DWW2582MehroonFront_A_2400x2400.jpg?v=1765284123&width=800',
       ...sharedGalleryImages
     ],
     price: 'Rs.454,000',
@@ -62,9 +66,9 @@ export const formalLooks = [
     title: 'Adaye',
     description: 'Contemporary formal wear with modern styling.',
     image:
-      'https://www.mariab.pk/cdn/shop/files/SFW2572BlackSide_C_2400x2400.jpg?v=1765283994',
+      'https://www.mariab.pk/cdn/shop/files/SFW2572BlackSide_C_2400x2400.jpg?v=1765283994&width=800',
     gallery: [
-      'https://www.mariab.pk/cdn/shop/files/SFW2572BlackSide_C_2400x2400.jpg?v=1765283994',
+      'https://www.mariab.pk/cdn/shop/files/SFW2572BlackSide_C_2400x2400.jpg?v=1765283994&width=800',
       ...sharedGalleryImages
     ],
     price: 'Rs.420,000',
@@ -86,9 +90,9 @@ export const formalLooks = [
     title: 'Seralyn',
     description: 'Pre-order. Metallic champagne couture gown with hand embroidery and sculpted bodice.',
     image:
-      'https://www.mariab.pk/cdn/shop/files/DWW2531RustFront_A_2400x2400.jpg?v=1765284254',
+      'https://www.mariab.pk/cdn/shop/files/DWW2531RustFront_A_2400x2400.jpg?v=1765284254&width=800',
     gallery: [
-      'https://www.mariab.pk/cdn/shop/files/DWW2531RustFront_A_2400x2400.jpg?v=1765284254',
+      'https://www.mariab.pk/cdn/shop/files/DWW2531RustFront_A_2400x2400.jpg?v=1765284254&width=800',
       ...sharedGalleryImages
     ],
     price: 'Rs.529,000',
@@ -110,9 +114,9 @@ export const formalLooks = [
     title: 'Kaylana',
     description: 'Pre-order. Blush sequin fishtail dress featuring corsetry and sweeping train.',
     image:
-      'https://www.mariab.pk/cdn/shop/files/SF_EA_24_19_Red_Front_2400x2400.jpg?v=1764857224',
+      'https://www.mariab.pk/cdn/shop/files/SF_EA_24_19_Red_Front_2400x2400.jpg?v=1764857224&width=800',
     gallery: [
-      'https://www.mariab.pk/cdn/shop/files/SF_EA_24_19_Red_Front_2400x2400.jpg?v=1764857224',
+      'https://www.mariab.pk/cdn/shop/files/SF_EA_24_19_Red_Front_2400x2400.jpg?v=1764857224&width=800',
       ...sharedGalleryImages
     ],
     price: 'Rs.462,000',
@@ -134,9 +138,9 @@ export const formalLooks = [
     title: 'Anthea',
     description: 'Pre-order. Ice-blue crystal gown with detachable off-shoulder sleeves.',
     image:
-      'https://www.mariab.pk/cdn/shop/files/MBS-W25-03-RedFront_A_2400x2400.jpg?v=1764758004',
+      'https://www.mariab.pk/cdn/shop/files/MBS-W25-03-RedFront_A_2400x2400.jpg?v=1764758004&width=800',
     gallery: [
-      'https://www.mariab.pk/cdn/shop/files/MBS-W25-03-RedFront_A_2400x2400.jpg?v=1764758004',
+      'https://www.mariab.pk/cdn/shop/files/MBS-W25-03-RedFront_A_2400x2400.jpg?v=1764758004&width=800',
       ...sharedGalleryImages
     ],
     price: 'Rs.602,000',
@@ -158,9 +162,9 @@ export const formalLooks = [
     title: 'Anthea',
     description: 'Pre-order. Alternative styling of the Anthea silhouette with thigh-high split.',
     image:
-      'https://www.mariab.pk/cdn/shop/files/SFW2530TealFront_A_2400x2400.jpg?v=1764757950',
+      'https://www.mariab.pk/cdn/shop/files/SFW2530TealFront_A_2400x2400.jpg?v=1764757950&width=800',
     gallery: [
-      'https://www.mariab.pk/cdn/shop/files/SFW2530TealFront_A_2400x2400.jpg?v=1764757950',
+      'https://www.mariab.pk/cdn/shop/files/SFW2530TealFront_A_2400x2400.jpg?v=1764757950&width=800',
       ...sharedGalleryImages
     ],
     price: 'Rs.574,000',
@@ -203,47 +207,17 @@ export const formalLooks = [
   }
 ];
 
-const Formal = () => {
-  const navigate = useNavigate();
-
-  const handleViewProduct = (look) => {
-    navigate(`/sale/${look.id}`);
-  };
-
-  return (
-    <section id="formal" className="products">
-      <h1 className="products-header">Sales</h1>
-      <div className="products-grid">
-        {formalLooks.map((look) => (
-          <div className="product-card" key={look.id}>
-            <div className="product-media-wrapper">
-              <img
-                src={look.image}
-                alt={look.title}
-                className="product-image"
-                style={{ objectFit: 'contain', cursor: 'pointer' }}
-                onClick={() => handleViewProduct(look)}
-              />
-              <div className="product-actions">
-                <button
-                  className="action-btn"
-                  type="button"
-                  onClick={() => handleViewProduct(look)}
-                >
-                  View Details
-                </button>
-              </div>
-            </div>
-            <div className="product-body">
-              <h3 className="product-title">{look.title}</h3>
-              <p className="product-subtitle">{look.price}</p>
-              <p className="product-details">{look.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-};
+const Formal = () => (
+  <section id="sale" className="shop-grid-section collection-page">
+    <BackButton />
+    <h1 className="collection-page-title">Sale</h1>
+    <p className="collection-page-count">{formalLooks.length} products</p>
+    <div className="shop-grid">
+      {formalLooks.map((look) => (
+        <ProductCard key={look.id} product={look} basePath="/sale" />
+      ))}
+    </div>
+  </section>
+);
 
 export default Formal;

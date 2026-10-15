@@ -7,7 +7,6 @@ import Hero5 from './component/hero5';
 import Banner5 from './component/banner5';
 import ShopByCollection from './component/collection';
 import UnstitchedBanner from './component/unstitchedbanner';
-import Product6 from './component/product6';
 import Login from './component/login';
 import Footer from './component/footer';
 import FullPage from './component/fullpage';
@@ -79,7 +78,6 @@ const HomePage = () => (
     <Banner5 />
     <ShopByCollection />
     <UnstitchedBanner />
-    <Product6 />
     <Footer />
   </FullPage>
 );

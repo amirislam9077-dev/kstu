@@ -1,5 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { ProductCard } from './product5';
 import '../App.css';
+import BackButton from './backbutton';
 
 export const partyLooks = [
   {
@@ -99,51 +100,85 @@ export const partyLooks = [
       Fabric: 'Premium fabric',
     },
   },
+  {
+    id: 'dw-w26-48-black',
+    title: '3 Piece Embroidered Linen Suit',
+    description: 'Shirt Solid A-Line Shirt Round Neckline Finished With Fabric-Buttons Detailing Embroidered Border Finished with Fabric-Ball Drop Detailing Fitted Sleeves Finished With Embroidered Border & Fabric-Ball',
+    image: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-48-Black-A.jpg?width=800',
+    hoverImage: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-48-Black-B.jpg?width=800',
+    gallery: [
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-48-Black-A.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-48-Black-B.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-48-Black-C.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-48-Black-D.jpg?width=800'
+    ],
+    price: 'Rs.26,990',
+    availability: 'In Stock',
+    sku: 'DWW2648-ESM-BLK',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    details: {
+      Description: 'Shirt Solid A-Line Shirt Round Neckline Finished With Fabric-Buttons Detailing Embroidered Border Finished with Fabric-Ball Drop Detailing Fitted Sleeves Finished With Embroidered Border & Fabric-Ball',
+      Occasion: 'Party, Festive',
+      Category: 'Luxury Pret'
+    },
+  },
+  {
+    id: 'dw-w26-21-shocking-pink',
+    title: '3 Piece Embroidered Dobby Linen Suit',
+    description: 'Shirt Spray Embroidered Straight Shirt Embroidered Round Neckline Finished With Buttons Detailing Embroidered Border Embroidered Straight Sleeves Gotta-Ball Drop Hanging On Sleeves & Border Color: Sho',
+    image: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-21-Maganta-A.jpg?width=800',
+    hoverImage: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-21-Maganta-B.jpg?width=800',
+    gallery: [
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-21-Maganta-A.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-21-Maganta-B.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-21-Maganta-C.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-21-Maganta-D.jpg?width=800'
+    ],
+    price: 'Rs.25,990',
+    availability: 'In Stock',
+    sku: 'DWW2621-ESM-SPK',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    details: {
+      Description: 'Shirt Spray Embroidered Straight Shirt Embroidered Round Neckline Finished With Buttons Detailing Embroidered Border Embroidered Straight Sleeves Gotta-Ball Drop Hanging On Sleeves & Border Color: Sho',
+      Occasion: 'Party, Festive',
+      Category: 'Luxury Pret'
+    },
+  },
+  {
+    id: 'dw-w26-03-chocolate',
+    title: '3 Piece Embroidered Dobby Linen Suit',
+    description: 'Shirt Solid Straight Shirt Embroidered Round Neckline Finished With Buttons Detailing Embroidered Side Seams & Border Straight Sleeves Finished With Embroidered Border Gotta Ball Drop Detailing On Sle',
+    image: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-03CHOCOLATE-A.jpg?width=800',
+    hoverImage: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-03CHOCOLATE-B.jpg?width=800',
+    gallery: [
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-03CHOCOLATE-A.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-03CHOCOLATE-B.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-03CHOCOLATE-C.jpg?width=800',
+      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/DW-W26-03CHOCOLATE-D.jpg?width=800'
+    ],
+    price: 'Rs.23,990',
+    availability: 'In Stock',
+    sku: 'DWW2603-ESM-CHC',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    details: {
+      Description: 'Shirt Solid Straight Shirt Embroidered Round Neckline Finished With Buttons Detailing Embroidered Side Seams & Border Straight Sleeves Finished With Embroidered Border Gotta Ball Drop Detailing On Sle',
+      Occasion: 'Party, Festive',
+      Category: 'Luxury Pret'
+    },
+  },
 ];
 
-const Party = () => {
-  const navigate = useNavigate();
-
-  const handleViewProduct = (productId) => {
-    navigate(`/party/${productId}`);
-  };
-
-  return (
-    <section id="party" className="products">
-      <h1 className="products-header">Party Wear Collection</h1>
-      <div className="products-grid">
-        {partyLooks.map((look) => (
-          <div className="product-card" key={look.id}>
-            <div className="product-media-wrapper" onClick={() => handleViewProduct(look.id)} style={{ cursor: 'pointer' }}>
-              <img
-                src={look.image}
-                alt={look.title}
-                className="product-image"
-                style={{ objectFit: 'contain' }}
-              />
-              <div className="product-actions">
-                <button
-                  className="action-btn"
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleViewProduct(look.id);
-                  }}
-                >
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-            <div className="product-body">
-              <h3 className="product-title">{look.title}</h3>
-              <p className="product-subtitle">{look.price}</p>
-              <p className="product-details">{look.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-};
+const Party = () => (
+  <section id="party" className="shop-grid-section collection-page">
+    <BackButton />
+    <h1 className="collection-page-title">Party Wear</h1>
+    <p className="collection-page-count">{partyLooks.length} products</p>
+    <div className="shop-grid">
+      {partyLooks.map((look) => (
+        <ProductCard key={look.id} product={look} basePath="/party" />
+      ))}
+    </div>
+  </section>
+);
 
 export default Party;

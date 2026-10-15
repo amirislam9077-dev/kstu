@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import '../App.css';
 import { customLooks } from './custom';
 import AddCart from './addcart';
+import ZoomImage from './zoomimage';
 import {
   createLineId,
   readStoredCartItems,
@@ -112,12 +113,6 @@ const CustomPro = () => {
   }, [product]);
 
   const [activeImage, setActiveImage] = React.useState(() => galleryImages[0] || '');
-  const [isZoomed, setIsZoomed] = React.useState(false);
-  const [lensPosition, setLensPosition] = React.useState({ x: 0, y: 0 });
-  const [zoomBackgroundPosition, setZoomBackgroundPosition] = React.useState('center');
-  const [zoomBackgroundSize, setZoomBackgroundSize] = React.useState('220%');
-  const imageRef = React.useRef(null);
-  const imageElementRef = React.useRef(null);
   const [isCartOpen, setCartOpen] = React.useState(false);
   const [cartItems, setCartItems] = React.useState(readStoredCartItems);
   const defaultSize = React.useMemo(() => {
@@ -131,8 +126,6 @@ const CustomPro = () => {
   const inquiryFormRef = React.useRef(null);
   const [inquiryStatus, setInquiryStatus] = React.useState({ state: 'idle', message: '' });
 
-  const LENS_SIZE = 140;
-
   React.useEffect(() => {
     if (galleryImages.length > 0) {
       setActiveImage(galleryImages[0]);
@@ -142,61 +135,6 @@ const CustomPro = () => {
   React.useEffect(() => {
     setSelectedSize(defaultSize);
   }, [defaultSize]);
-
-  const updateZoomScale = React.useCallback(() => {
-    if (!imageRef.current || !imageElementRef.current) {
-      return;
-    }
-
-    const container = imageRef.current;
-    const imageEl = imageElementRef.current;
-    const scaleX = (imageEl.naturalWidth / container.offsetWidth) * 100;
-    const scaleY = (imageEl.naturalHeight / container.offsetHeight) * 100;
-
-    if (Number.isFinite(scaleX) && Number.isFinite(scaleY) && scaleX > 0 && scaleY > 0) {
-      setZoomBackgroundSize(`${scaleX}% ${scaleY}%`);
-    } else {
-      setZoomBackgroundSize('220%');
-    }
-  }, []);
-
-  const handleImageLoad = React.useCallback(() => {
-    updateZoomScale();
-  }, [updateZoomScale]);
-
-  const handleMouseMove = (event) => {
-    if (!imageRef.current) {
-      return;
-    }
-
-    const { left, top, width, height } = imageRef.current.getBoundingClientRect();
-    const pointerX = event.clientX - left;
-    const pointerY = event.clientY - top;
-    let lensX = pointerX - LENS_SIZE / 2;
-    let lensY = pointerY - LENS_SIZE / 2;
-
-    const maxX = width - LENS_SIZE;
-    const maxY = height - LENS_SIZE;
-    lensX = Math.max(0, Math.min(lensX, maxX));
-    lensY = Math.max(0, Math.min(lensY, maxY));
-
-    setLensPosition({ x: lensX, y: lensY });
-
-    const percentX = ((lensX + LENS_SIZE / 2) / width) * 100;
-    const percentY = ((lensY + LENS_SIZE / 2) / height) * 100;
-    setZoomBackgroundPosition(`${percentX}% ${percentY}%`);
-  };
-
-  React.useEffect(() => {
-    handleImageLoad();
-  }, [activeImage, handleImageLoad]);
-
-  React.useEffect(() => {
-    window.addEventListener('resize', updateZoomScale);
-    return () => {
-      window.removeEventListener('resize', updateZoomScale);
-    };
-  }, [updateZoomScale]);
 
   React.useEffect(() => {
     persistCartItems(cartItems);
@@ -358,35 +296,7 @@ const CustomPro = () => {
 
       <div className="formal-pro-content">
         <div className="formal-pro-gallery">
-          <div
-            className="formal-pro-main-image"
-            ref={imageRef}
-            onMouseEnter={() => setIsZoomed(true)}
-            onMouseLeave={() => setIsZoomed(false)}
-            onMouseMove={handleMouseMove}
-          >
-            <img src={activeImage} alt={product.title} ref={imageElementRef} onLoad={handleImageLoad} />
-            {isZoomed && (
-              <>
-                <div
-                  className="formal-zoom-lens"
-                  style={{
-                    width: LENS_SIZE,
-                    height: LENS_SIZE,
-                    transform: `translate(${lensPosition.x}px, ${lensPosition.y}px)`
-                  }}
-                />
-                <div
-                  className="formal-zoom-preview"
-                  style={{
-                    backgroundImage: `url(${activeImage})`,
-                    backgroundPosition: zoomBackgroundPosition,
-                    backgroundSize: zoomBackgroundSize
-                  }}
-                />
-              </>
-            )}
-          </div>
+          <ZoomImage src={activeImage} alt={product.title} />
           {galleryImages.length > 1 && (
             <div className="formal-pro-thumbnails">
               {galleryImages.map((imageUrl) => (

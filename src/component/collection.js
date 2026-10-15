@@ -10,26 +10,26 @@ const slides = [
     id: 'stitched',
     image: 'https://www.mariab.pk/cdn/shop/files/STITCHED_SHOP_BY_occassion.jpg?v=1788507466&width=1600',
     alt: 'Stitched collection',
-    path: '/formal'
+    path: '/new-arrival'
   },
   {
     id: 'luxury-formals',
     image: 'https://www.mariab.pk/cdn/shop/files/SF_SHOP_BY_occassion.jpg?v=1788507476&width=1600',
     alt: 'Luxury formals collection',
-    path: '/bridal'
+    path: '/new-arrival'
   },
   {
     id: 'luxury-pret',
     image: 'https://www.mariab.pk/cdn/shop/files/DW_SHOP_BY_occassion.jpg?v=1788507476&width=1600',
     alt: 'Luxury pret collection',
-    path: '/party'
+    path: '/new-arrival'
   },
   {
     id: 'mastani',
     image:
       'https://www.mariab.pk/cdn/shop/files/Project_mastani_Shop_by_Occassion_Slider_banner_960X660_e8f40750-e6c2-4651-a721-91993161ad2e.jpg?v=1781088232&width=1600',
     alt: 'Festive collection',
-    path: '/custom'
+    path: '/new-arrival'
   }
 ];
 
@@ -51,8 +51,10 @@ const ShopByCollection = () => {
     <section className="collection-section" aria-label="Shop by collection">
       <div className="collection-content">
         <div className="collection-text">
-          <div className="collection-tagline">New Arrivals'26</div>
-          <h2 className="collection-title">Shop By Collection</h2>
+          <Link to="/new-arrival" className="collection-tagline">New Arrivals'26</Link>
+          <h2 className="collection-title">
+            <Link to="/new-arrival" className="collection-title-link">Shop By Collection</Link>
+          </h2>
           <p className="collection-description">
             Explore the newest summer arrivals — fresh prints, breezy fabrics, and styles made for the season.
           </p>
