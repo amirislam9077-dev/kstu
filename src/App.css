@@ -7834,3 +7834,82 @@ a.collection-tagline:hover {
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== Admin sidebar: fit the whole menu on one screen ===== */
+@media (min-width: 901px) {
+  .admin-sidebar {
+    padding: 16px 12px 12px;
+    scrollbar-width: none;
+  }
+
+  .admin-sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .admin-brand {
+    padding: 0 6px 14px;
+  }
+
+  .admin-nav {
+    gap: 1px;
+    padding-top: 4px;
+  }
+
+  .admin-nav-title {
+    margin: 12px 10px 4px;
+  }
+
+  .admin-nav-link {
+    padding: 7px 10px;
+    font-size: 13px;
+  }
+
+  .admin-nav-bottom {
+    gap: 1px;
+    padding-top: 10px;
+  }
+}
+
+/* Short laptop screens: tighter still */
+@media (min-width: 901px) and (max-height: 700px) {
+  .admin-nav-title {
+    margin: 9px 10px 3px;
+  }
+
+  .admin-nav-link {
+    padding: 5px 10px;
+  }
+
+  .admin-brand {
+    padding-bottom: 10px;
+  }
+}
+
+/* Brand: shop name fits, with a clear ADMIN badge under it */
+.admin-brand strong {
+  font-size: 12.5px;
+  letter-spacing: 0.8px;
+}
+
+.admin-brand-badge {
+  display: inline-block !important;
+  margin-top: 4px !important;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #c9a45c;
+  color: #000 !important;
+  font-size: 10px !important;
+  font-weight: 800;
+  letter-spacing: 2px !important;
+}
+
+/* Page heading: "ADMIN DASHBOARD" stands out */
+.admin-eyebrow {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #111;
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+}

@@ -404,7 +404,7 @@ const AdminOrders = () => {
           <span className="admin-brand-logo">KS</span>
           <div>
             <strong>Khurram Studio</strong>
-            <span>Admin Panel</span>
+            <span className="admin-brand-badge">ADMIN</span>
           </div>
         </div>
 
@@ -473,7 +473,7 @@ const AdminOrders = () => {
       <>
       <div className="admin-topbar">
         <div>
-          <p className="admin-eyebrow">Dashboard</p>
+          <p className="admin-eyebrow">Admin Dashboard</p>
           <h1>{appliedFilters.status ? `${STATUS_LABELS[appliedFilters.status]} Orders` : 'All Orders'}</h1>
           <p className="admin-subtitle">
             {new Date().toLocaleDateString('en-PK', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
