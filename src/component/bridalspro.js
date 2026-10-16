@@ -99,6 +99,7 @@ const BridalPro = () => {
   const [activeImage, setActiveImage] = React.useState(() => galleryImages[0] || '');
   const [isCartOpen, setCartOpen] = React.useState(false);
   const [cartItems, setCartItems] = React.useState(readStoredCartItems);
+  const [qty, setQty] = React.useState(1);
   const defaultSize = React.useMemo(() => {
     if (!product?.sizes || product.sizes.length === 0) {
       return '';
@@ -131,7 +132,7 @@ const BridalPro = () => {
     persistCartItems(cartItems);
   }, [cartItems]);
 
-  const handleOpenCart = () => {
+  const handleOpenCart = (buyNow = false) => {
     if (!product) {
       return;
     }
@@ -144,23 +145,25 @@ const BridalPro = () => {
       id: product.id,
       title: product.title,
       price: priceNumeric,
-      quantity: 1,
+      quantity: qty,
       image: product.image,
       size: sizeValue,
       sku: product.sku,
       collection: 'Bridal'
     };
 
-    setCartItems((prev) => {
-      const existing = prev.find((item) => item.lineId === lineId);
-      if (existing) {
-        return prev.map((item) =>
-          item.lineId === lineId ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      }
-      return [...prev, itemPayload];
-    });
+    const existing = cartItems.find((item) => item.lineId === lineId);
+    const nextItems = existing
+      ? cartItems.map((item) => (item.lineId === lineId ? { ...item, quantity: item.quantity + qty } : item))
+      : [...cartItems, itemPayload];
+    setCartItems(nextItems);
 
+    if (buyNow) {
+      // Save now: this page closes before its own save would run
+      persistCartItems(nextItems);
+      navigate('/viewcart');
+      return;
+    }
     setCartOpen(true);
   };
 
@@ -279,18 +282,29 @@ const BridalPro = () => {
 
           <div className="formal-pro-cta">
             <div className="formal-pro-quantity">
-              <button type="button" className="formal-qty-btn" aria-label="Decrease quantity">
+              <button
+                type="button"
+                className="formal-qty-btn"
+                aria-label="Decrease quantity"
+                onClick={() => setQty((value) => Math.max(1, value - 1))}
+                disabled={qty <= 1}
+              >
                 −
               </button>
-              <span className="formal-qty-value">1</span>
-              <button type="button" className="formal-qty-btn" aria-label="Increase quantity">
+              <span className="formal-qty-value">{qty}</span>
+              <button
+                type="button"
+                className="formal-qty-btn"
+                aria-label="Increase quantity"
+                onClick={() => setQty((value) => Math.min(20, value + 1))}
+              >
                 +
               </button>
             </div>
-            <button className="formal-primary-btn" type="button" onClick={handleOpenCart}>
+            <button className="formal-primary-btn" type="button" onClick={() => handleOpenCart()}>
               Add to Cart
             </button>
-            <button className="formal-secondary-btn" type="button">
+            <button className="formal-secondary-btn" type="button" onClick={() => handleOpenCart(true)}>
               Buy it now
             </button>
           </div>
