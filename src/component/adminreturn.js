@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import '../App.css';
 
 // Floating "Back to Admin" button on the website, shown only after the admin
-// opened the site with "View website" from the admin panel.
+// opened the site with "View website" from the admin panel (until they log out).
 export const ADMIN_VIEW_KEY = 'adminViewingSite';
 
 export const markAdminViewing = (on) => {
@@ -40,23 +40,15 @@ const AdminReturnButton = () => {
   }
 
   return (
-    <div className="admin-return">
-      <button type="button" className="admin-return-btn" onClick={() => navigate('/admin/orders')}>
-        ← Admin Panel
-      </button>
-      <button
-        type="button"
-        className="admin-return-close"
-        aria-label="Hide"
-        title="Hide"
-        onClick={() => {
-          markAdminViewing(false);
-          setShow(false);
-        }}
-      >
-        ×
-      </button>
-    </div>
+    <button type="button" className="admin-return" onClick={() => navigate('/admin/orders')}>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="7" height="9" rx="1.5" />
+        <rect x="14" y="3" width="7" height="5" rx="1.5" />
+        <rect x="14" y="12" width="7" height="9" rx="1.5" />
+        <rect x="3" y="16" width="7" height="5" rx="1.5" />
+      </svg>
+      Back to Admin
+    </button>
   );
 };
 
