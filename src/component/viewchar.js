@@ -72,8 +72,8 @@ const PAKISTAN_BANKS = [
 
 // Messages under each box when it's empty or wrong
 const FIELD_MESSAGES = {
-  email: 'Please enter your email.',
-  emailInvalid: 'Please enter a valid email, e.g. name@gmail.com.',
+  email: 'Please enter your email ID.',
+  emailInvalid: 'Please enter a valid email ID, e.g. name@gmail.com.',
   name: 'Please enter your name.',
   address: 'Please enter your address.',
   city: 'Please select your city.',
@@ -760,8 +760,8 @@ const ViewChar = () => {
                   </a>
                 </div>
                 <label className="viewchar-field">
-                  <span>Email</span>
-                  <input name="email" type="email" className={inputClass('email')} placeholder="Email" required />
+                  <span>Customer Email ID</span>
+                  <input name="email" type="email" className={inputClass('email')} placeholder="Enter your email ID, e.g. name@gmail.com" required />
                   {fieldError('email')}
                 </label>
                 <label className="viewchar-checkbox">
