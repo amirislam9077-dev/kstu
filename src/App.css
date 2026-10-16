@@ -7148,3 +7148,32 @@ a.collection-tagline:hover {
   border: 1px solid #eee;
   background: #f3f3f3;
 }
+
+/* Admin: result of the customer email after changing an order's status */
+.admin-notice {
+  margin: 12px 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #e6f4ea;
+  color: #1e7b34;
+  font-size: 13px;
+}
+
+.admin-notice,
+.admin-page > .admin-error {
+  position: relative;
+  padding-right: 36px;
+}
+
+.admin-notice-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  border: none;
+  background: none;
+  font-size: 18px;
+  line-height: 1;
+  color: inherit;
+  cursor: pointer;
+}
+

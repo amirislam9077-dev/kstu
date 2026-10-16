@@ -127,6 +127,7 @@ const AdminOrders = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [openOrder, setOpenOrder] = useState(null);
+  const [notice, setNotice] = useState(null); // result of the customer email after a status change
 
   const request = useCallback(
     async (path, init = {}, credentials = login) => {
@@ -260,7 +261,15 @@ const AdminOrders = () => {
 
   const changeStatus = async (orderId, status) => {
     try {
-      await request(`/admin/orders/${orderId}/status`, { method: 'PATCH', body: JSON.stringify({ status }) });
+      const result = await request(`/admin/orders/${orderId}/status`, { method: 'PATCH', body: JSON.stringify({ status }) });
+      const mail = result.customerEmail;
+      if (mail) {
+        setNotice(
+          mail.sent
+            ? { ok: true, text: `Order #${orderId} is ${status}. Email sent to ${mail.to}.` }
+            : { ok: false, text: `Order #${orderId} is ${status}, but the email to ${mail.to} could not be sent: ${mail.error}` }
+        );
+      }
       setData((prev) => prev && {
         ...prev,
         orders: prev.orders.map((order) => (order.id === orderId ? { ...order, status } : order))
@@ -390,6 +399,12 @@ const AdminOrders = () => {
       </form>
 
       {error && <p className="admin-error">{error}</p>}
+      {notice && (
+        <p className={notice.ok ? 'admin-notice' : 'admin-error'}>
+          {notice.text}
+          <button type="button" className="admin-notice-close" onClick={() => setNotice(null)} aria-label="Close">×</button>
+        </p>
+      )}
 
       {data && (
         <>
@@ -487,6 +502,7 @@ const AdminOrders = () => {
               </button>
             </div>
             <p className="admin-muted">{formatDate(openOrder.created_at)}</p>
+            {notice && <p className={notice.ok ? 'admin-notice' : 'admin-error'}>{notice.text}</p>}
 
             <dl className="admin-details">
               <dt>Name</dt>
