@@ -7464,3 +7464,114 @@ a.collection-tagline:hover {
     font-size: 13px;
   }
 }
+
+/* ===== Admin: Print / PDF of the orders list ===== */
+.admin-print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-print {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 12mm;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  .admin-sidebar,
+  .admin-main > *:not(.admin-print),
+  .admin-return {
+    display: none !important;
+  }
+
+  .admin-shell,
+  .admin-main {
+    display: block;
+    min-height: 0;
+    padding: 0;
+    background: #fff;
+  }
+
+  .admin-print {
+    display: block;
+    color: #000;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 11px;
+  }
+
+  .admin-print-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000;
+  }
+
+  .admin-print-brand {
+    font-size: 12px;
+    letter-spacing: 3px;
+  }
+
+  .admin-print h1 {
+    margin: 4px 0 2px;
+    font-size: 20px;
+  }
+
+  .admin-print-head p {
+    margin: 0;
+    color: #444;
+  }
+
+  .admin-print-meta {
+    text-align: right;
+    color: #444;
+  }
+
+  .admin-print table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .admin-print th,
+  .admin-print td {
+    padding: 6px 8px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .admin-print th {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1.5px solid #000;
+  }
+
+  .admin-print .num {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .admin-print small {
+    color: #555;
+  }
+
+  .admin-print tfoot td {
+    font-weight: 700;
+    border-top: 1.5px solid #000;
+    border-bottom: none;
+  }
+
+  .admin-print tr {
+    page-break-inside: avoid;
+  }
+}

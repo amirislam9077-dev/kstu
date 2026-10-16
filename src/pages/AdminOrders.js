@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { BACKEND_URL } from '../utils/api';
 import AdminDiscounts from './AdminDiscounts';
 import AdminReports from './AdminReports';
+import AdminPrint from './AdminPrint';
 import { markAdminViewing } from '../component/adminreturn';
 import { itemImage } from '../utils/productImages';
 import '../App.css';
@@ -132,7 +133,9 @@ const AdminOrders = () => {
   const [error, setError] = useState('');
   const [openOrder, setOpenOrder] = useState(null);
   const [view, setView] = useState('orders'); // orders | sales | products | collections | cities | discounts
-  const [notice, setNotice] = useState(null); // result of the customer email after a status change
+  const [notice, setNotice] = useState(null);
+  const [printSheet, setPrintSheet] = useState(null);
+  const [preparingPrint, setPreparingPrint] = useState(false); // result of the customer email after a status change
 
   const request = useCallback(
     async (path, init = {}, credentials = login) => {
@@ -168,6 +171,55 @@ const AdminOrders = () => {
     setData(null);
     setLoginError(message);
   }, []);
+
+  const printOrders = async () => {
+    setPreparingPrint(true);
+    setError('');
+    try {
+      const all = [];
+      for (let pageNo = 1; pageNo <= 50; pageNo += 1) {
+        const params = new URLSearchParams({ page: String(pageNo), pageSize: '100' });
+        Object.entries(appliedFilters).forEach(([name, value]) => {
+          if (value !== '') params.set(name, value);
+        });
+        const list = await request(`/admin/orders?${params.toString()}`);
+        all.push(...list.orders);
+        if (pageNo >= list.pages) break;
+      }
+      const f = appliedFilters;
+      const filtersText = [
+        f.search && `Search: ${f.search}`,
+        f.city && `City: ${f.city}`,
+        f.collection && `Collection: ${f.collection}`,
+        (f.from || f.to) && `Dates: ${f.from || '…'} to ${f.to || '…'}`,
+        f.minTotal && `Min: Rs.${f.minTotal}`,
+        f.maxTotal && `Max: Rs.${f.maxTotal}`
+      ].filter(Boolean).join(' · ');
+      setPrintSheet({
+        orders: all,
+        title: f.status ? `${STATUS_LABELS[f.status]} Orders` : 'All Orders',
+        filtersText
+      });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setPreparingPrint(false);
+    }
+  };
+
+  // Open the print dialog once the sheet is on the page; clear it afterwards
+  useEffect(() => {
+    if (!printSheet) {
+      return undefined;
+    }
+    const done = () => setPrintSheet(null);
+    window.addEventListener('afterprint', done);
+    const timer = window.setTimeout(() => window.print(), 50);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('afterprint', done);
+    };
+  }, [printSheet]);
 
   const loadOrders = useCallback(async () => {
     if (!login) {
@@ -410,12 +462,23 @@ const AdminOrders = () => {
       </aside>
 
       <section className="admin-page admin-main">
+      <AdminPrint sheet={printSheet} />
       {view === 'discounts' && <AdminDiscounts request={request} />}
       {['sales', 'products', 'collections', 'cities'].includes(view) && <AdminReports request={request} section={view} />}
       {view === 'orders' && (
       <>
       <div className="admin-topbar">
         <h1>{appliedFilters.status ? `${STATUS_LABELS[appliedFilters.status]} Orders` : 'All Orders'}</h1>
+        <div className="admin-topbar-actions">
+          <button type="button" className="admin-btn-dark admin-print-btn" onClick={printOrders} disabled={preparingPrint || !data}>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M6 9V2h12v7" />
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+              <rect x="6" y="14" width="12" height="8" />
+            </svg>
+            {preparingPrint ? 'Preparing…' : 'Print / PDF'}
+          </button>
+        </div>
       </div>
 
       <form className="admin-filters" onSubmit={applyFilters}>
