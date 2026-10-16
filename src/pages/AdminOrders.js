@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BACKEND_URL } from '../utils/api';
 import AdminDiscounts from './AdminDiscounts';
 import AdminReports from './AdminReports';
+import { markAdminViewing } from '../component/adminreturn';
 import { itemImage } from '../utils/productImages';
 import '../App.css';
 
@@ -108,6 +110,7 @@ const SlipImage = ({ orderId, login }) => {
 };
 
 const AdminOrders = () => {
+  const navigate = useNavigate();
   const [login, setLogin] = useState(readLogin);
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
@@ -159,6 +162,7 @@ const AdminOrders = () => {
   );
 
   const logOut = useCallback((message = '') => {
+    markAdminViewing(false);
     saveLogin(null);
     setLogin(null);
     setData(null);
@@ -386,7 +390,16 @@ const AdminOrders = () => {
         </nav>
 
         <div className="admin-nav-bottom">
-          <a className="admin-nav-link" href="/" target="_blank" rel="noreferrer">View website ↗</a>
+          <button
+            type="button"
+            className="admin-nav-link"
+            onClick={() => {
+              markAdminViewing(true);
+              navigate('/');
+            }}
+          >
+            View website ↗
+          </button>
           <button type="button" className="admin-nav-link" onClick={loadOrders} disabled={loading}>
             {loading ? 'Refreshing…' : 'Refresh'}
           </button>

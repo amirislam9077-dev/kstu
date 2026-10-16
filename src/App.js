@@ -29,6 +29,7 @@ import PartyPro from './component/partypro';
 import { collections, CollectionPage, CollectionProductPage } from './pages/CollectionPage';
 import AdminOrders from './pages/AdminOrders';
 import TikTokPage from './pages/TikTokPage';
+import AdminReturnButton from './component/adminreturn';
 
 const ScrollToTop = () => {
   const location = useLocation();
@@ -91,6 +92,7 @@ function App() {
       <ScrollToTop />
       {/* The admin panel has its own side menu */}
       {!location.pathname.startsWith('/admin') && <Navbar />}
+      <AdminReturnButton />
       <main className="main-content">
         <Routes>
           <Route path="/" element={<HomePage />} />
