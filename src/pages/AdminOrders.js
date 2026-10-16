@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { BACKEND_URL } from '../utils/api';
 import AdminDiscounts from './AdminDiscounts';
+import { itemImage } from '../utils/productImages';
 import '../App.css';
 
 // Admin page: lists saved orders from the MySQL database with filters, order
@@ -544,8 +545,19 @@ const AdminOrders = () => {
                 {openOrder.items.map((item) => (
                   <tr key={item.id}>
                     <td>
-                      <div>{item.title}</div>
-                      <div className="admin-muted">{[item.collection, item.sku].filter(Boolean).join(' · ')}</div>
+                      <div className="admin-item">
+                        {itemImage(item) ? (
+                          <a href={itemImage(item)} target="_blank" rel="noreferrer" title="Open picture">
+                            <img className="admin-item-img" src={itemImage(item)} alt={item.title} loading="lazy" />
+                          </a>
+                        ) : (
+                          <span className="admin-item-img admin-item-img--empty" aria-hidden="true" />
+                        )}
+                        <div>
+                          <div>{item.title}</div>
+                          <div className="admin-muted">{[item.collection, item.sku].filter(Boolean).join(' · ')}</div>
+                        </div>
+                      </div>
                     </td>
                     <td>{item.size || '-'}</td>
                     <td>{item.quantity}</td>

@@ -578,7 +578,8 @@ const ViewChar = () => {
           price: item.price,
           size: item.size,
           sku: item.sku,
-          collection: item.collection
+          collection: item.collection,
+          image: item.image
         })),
         subtotal
       };
