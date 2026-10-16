@@ -549,9 +549,9 @@ const AdminOrders = () => {
                   <th>Order #</th>
                   <th>Date</th>
                   <th>Customer</th>
-                  <th>City</th>
-                  <th>Items</th>
-                  <th>Collections</th>
+                  <th>Address</th>
+                  <th>Products</th>
+                  <th>Payment</th>
                   <th>Total</th>
                   <th>Status</th>
                   <th />
@@ -566,14 +566,30 @@ const AdminOrders = () => {
                 {data.orders.map((order) => (
                   <tr key={order.id}>
                     <td>#{order.id}</td>
-                    <td>{formatDate(order.created_at)}</td>
-                    <td>
+                    <td className="admin-cell-date">{formatDate(order.created_at)}</td>
+                    <td className="admin-cell-customer">
                       <div className="admin-customer">{order.customer_name}</div>
-                      <div className="admin-muted">{order.phone}</div>
+                      <a className="admin-muted admin-contact" href={`tel:${order.phone}`}>{order.phone}</a>
+                      <a className="admin-muted admin-contact" href={`mailto:${order.email}`}>{order.email}</a>
                     </td>
-                    <td>{order.city}</td>
-                    <td>{order.item_count}</td>
-                    <td className="admin-muted">{order.collections || '-'}</td>
+                    <td className="admin-cell-address">
+                      <div>{order.address}</div>
+                      <div className="admin-muted">{[order.city, order.country].filter(Boolean).join(', ')}</div>
+                      {order.remarks && <div className="admin-remarks" title="Remarks">“{order.remarks}”</div>}
+                    </td>
+                    <td className="admin-cell-products">
+                      {(order.products || '').split('\n').filter(Boolean).map((line) => (
+                        <div key={line}>{line}</div>
+                      ))}
+                      <div className="admin-muted">{order.collections || ''}</div>
+                    </td>
+                    <td className="admin-cell-payment">
+                      <div>{order.bank_name || '-'}</div>
+                      {order.reference_no && <div className="admin-muted">Ref: {order.reference_no}</div>}
+                      <div className={order.has_slip ? 'admin-slip-yes' : 'admin-slip-no'}>
+                        {order.has_slip ? '✓ Slip attached' : 'No slip'}
+                      </div>
+                    </td>
                     <td className="admin-money">{formatMoney(order.subtotal)}</td>
                     <td>
                       <select

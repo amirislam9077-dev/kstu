@@ -7575,3 +7575,107 @@ a.collection-tagline:hover {
     page-break-inside: avoid;
   }
 }
+
+/* Admin orders table: more customer, address, product and payment detail */
+.admin-contact {
+  display: block;
+  color: #888;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.admin-contact:hover {
+  color: #111;
+  text-decoration: underline;
+}
+
+.admin-cell-customer {
+  min-width: 170px;
+}
+
+.admin-cell-address {
+  min-width: 170px;
+  max-width: 230px;
+}
+
+.admin-cell-products {
+  min-width: 200px;
+  max-width: 280px;
+}
+
+.admin-cell-products > div + div {
+  margin-top: 3px;
+}
+
+.admin-cell-payment {
+  min-width: 140px;
+}
+
+.admin-remarks {
+  margin-top: 4px;
+  font-size: 12px;
+  font-style: italic;
+  color: #8a5a00;
+}
+
+.admin-slip-yes {
+  margin-top: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1e7b34;
+}
+
+.admin-slip-no {
+  margin-top: 3px;
+  font-size: 12px;
+  color: #b3261e;
+}
+
+.admin-cell-date {
+  min-width: 108px;
+}
+
+.admin-contact {
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Keep the side menu in place while the orders list scrolls
+   (sticky doesn't work here because the page wrapper hides overflow) */
+@media (min-width: 901px) {
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 240px;
+    z-index: 20;
+  }
+
+  .admin-main {
+    margin-left: 240px;
+  }
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 12px 10px;
+}
+
+.admin-cell-products {
+  min-width: 180px;
+  max-width: 230px;
+}
+
+.admin-cell-address {
+  min-width: 140px;
+  max-width: 190px;
+}
+
+.admin-cell-customer {
+  min-width: 150px;
+}
+
+.admin-cell-payment {
+  min-width: 120px;
+}

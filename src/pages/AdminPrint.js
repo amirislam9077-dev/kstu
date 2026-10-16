@@ -47,9 +47,9 @@ const AdminPrint = ({ sheet }) => {
             <th>Order #</th>
             <th>Date</th>
             <th>Customer</th>
-            <th>City</th>
-            <th>Items</th>
-            <th>Collections</th>
+            <th>Address</th>
+            <th>Products</th>
+            <th>Payment</th>
             <th className="num">Total</th>
             <th>Status</th>
           </tr>
@@ -63,10 +63,36 @@ const AdminPrint = ({ sheet }) => {
                 {order.customer_name}
                 <br />
                 <small>{order.phone}</small>
+                <br />
+                <small>{order.email}</small>
               </td>
-              <td>{order.city}</td>
-              <td>{order.item_count}</td>
-              <td>{order.collections || '-'}</td>
+              <td>
+                {order.address}
+                <br />
+                <small>{[order.city, order.country].filter(Boolean).join(', ')}</small>
+                {order.remarks && (
+                  <>
+                    <br />
+                    <small>Remarks: {order.remarks}</small>
+                  </>
+                )}
+              </td>
+              <td>
+                {(order.products || '').split('\n').filter(Boolean).map((line) => (
+                  <div key={line}>{line}</div>
+                ))}
+              </td>
+              <td>
+                {order.bank_name || '-'}
+                {order.reference_no && (
+                  <>
+                    <br />
+                    <small>Ref: {order.reference_no}</small>
+                  </>
+                )}
+                <br />
+                <small>{order.has_slip ? 'Slip attached' : 'No slip'}</small>
+              </td>
               <td className="num">{money(order.subtotal)}</td>
               <td>{STATUS_LABELS[order.status] || order.status}</td>
             </tr>
