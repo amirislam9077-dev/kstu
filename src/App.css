@@ -7420,3 +7420,10 @@ a.collection-tagline:hover {
     min-height: 0;
   }
 }
+
+/* Cart / checkout heading below the fixed menu bar on computers */
+@media (min-width: 1200px) {
+  .viewchar-page {
+    padding-top: 110px;
+  }
+}
