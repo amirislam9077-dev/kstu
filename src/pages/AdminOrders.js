@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { BACKEND_URL } from '../utils/api';
 import AdminDiscounts from './AdminDiscounts';
+import AdminReports from './AdminReports';
 import { itemImage } from '../utils/productImages';
 import '../App.css';
 
@@ -127,6 +128,7 @@ const AdminOrders = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [openOrder, setOpenOrder] = useState(null);
+  const [view, setView] = useState('orders'); // orders | sales | products | collections | cities | discounts
   const [notice, setNotice] = useState(null); // result of the customer email after a status change
 
   const request = useCallback(
@@ -326,36 +328,81 @@ const AdminOrders = () => {
   const statusCounts = options.statusCounts || {};
   const allCount = Object.values(statusCounts).reduce((sum, count) => sum + count, 0);
 
+  const orderLinks = [['', 'All Orders', allCount], ...Object.entries(STATUS_LABELS).map(([value, label]) => [value, label, statusCounts[value] || 0])];
+  const reportLinks = [
+    ['sales', 'Sales Report'],
+    ['products', 'Top Products'],
+    ['collections', 'By Collection'],
+    ['cities', 'By City']
+  ];
+  const showOrders = (status) => {
+    setView('orders');
+    showStatus(status);
+  };
+
   return (
-    <section className="admin-page">
-      <div className="admin-topbar">
-        <h1>Orders</h1>
-        <div className="admin-topbar-actions">
-          <button type="button" className="admin-btn-light" onClick={loadOrders} disabled={loading}>
-            {loading ? 'Loading…' : 'Refresh'}
+    <div className="admin-shell">
+      <aside className="admin-sidebar" aria-label="Admin menu">
+        <div className="admin-brand">
+          KHURRAM STUDIO
+          <span>Admin</span>
+        </div>
+
+        <nav className="admin-nav">
+          <p className="admin-nav-title">Orders</p>
+          {orderLinks.map(([status, label, count]) => (
+            <button
+              type="button"
+              key={status || 'all'}
+              className={`admin-nav-link${view === 'orders' && appliedFilters.status === status ? ' active' : ''}`}
+              onClick={() => showOrders(status)}
+            >
+              {status && <span className={`admin-dot admin-dot--${status}`} aria-hidden="true" />}
+              {label}
+              <span className="admin-nav-count">{count}</span>
+            </button>
+          ))}
+
+          <p className="admin-nav-title">Reports</p>
+          {reportLinks.map(([key, label]) => (
+            <button
+              type="button"
+              key={key}
+              className={`admin-nav-link${view === key ? ' active' : ''}`}
+              onClick={() => setView(key)}
+            >
+              {label}
+            </button>
+          ))}
+
+          <p className="admin-nav-title">Settings</p>
+          <button
+            type="button"
+            className={`admin-nav-link${view === 'discounts' ? ' active' : ''}`}
+            onClick={() => setView('discounts')}
+          >
+            Sale Discounts
           </button>
-          <button type="button" className="admin-btn-light" onClick={() => logOut()}>
+        </nav>
+
+        <div className="admin-nav-bottom">
+          <a className="admin-nav-link" href="/" target="_blank" rel="noreferrer">View website ↗</a>
+          <button type="button" className="admin-nav-link" onClick={loadOrders} disabled={loading}>
+            {loading ? 'Refreshing…' : 'Refresh'}
+          </button>
+          <button type="button" className="admin-nav-link admin-nav-logout" onClick={() => logOut()}>
             Log out
           </button>
         </div>
-      </div>
+      </aside>
 
-      <AdminDiscounts request={request} />
-
-      <div className="admin-status-tabs">
-        <button type="button" className={appliedFilters.status === '' ? 'active' : ''} onClick={() => showStatus('')}>
-          All <span>{allCount}</span>
-        </button>
-        {Object.entries(STATUS_LABELS).map(([value, label]) => (
-          <button
-            type="button"
-            key={value}
-            className={appliedFilters.status === value ? 'active' : ''}
-            onClick={() => showStatus(value)}
-          >
-            {label} <span>{statusCounts[value] || 0}</span>
-          </button>
-        ))}
+      <section className="admin-page admin-main">
+      {view === 'discounts' && <AdminDiscounts request={request} />}
+      {['sales', 'products', 'collections', 'cities'].includes(view) && <AdminReports request={request} section={view} />}
+      {view === 'orders' && (
+      <>
+      <div className="admin-topbar">
+        <h1>{appliedFilters.status ? `${STATUS_LABELS[appliedFilters.status]} Orders` : 'All Orders'}</h1>
       </div>
 
       <form className="admin-filters" onSubmit={applyFilters}>
@@ -492,6 +539,9 @@ const AdminOrders = () => {
         </>
       )}
 
+      </>
+      )}
+
       {openOrder && (
         <div className="admin-drawer-backdrop" onClick={() => setOpenOrder(null)} role="presentation">
           <aside className="admin-drawer" onClick={(event) => event.stopPropagation()} aria-label="Order details">
@@ -590,7 +640,8 @@ const AdminOrders = () => {
           </aside>
         </div>
       )}
-    </section>
+      </section>
+    </div>
   );
 };
 

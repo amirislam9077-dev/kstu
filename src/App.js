@@ -89,7 +89,8 @@ function App() {
   return (
     <div className="App">
       <ScrollToTop />
-      <Navbar />
+      {/* The admin panel has its own side menu */}
+      {!location.pathname.startsWith('/admin') && <Navbar />}
       <main className="main-content">
         <Routes>
           <Route path="/" element={<HomePage />} />
