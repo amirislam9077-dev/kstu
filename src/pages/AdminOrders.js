@@ -4,6 +4,7 @@ import { BACKEND_URL } from '../utils/api';
 import AdminDiscounts from './AdminDiscounts';
 import AdminReports from './AdminReports';
 import AdminPrint from './AdminPrint';
+import AdminStats from './AdminStats';
 import { markAdminViewing } from '../component/adminreturn';
 import { itemImage } from '../utils/productImages';
 import '../App.css';
@@ -400,8 +401,11 @@ const AdminOrders = () => {
     <div className="admin-shell">
       <aside className="admin-sidebar" aria-label="Admin menu">
         <div className="admin-brand">
-          KHURRAM STUDIO
-          <span>Admin</span>
+          <span className="admin-brand-logo">KS</span>
+          <div>
+            <strong>Khurram Studio</strong>
+            <span>Admin Panel</span>
+          </div>
         </div>
 
         <nav className="admin-nav">
@@ -468,7 +472,13 @@ const AdminOrders = () => {
       {view === 'orders' && (
       <>
       <div className="admin-topbar">
-        <h1>{appliedFilters.status ? `${STATUS_LABELS[appliedFilters.status]} Orders` : 'All Orders'}</h1>
+        <div>
+          <p className="admin-eyebrow">Dashboard</p>
+          <h1>{appliedFilters.status ? `${STATUS_LABELS[appliedFilters.status]} Orders` : 'All Orders'}</h1>
+          <p className="admin-subtitle">
+            {new Date().toLocaleDateString('en-PK', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+          </p>
+        </div>
         <div className="admin-topbar-actions">
           <button type="button" className="admin-btn-dark admin-print-btn" onClick={printOrders} disabled={preparingPrint || !data}>
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -481,6 +491,9 @@ const AdminOrders = () => {
         </div>
       </div>
 
+      {data && <AdminStats request={request} statusCounts={statusCounts} refreshKey={JSON.stringify(statusCounts)} />}
+
+      <h2 className="admin-section-title">Orders list</h2>
       <form className="admin-filters" onSubmit={applyFilters}>
         <input
           className="admin-filter-search"
