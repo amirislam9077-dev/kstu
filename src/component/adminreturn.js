@@ -3,15 +3,23 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import '../App.css';
 
 // Floating "Back to Admin" button on the website, shown only after the admin
-// opened the site with "View website" from the admin panel (until they log out).
+// opened the site with "View website" from the admin panel, in that tab only.
+// A normal visit (new tab, typed address, customers) never shows it.
 export const ADMIN_VIEW_KEY = 'adminViewingSite';
+
+// Older versions kept this for the whole browser; clear that leftover once
+try {
+  window.localStorage.removeItem(ADMIN_VIEW_KEY);
+} catch (error) {
+  // storage blocked
+}
 
 export const markAdminViewing = (on) => {
   try {
     if (on) {
-      window.localStorage.setItem(ADMIN_VIEW_KEY, '1');
+      window.sessionStorage.setItem(ADMIN_VIEW_KEY, '1');
     } else {
-      window.localStorage.removeItem(ADMIN_VIEW_KEY);
+      window.sessionStorage.removeItem(ADMIN_VIEW_KEY);
     }
   } catch (error) {
     // storage blocked: the button just won't show
@@ -20,7 +28,7 @@ export const markAdminViewing = (on) => {
 
 const isAdminViewing = () => {
   try {
-    return window.localStorage.getItem(ADMIN_VIEW_KEY) === '1';
+    return window.sessionStorage.getItem(ADMIN_VIEW_KEY) === '1';
   } catch (error) {
     return false;
   }
