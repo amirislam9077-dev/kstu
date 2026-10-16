@@ -5,6 +5,7 @@ import AdminDiscounts from './AdminDiscounts';
 import AdminReports from './AdminReports';
 import AdminPrint from './AdminPrint';
 import AdminStats from './AdminStats';
+import AdminScale from './AdminScale';
 import { markAdminViewing } from '../component/adminreturn';
 import { itemImage } from '../utils/productImages';
 import '../App.css';
@@ -387,6 +388,7 @@ const AdminOrders = () => {
 
   const orderLinks = [['', 'All Orders', allCount], ...Object.entries(STATUS_LABELS).map(([value, label]) => [value, label, statusCounts[value] || 0])];
   const reportLinks = [
+    ['scale', 'Scale'],
     ['sales', 'Sales Report'],
     ['products', 'Top Products'],
     ['collections', 'By Collection'],
@@ -468,6 +470,7 @@ const AdminOrders = () => {
       <section className="admin-page admin-main">
       <AdminPrint sheet={printSheet} />
       {view === 'discounts' && <AdminDiscounts request={request} />}
+      {view === 'scale' && <AdminScale request={request} />}
       {['sales', 'products', 'collections', 'cities'].includes(view) && <AdminReports request={request} section={view} />}
       {view === 'orders' && (
       <>

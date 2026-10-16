@@ -7913,3 +7913,173 @@ a.collection-tagline:hover {
   font-size: 11px;
   letter-spacing: 2.5px;
 }
+
+/* ===== Admin: Scale (sales bar charts) ===== */
+.scale-card {
+  margin-top: 14px;
+  overflow: visible;
+}
+
+.scale-card h3 {
+  margin-bottom: 14px;
+}
+
+.scale-chart {
+  display: flex;
+  gap: 8px;
+}
+
+.scale-yaxis {
+  position: relative;
+  height: calc(var(--chart-h) + 22px);
+  min-width: 38px;
+  font-size: 11px;
+  color: #999;
+}
+
+.scale-yaxis span {
+  position: absolute;
+  right: 0;
+  transform: translateY(50%);
+}
+
+.scale-plot {
+  position: relative;
+  flex: 1;
+  height: calc(var(--chart-h) + 22px);
+}
+
+.scale-grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #eee;
+}
+
+.scale-bars {
+  position: absolute;
+  inset: 0 0 0 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.scale-bar-slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  padding-bottom: 22px;
+  box-sizing: border-box;
+  cursor: default;
+  outline: none;
+}
+
+.scale-bar-slot.is-hover,
+.scale-bar-slot:focus-visible {
+  background: rgba(0, 0, 0, 0.035);
+  border-radius: 6px 6px 0 0;
+}
+
+.scale-bar {
+  width: 70%;
+  max-width: 34px;
+  min-height: 0;
+  border-radius: 4px 4px 0 0;
+  background: #2f6fdb;
+  transition: height 0.4s ease;
+}
+
+.scale-bar-slot.is-hover .scale-bar {
+  background: #1a4fae;
+}
+
+.scale-bar-value {
+  margin-bottom: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #333;
+}
+
+.scale-xlabel {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: #777;
+  white-space: nowrap;
+}
+
+.scale-tooltip {
+  position: absolute;
+  top: 0;
+  z-index: 5;
+  display: grid;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #111;
+  color: #fff;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translateX(-50%);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.scale-tooltip-note {
+  color: #bbb;
+  font-size: 11px;
+}
+
+.scale-table {
+  margin-top: 14px;
+}
+
+.scale-table summary {
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #333;
+}
+
+.scale-hbars {
+  display: grid;
+  gap: 12px;
+}
+
+.scale-hbar-row {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.scale-hbar-label {
+  color: #333;
+}
+
+.scale-hbar-track {
+  height: 14px;
+  border-radius: 4px;
+  background: #f1f1f1;
+  overflow: hidden;
+}
+
+.scale-hbar {
+  display: block;
+  height: 100%;
+  border-radius: 0 4px 4px 0;
+  background: #2f6fdb;
+}
+
+.scale-hbar-value {
+  font-weight: 600;
+  white-space: nowrap;
+}
