@@ -14,6 +14,9 @@ import '../App.css';
 // details and status updates. The admin login is kept for this browser tab only.
 
 const KEY_STORAGE = 'adminOrdersKey';
+
+// Khurram Studio accounts page: paste its link here (or set REACT_APP_ACCOUNTS_URL)
+const ACCOUNTS_URL = process.env.REACT_APP_ACCOUNTS_URL || '';
 const STATUS_LABELS = {
   new: 'New',
   confirmed: 'Confirmed',
@@ -458,6 +461,15 @@ const AdminOrders = () => {
           >
             View website ↗
           </button>
+          {ACCOUNTS_URL ? (
+            <a className="admin-nav-link admin-nav-accounts" href={ACCOUNTS_URL} target="_blank" rel="noreferrer">
+              Khurram Studio Accounts ↗
+            </a>
+          ) : (
+            <button type="button" className="admin-nav-link admin-nav-accounts" disabled title="Link coming soon">
+              Khurram Studio Accounts
+            </button>
+          )}
           <button type="button" className="admin-nav-link" onClick={loadOrders} disabled={loading}>
             {loading ? 'Refreshing…' : 'Refresh'}
           </button>
