@@ -8,7 +8,16 @@ import AdminStats from './AdminStats';
 import AdminScale from './AdminScale';
 import AdminPassword from './AdminPassword';
 import { markAdminViewing } from '../component/adminreturn';
-import { ACCOUNTS_URL, askOpenerForLogin, readLogin, saveLogin } from '../utils/adminLogin';
+import {
+  ACCOUNTS_URL,
+  askOpenerForLogin,
+  loggedInByHand,
+  logOutEverywhere,
+  openAccounts,
+  readLogin,
+  saveLogin,
+  setLoggedOutHandler
+} from '../utils/adminLogin';
 import { itemImage } from '../utils/productImages';
 import '../App.css';
 
@@ -166,6 +175,17 @@ const AdminOrders = () => {
     setLoginError(message);
   }, []);
 
+  // The Log out button: also logs out the accounts tabs connected to this one
+  const logOutButton = () => {
+    logOutEverywhere();
+    logOut();
+  };
+
+  // Logged out from the accounts app
+  useEffect(() => {
+    setLoggedOutHandler(() => logOut());
+  }, [logOut]);
+
   const printOrders = async () => {
     setPreparingPrint(true);
     setError('');
@@ -275,6 +295,7 @@ const AdminOrders = () => {
       }
       if (lastError) throw lastError;
       saveLogin(credentials);
+      loggedInByHand();
       setLogin(credentials);
       setPasswordInput('');
     } catch (err) {
@@ -355,6 +376,7 @@ const AdminOrders = () => {
             setEmailInput(credentials.email);
             setLoginError('');
             saveLogin(credentials);
+            loggedInByHand();
             setLogin(credentials);
           }}
         />
@@ -479,7 +501,7 @@ const AdminOrders = () => {
             View website ↗
           </button>
           {ACCOUNTS_URL ? (
-            <button type="button" className="admin-nav-link admin-nav-accounts" onClick={() => window.open(ACCOUNTS_URL, '_blank')}>
+            <button type="button" className="admin-nav-link admin-nav-accounts" onClick={() => openAccounts()}>
               Khurram Studio Accounts ↗
             </button>
           ) : (
@@ -490,7 +512,7 @@ const AdminOrders = () => {
           <button type="button" className="admin-nav-link" onClick={loadOrders} disabled={loading}>
             {loading ? 'Refreshing…' : 'Refresh'}
           </button>
-          <button type="button" className="admin-nav-link admin-nav-logout" onClick={() => logOut()}>
+          <button type="button" className="admin-nav-link admin-nav-logout" onClick={logOutButton}>
             Log out
           </button>
         </div>
