@@ -6,14 +6,14 @@ import AdminReports from './AdminReports';
 import AdminPrint from './AdminPrint';
 import AdminStats from './AdminStats';
 import AdminScale from './AdminScale';
-import { ACCOUNTS_URL, markAdminViewing } from '../component/adminreturn';
+import { markAdminViewing } from '../component/adminreturn';
+import { ACCOUNTS_URL, askOpenerForLogin, readLogin, saveLogin } from '../utils/adminLogin';
 import { itemImage } from '../utils/productImages';
 import '../App.css';
 
 // Admin page: lists saved orders from the MySQL database with filters, order
 // details and status updates. The admin login is kept for this browser tab only.
 
-const KEY_STORAGE = 'adminOrdersKey';
 
 const STATUS_LABELS = {
   new: 'New',
@@ -47,26 +47,6 @@ const formatDate = (value) => {
     : date.toLocaleString('en-PK', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 };
 
-const readLogin = () => {
-  try {
-    const saved = JSON.parse(window.sessionStorage.getItem(KEY_STORAGE) || 'null');
-    return saved && saved.email && saved.password ? saved : null;
-  } catch (error) {
-    return null;
-  }
-};
-
-const saveLogin = (value) => {
-  try {
-    if (value) {
-      window.sessionStorage.setItem(KEY_STORAGE, JSON.stringify(value));
-    } else {
-      window.sessionStorage.removeItem(KEY_STORAGE);
-    }
-  } catch (error) {
-    // storage blocked; the login just won't survive a reload
-  }
-};
 
 // The slip needs the admin login headers, so it's fetched and shown from a local blob URL
 const SlipImage = ({ orderId, login }) => {
@@ -127,6 +107,15 @@ const AdminOrders = () => {
   useEffect(() => {
     fetch(`${BACKEND_URL}/`).catch(() => {});
   }, []);
+
+  // Opened from the accounts app: use its login instead of asking again
+  useEffect(() => {
+    if (login) return undefined;
+    return askOpenerForLogin((credentials) => {
+      saveLogin(credentials);
+      setLogin(credentials);
+    });
+  }, [login]);
   const [filters, setFilters] = useState(EMPTY_FILTERS);
   const [appliedFilters, setAppliedFilters] = useState(EMPTY_FILTERS);
   const [page, setPage] = useState(1);
@@ -460,7 +449,7 @@ const AdminOrders = () => {
             View website ↗
           </button>
           {ACCOUNTS_URL ? (
-            <a className="admin-nav-link admin-nav-accounts" href={ACCOUNTS_URL} target="_blank" rel="noreferrer">
+            <a className="admin-nav-link admin-nav-accounts" href={ACCOUNTS_URL} target="_blank" rel="opener">
               Khurram Studio Accounts ↗
             </a>
           ) : (

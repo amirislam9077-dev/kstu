@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ACCOUNTS_URL } from '../utils/adminLogin';
 import '../App.css';
 
 // Floating "Back to Admin" / "Back to Accounts" buttons (from the accounts app both show) on the website, shown
@@ -10,7 +11,7 @@ export const ADMIN_VIEW_KEY = 'adminViewingSite';
 const ACCOUNTS_VIEW_KEY = 'accountsViewingSite';
 
 // Khurram Studio accounts app (its "Go to Website Page" opens the site with ?from=accounts)
-export const ACCOUNTS_URL = process.env.REACT_APP_ACCOUNTS_URL || 'https://shopaccount-one.vercel.app';
+export { ACCOUNTS_URL };
 
 // Older versions kept this for the whole browser; clear that leftover once
 try {
