@@ -449,9 +449,9 @@ const AdminOrders = () => {
             View website ↗
           </button>
           {ACCOUNTS_URL ? (
-            <a className="admin-nav-link admin-nav-accounts" href={ACCOUNTS_URL} target="_blank" rel="opener">
+            <button type="button" className="admin-nav-link admin-nav-accounts" onClick={() => window.open(ACCOUNTS_URL, '_blank')}>
               Khurram Studio Accounts ↗
-            </a>
+            </button>
           ) : (
             <button type="button" className="admin-nav-link admin-nav-accounts" disabled title="Link coming soon">
               Khurram Studio Accounts
