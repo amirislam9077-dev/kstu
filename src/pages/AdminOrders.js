@@ -6,6 +6,7 @@ import AdminReports from './AdminReports';
 import AdminPrint from './AdminPrint';
 import AdminStats from './AdminStats';
 import AdminScale from './AdminScale';
+import AdminPassword from './AdminPassword';
 import { markAdminViewing } from '../component/adminreturn';
 import { ACCOUNTS_URL, askOpenerForLogin, readLogin, saveLogin } from '../utils/adminLogin';
 import { itemImage } from '../utils/productImages';
@@ -101,6 +102,7 @@ const AdminOrders = () => {
   const [loginError, setLoginError] = useState('');
   const [loggingIn, setLoggingIn] = useState(false);
   const [slowServer, setSlowServer] = useState(false);
+  const [passwordMode, setPasswordMode] = useState(''); // '' | 'change' | 'forgot'
 
   // The free server sleeps when idle and takes up to ~1 minute to wake.
   // Start waking it as soon as this page opens.
@@ -340,6 +342,26 @@ const AdminOrders = () => {
     }
   };
 
+  if (!login && passwordMode) {
+    return (
+      <section className="admin-page admin-login">
+        <AdminPassword
+          mode={passwordMode}
+          initialEmail={emailInput}
+          onBack={() => setPasswordMode('')}
+          onChanged={(credentials) => {
+            // log straight in with the new password
+            setPasswordMode('');
+            setEmailInput(credentials.email);
+            setLoginError('');
+            saveLogin(credentials);
+            setLogin(credentials);
+          }}
+        />
+      </section>
+    );
+  }
+
   if (!login) {
     return (
       <section className="admin-page admin-login">
@@ -368,6 +390,14 @@ const AdminOrders = () => {
           <button type="submit" disabled={loggingIn}>
             {loggingIn ? 'Logging in…' : 'Log in'}
           </button>
+          <div className="admin-login-links">
+            <button type="button" className="admin-login-link" onClick={() => setPasswordMode('forgot')}>
+              Forgot password?
+            </button>
+            <button type="button" className="admin-login-link" onClick={() => setPasswordMode('change')}>
+              Change password
+            </button>
+          </div>
         </form>
       </section>
     );

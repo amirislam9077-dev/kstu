@@ -8121,3 +8121,31 @@ a.collection-tagline:hover {
   white-space: nowrap;
   font-size: 12.5px;
 }
+
+/* ===== Admin login: Forgot / Change password ===== */
+.admin-login-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.admin-login-card button.admin-login-link {
+  padding: 4px 0;
+  background: none;
+  color: #1a1a1a;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.admin-login-card button.admin-login-link:hover {
+  color: #c62828;
+}
+
+.admin-login-card .admin-login-note {
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: #e8f5e9;
+  color: #1b5e20;
+}
