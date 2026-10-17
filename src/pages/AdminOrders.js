@@ -16,7 +16,7 @@ import '../App.css';
 const KEY_STORAGE = 'adminOrdersKey';
 
 // Khurram Studio accounts page: paste its link here (or set REACT_APP_ACCOUNTS_URL)
-const ACCOUNTS_URL = process.env.REACT_APP_ACCOUNTS_URL || '';
+const ACCOUNTS_URL = process.env.REACT_APP_ACCOUNTS_URL || 'https://shopaccount-one.vercel.app';
 const STATUS_LABELS = {
   new: 'New',
   confirmed: 'Confirmed',
