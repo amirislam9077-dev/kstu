@@ -6,7 +6,7 @@ import AdminReports from './AdminReports';
 import AdminPrint from './AdminPrint';
 import AdminStats from './AdminStats';
 import AdminScale from './AdminScale';
-import { markAdminViewing } from '../component/adminreturn';
+import { ACCOUNTS_URL, markAdminViewing } from '../component/adminreturn';
 import { itemImage } from '../utils/productImages';
 import '../App.css';
 
@@ -15,8 +15,6 @@ import '../App.css';
 
 const KEY_STORAGE = 'adminOrdersKey';
 
-// Khurram Studio accounts page: paste its link here (or set REACT_APP_ACCOUNTS_URL)
-const ACCOUNTS_URL = process.env.REACT_APP_ACCOUNTS_URL || 'https://shopaccount-one.vercel.app';
 const STATUS_LABELS = {
   new: 'New',
   confirmed: 'Confirmed',

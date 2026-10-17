@@ -7428,12 +7428,19 @@ a.collection-tagline:hover {
   }
 }
 
-/* "Back to Admin" on the website after "View website" from the admin panel */
-.admin-return {
+/* "Back to Admin" / "Back to Accounts" on the website, opened from the admin panel or accounts app */
+.site-returns {
   position: fixed;
   left: 20px;
   bottom: 20px;
   z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.admin-return {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -7457,9 +7464,12 @@ a.collection-tagline:hover {
 }
 
 @media (max-width: 480px) {
-  .admin-return {
+  .site-returns {
     left: 12px;
     bottom: 12px;
+  }
+
+  .admin-return {
     padding: 11px 16px 11px 14px;
     font-size: 13px;
   }
@@ -7488,7 +7498,8 @@ a.collection-tagline:hover {
 
   .admin-sidebar,
   .admin-main > *:not(.admin-print),
-  .admin-return {
+  .admin-return,
+  .site-returns {
     display: none !important;
   }
 
