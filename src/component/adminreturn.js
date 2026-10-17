@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../App.css';
 
-// Floating "Back to Admin" / "Back to Accounts" buttons on the website, shown
+// Floating "Back to Admin" / "Back to Accounts" buttons (from the accounts app both show) on the website, shown
 // only when the admin opened the site from the admin panel or from the
 // Khurram Studio Accounts app, in that tab only.
 // A normal visit (new tab, typed address, customers) never shows them.
@@ -80,7 +80,7 @@ const AdminReturnButton = () => {
           Back to Accounts
         </button>
       )}
-      {admin && (
+      {(admin || accounts) && (
         <button type="button" className="admin-return" onClick={() => navigate('/admin/orders')}>
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <rect x="3" y="3" width="7" height="9" rx="1.5" />
