@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 
@@ -20,6 +20,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [pendingScroll, setPendingScroll] = useState(null);
+  const menuBtnRef = useRef(null);
+  const flyoutRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,6 +52,34 @@ const Navbar = () => {
     window.addEventListener('keydown', closeOnEscape);
     return () => window.removeEventListener('keydown', closeOnEscape);
   }, []);
+
+  // Close the menu on a tap outside it, on scroll and when the page changes
+  useEffect(() => {
+    if (!menuOpen) {
+      return undefined;
+    }
+
+    const closeOnOutsideTap = (event) => {
+      if (flyoutRef.current?.contains(event.target) || menuBtnRef.current?.contains(event.target)) {
+        return;
+      }
+      setMenuOpen(false);
+    };
+    const close = () => setMenuOpen(false);
+
+    document.addEventListener('pointerdown', closeOnOutsideTap);
+    window.addEventListener('scroll', close);
+    window.addEventListener('fullpage:change', close);
+    return () => {
+      document.removeEventListener('pointerdown', closeOnOutsideTap);
+      window.removeEventListener('scroll', close);
+      window.removeEventListener('fullpage:change', close);
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (!pendingScroll) {
@@ -126,6 +156,7 @@ const Navbar = () => {
       <div className="header-container">
         <div className="header-left">
           <button
+            ref={menuBtnRef}
             className={`menu-btn${menuOpen ? ' active' : ''}`}
             aria-label="Menu"
             aria-expanded={menuOpen}
@@ -253,7 +284,7 @@ const Navbar = () => {
           </button>
         ))}
       </div>
-      <div className={`nav-flyout${menuOpen ? ' open' : ''}`}>
+      <div ref={flyoutRef} className={`nav-flyout${menuOpen ? ' open' : ''}`}>
         <ul className="nav-flyout-list">
           <li>
             <a href="/new-arrival" onClick={(event) => handleSectionLinkClick(event, 'new-arrival')}>New Arrival</a>
