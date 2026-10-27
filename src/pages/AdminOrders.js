@@ -10,8 +10,6 @@ import AdminPassword from './AdminPassword';
 import { markAdminViewing } from '../component/adminreturn';
 import {
   ACCOUNTS_URL,
-  askOpenerForLogin,
-  loggedInByHand,
   logOutEverywhere,
   openAccounts,
   readLogin,
@@ -119,14 +117,6 @@ const AdminOrders = () => {
     fetch(`${BACKEND_URL}/`).catch(() => {});
   }, []);
 
-  // Opened from the accounts app: use its login instead of asking again
-  useEffect(() => {
-    if (login) return undefined;
-    return askOpenerForLogin((credentials) => {
-      saveLogin(credentials);
-      setLogin(credentials);
-    });
-  }, [login]);
   const [filters, setFilters] = useState(EMPTY_FILTERS);
   const [appliedFilters, setAppliedFilters] = useState(EMPTY_FILTERS);
   const [page, setPage] = useState(1);
@@ -317,7 +307,6 @@ const AdminOrders = () => {
       }
       if (lastError) throw lastError;
       saveLogin(credentials);
-      loggedInByHand();
       setLogin(credentials);
       setPasswordInput('');
     } catch (err) {
@@ -398,7 +387,6 @@ const AdminOrders = () => {
             setEmailInput(credentials.email);
             setLoginError('');
             saveLogin(credentials);
-            loggedInByHand();
             setLogin(credentials);
           }}
         />
