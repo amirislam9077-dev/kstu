@@ -136,6 +136,28 @@ const AdminOrders = () => {
   const [error, setError] = useState('');
   const [openOrder, setOpenOrder] = useState(null);
   const [view, setView] = useState('orders'); // orders | sales | products | collections | cities | discounts
+  // Phones: the menu is one sideways-scrolling row; arrows show when more buttons are hidden
+  const [menuEl, setMenuEl] = useState(null);
+  const [menuMore, setMenuMore] = useState({ left: false, right: false });
+
+  useEffect(() => {
+    if (!menuEl) return undefined;
+    const update = () => {
+      const max = menuEl.scrollWidth - menuEl.clientWidth;
+      setMenuMore({ left: menuEl.scrollLeft > 4, right: menuEl.scrollLeft < max - 4 });
+    };
+    update();
+    menuEl.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      menuEl.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, [menuEl]);
+
+  const scrollMenu = (direction) => {
+    menuEl?.scrollBy({ left: direction * menuEl.clientWidth * 0.7, behavior: 'smooth' });
+  };
   const [notice, setNotice] = useState(null);
   const [printSheet, setPrintSheet] = useState(null);
   const [preparingPrint, setPreparingPrint] = useState(false); // result of the customer email after a status change
@@ -443,7 +465,15 @@ const AdminOrders = () => {
 
   return (
     <div className="admin-shell">
-      <aside className="admin-sidebar" aria-label="Admin menu">
+      <aside className="admin-sidebar" aria-label="Admin menu" ref={setMenuEl}>
+        <button
+          type="button"
+          className={`admin-menu-arrow admin-menu-arrow--left${menuMore.left ? ' show' : ''}`}
+          aria-label="Scroll menu left"
+          onClick={() => scrollMenu(-1)}
+        >
+          ‹
+        </button>
         <div className="admin-brand">
           <span className="admin-brand-logo">KS</span>
           <div>
@@ -516,6 +546,14 @@ const AdminOrders = () => {
             Log out
           </button>
         </div>
+        <button
+          type="button"
+          className={`admin-menu-arrow admin-menu-arrow--right${menuMore.right ? ' show' : ''}`}
+          aria-label="Scroll menu right"
+          onClick={() => scrollMenu(1)}
+        >
+          ›
+        </button>
       </aside>
 
       <section className="admin-page admin-main">

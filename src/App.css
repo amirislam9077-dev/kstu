@@ -8149,3 +8149,59 @@ a.collection-tagline:hover {
   background: #e8f5e9;
   color: #1b5e20;
 }
+
+/* ===== Admin menu on phones: arrows show there are more buttons sideways ===== */
+.admin-menu-arrow {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .admin-menu-arrow {
+    position: sticky;
+    z-index: 2;
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    width: 44px;
+    margin: -10px 0;
+    padding: 0 0 4px;
+    border: none;
+    color: #fff;
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .admin-menu-arrow.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .admin-menu-arrow--left {
+    left: 0;
+    margin-right: -44px;
+    justify-content: flex-start;
+    background: linear-gradient(to right, #0b0b0b 45%, rgba(11, 11, 11, 0));
+  }
+
+  .admin-menu-arrow--right {
+    right: 0;
+    margin-left: -44px;
+    justify-content: flex-end;
+    background: linear-gradient(to left, #0b0b0b 45%, rgba(11, 11, 11, 0));
+  }
+
+  .admin-menu-arrow--right.show {
+    animation: admin-menu-nudge 1.4s ease-in-out infinite;
+  }
+}
+
+@keyframes admin-menu-nudge {
+  0%, 100% { padding-right: 0; }
+  50% { padding-right: 6px; }
+}
