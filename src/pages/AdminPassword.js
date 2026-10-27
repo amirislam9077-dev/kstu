@@ -109,7 +109,7 @@ const AdminPassword = ({ mode, initialEmail = '', onBack, onChanged }) => {
       <form className="admin-login-card" onSubmit={changePassword}>
         <h1>Change Password</h1>
         <p>The new password also opens Khurram Studio Accounts.</p>
-        <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Email" autoComplete="username" />
+        <input type="text" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Email" autoComplete="username" />
         <input
           type="password"
           value={currentPassword}
@@ -128,7 +128,7 @@ const AdminPassword = ({ mode, initialEmail = '', onBack, onChanged }) => {
       <form className="admin-login-card" onSubmit={sendCode}>
         <h1>Forgot Password</h1>
         <p>Enter the admin email. A 6-digit code will be emailed to it.</p>
-        <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Email" autoComplete="username" autoFocus />
+        <input type="text" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Email" autoComplete="username" autoFocus />
         {footer('Send code')}
       </form>
     );

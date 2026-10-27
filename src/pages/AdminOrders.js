@@ -391,7 +391,7 @@ const AdminOrders = () => {
           <h1>Orders Admin</h1>
           <p>Log in to see saved orders.</p>
           <input
-            type="email"
+            type="text"
             value={emailInput}
             onChange={(event) => setEmailInput(event.target.value)}
             placeholder="Email"
