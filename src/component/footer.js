@@ -1,5 +1,6 @@
 import React from 'react';
 import '../App.css';
+import { INSTAGRAM_URL } from './instagrambanner';
 
 const Footer = () => {
   return (
@@ -42,7 +43,7 @@ const Footer = () => {
         <div className="footer-column footer-social">
           <h3 className="footer-heading">Social</h3>
           <ul className="footer-social-list">
-            <li><a href="https://www.instagram.com" aria-label="Instagram">Instagram</a></li>
+            <li><a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a></li>
             <li><a href="https://www.facebook.com" aria-label="Facebook">Facebook</a></li>
             <li><a href="https://www.tiktok.com/@umaimasimbykhurramstudio" target="_blank" rel="noreferrer" aria-label="TikTok">TikTok</a></li>
           </ul>

@@ -6,7 +6,7 @@ import Slider from './component/slider';
 import Hero5 from './component/hero5';
 import Banner5 from './component/banner5';
 import ShopByCollection from './component/collection';
-import UnstitchedBanner from './component/unstitchedbanner';
+import InstagramBanner from './component/instagrambanner';
 import Login from './component/login';
 import Footer from './component/footer';
 import FullPage from './component/fullpage';
@@ -79,7 +79,7 @@ const HomePage = () => (
     <Hero5 />
     <Banner5 />
     <ShopByCollection />
-    <UnstitchedBanner />
+    <InstagramBanner />
     <Footer />
   </FullPage>
 );

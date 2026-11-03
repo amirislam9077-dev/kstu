@@ -380,14 +380,10 @@ export const readyToWearItems = [
     code: 'MS3101A-SML-00A',
     description:
       'Color: Maroon Shirt Printed Straight Shirt Band Colllar Neckline With Dori Detailing Embroidered Lace Finished Border Printed Sleeves With Embroidered Velvet Border Pearl Drops Hanging On Sleeves & Border Fabric: Linen C',
-    image: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/D-1A-A_d39bb09f-ade3-4794-9589-71ba4ca5560f.jpg?width=800',
-    hoverImage: 'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/D-1A-B_7623dfa4-3538-4000-abed-fda350897223.jpg?width=800',
-    gallery: [
-      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/D-1A-A_d39bb09f-ade3-4794-9589-71ba4ca5560f.jpg?width=800',
-      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/D-1A-B_7623dfa4-3538-4000-abed-fda350897223.jpg?width=800',
-      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/D-1A-C_ebdb4c0c-4872-4dc0-bf4e-1edb0488d1c7.jpg?width=800',
-      'https://cdn.shopify.com/s/files/1/0620/8788/9062/files/D-1A-D_35f902b7-1ef8-4a83-a3f2-2ac9b64a24ac.jpg?width=800'
-    ],
+    image: '/images/ready-to-wear/mps-3101-a.jpg',
+    hoverVideo: '/videos/ready-to-wear.mp4',
+    gallery: ['/images/ready-to-wear/mps-3101-a.jpg', '/images/ready-to-wear/mps-3101-a-2.jpg'],
+    video: '/videos/ready-to-wear.mp4',
     price: 'Rs.19,990',
     availability: 'In stock',
     sku: 'MS3101A-SML-00A',

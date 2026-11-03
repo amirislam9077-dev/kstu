@@ -229,8 +229,23 @@ const Product5Pro = ({ items = product5Items, collectionName = 'Product5', disco
 
       <div className="formal-pro-content">
         <div className="formal-pro-gallery">
-          <ZoomImage src={activeImage} alt={product.title} />
-          {galleryImages.length > 1 && (
+          {product.video && activeImage === product.video ? (
+            <div className="formal-pro-main-image">
+              <video
+                src={product.video}
+                poster={galleryImages[0]}
+                className="formal-pro-main-video"
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+            </div>
+          ) : (
+            <ZoomImage src={activeImage} alt={product.title} />
+          )}
+          {(galleryImages.length > 1 || product.video) && (
             <div className="formal-pro-thumbnails">
               {galleryImages.map((imageUrl) => (
                 <button
@@ -243,6 +258,17 @@ const Product5Pro = ({ items = product5Items, collectionName = 'Product5', disco
                   <img src={imageUrl} alt={`${product.title} variation`} />
                 </button>
               ))}
+              {product.video && (
+                <button
+                  type="button"
+                  className={`formal-pro-thumb formal-pro-thumb--video ${activeImage === product.video ? 'active' : ''}`}
+                  onClick={() => setActiveImage(product.video)}
+                  aria-label="Play product video"
+                >
+                  <video src={product.video} muted playsInline preload="metadata" />
+                  <span className="formal-pro-thumb-play" aria-hidden="true">▶</span>
+                </button>
+              )}
             </div>
           )}
         </div>

@@ -1,18 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { INSTAGRAM_URL } from './component/instagrambanner';
 import './App.css';
 
 const MOBILE_LINKS = [
   ['new-arrival', 'New Arrival'],
   ['sale', 'Sale'],
   ['formal', 'Formal'],
-  ['bridal', 'Bridal'],
   ['wedding-formal', 'Wedding Formal'],
   ['ready-to-wear', 'Ready to Wear'],
-  ['unstitched', 'Unstitched'],
   ['party', 'Party'],
   ['tiktok', 'TikTok']
 ];
+
+// Shop's Instagram page (opens in a new tab)
+const openInstagram = () => window.open(INSTAGRAM_URL, '_blank', 'noopener,noreferrer');
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -207,13 +209,6 @@ const Navbar = () => {
           <button
             type="button"
             className="about-btn"
-            onClick={() => handleSectionNavigation('bridal')}
-          >
-            Bridal
-          </button>
-          <button
-            type="button"
-            className="about-btn"
             onClick={() => handleSectionNavigation('wedding-formal')}
           >
             Wedding Formal
@@ -228,13 +223,6 @@ const Navbar = () => {
           <button
             type="button"
             className="about-btn"
-            onClick={() => handleSectionNavigation('unstitched')}
-          >
-            Unstitched
-          </button>
-          <button
-            type="button"
-            className="about-btn"
             onClick={() => handleSectionNavigation('party')}
           >
             Party
@@ -245,6 +233,9 @@ const Navbar = () => {
             onClick={() => handleSectionNavigation('tiktok')}
           >
             TikTok
+          </button>
+          <button type="button" className="about-btn" onClick={openInstagram}>
+            Instagram
           </button>
           <button
             className="sign-in-btn"
@@ -283,6 +274,9 @@ const Navbar = () => {
             {label}
           </button>
         ))}
+        <button type="button" className="mobile-nav-link" onClick={openInstagram}>
+          Instagram
+        </button>
       </div>
       <div ref={flyoutRef} className={`nav-flyout${menuOpen ? ' open' : ''}`}>
         <ul className="nav-flyout-list">
@@ -296,22 +290,19 @@ const Navbar = () => {
             <a href="/formal" onClick={(event) => handleSectionLinkClick(event, 'formal')}>Formal</a>
           </li>
           <li>
-            <a href="/bridal" onClick={(event) => handleSectionLinkClick(event, 'bridal')}>Bridal</a>
-          </li>
-          <li>
             <a href="/wedding-formal" onClick={(event) => handleSectionLinkClick(event, 'wedding-formal')}>Wedding Formal</a>
           </li>
           <li>
             <a href="/ready-to-wear" onClick={(event) => handleSectionLinkClick(event, 'ready-to-wear')}>Ready to Wear</a>
           </li>
           <li>
-            <a href="/unstitched" onClick={(event) => handleSectionLinkClick(event, 'unstitched')}>Unstitched</a>
-          </li>
-          <li>
             <a href="/party" onClick={(event) => handleSectionLinkClick(event, 'party')}>Party</a>
           </li>
           <li>
             <a href="/tiktok" onClick={(event) => handleSectionLinkClick(event, 'tiktok')}>TikTok</a>
+          </li>
+          <li>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>Instagram</a>
           </li>
           <li>
             <button

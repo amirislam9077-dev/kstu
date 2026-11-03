@@ -25,6 +25,7 @@ const heroCategories = [
     title: 'Ready to Wear',
     image:
       'https://www.mariab.pk/cdn/shop/files/RTW_Web_1124X1460_1bdd776b-faae-47e2-b597-7f97f0cd9c14.jpg?v=1789455466&width=1500',
+    video: '/videos/ready-to-wear.mp4',
     path: '/ready-to-wear'
   }
 ];
@@ -55,7 +56,21 @@ const Hero5 = () => {
               }
             }}
           >
-            <img src={category.image} alt={category.title} className="hero5-image" />
+            {category.video ? (
+              // The picture shows until the clip loads
+              <video
+                src={category.video}
+                poster={category.image}
+                className="hero5-image"
+                autoPlay
+                muted
+                loop
+                playsInline
+                aria-label={category.title}
+              />
+            ) : (
+              <img src={category.image} alt={category.title} className="hero5-image" />
+            )}
             <div className="hero5-label">{category.title}</div>
           </div>
         ))}
