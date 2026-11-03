@@ -28,48 +28,6 @@ const shrinkImage = (file, maxSide = 1600, quality = 0.82) =>
     img.src = url;
   });
 
-// Banks and mobile wallets in Pakistan for the deposit slip
-const PAKISTAN_BANKS = [
-  'Allied Bank (ABL)',
-  'Askari Bank',
-  'Bank Al Habib',
-  'Bank Alfalah',
-  'Bank Islami',
-  'Bank of Khyber',
-  'Bank of Punjab (BOP)',
-  'Dubai Islamic Bank',
-  'Faysal Bank',
-  'First Women Bank',
-  'Habib Bank (HBL)',
-  'Habib Metropolitan Bank',
-  'JS Bank',
-  'MCB Bank',
-  'MCB Islamic Bank',
-  'Meezan Bank',
-  'National Bank of Pakistan (NBP)',
-  'Samba Bank',
-  'Silkbank',
-  'Sindh Bank',
-  'Soneri Bank',
-  'Standard Chartered',
-  'Summit Bank',
-  'United Bank (UBL)',
-  'Al Baraka Bank',
-  'Bank of Azad Jammu & Kashmir',
-  'Zarai Taraqiati Bank (ZTBL)',
-  'HBL Microfinance Bank',
-  'Mobilink Microfinance Bank',
-  'Telenor Microfinance Bank',
-  'U Microfinance Bank',
-  'Khushhali Microfinance Bank',
-  'JazzCash',
-  'Easypaisa',
-  'SadaPay',
-  'NayaPay',
-  'Raast',
-  'Other'
-];
-
 // Messages under each box when it's empty or wrong
 const FIELD_MESSAGES = {
   email: 'Please enter your email ID.',
@@ -78,10 +36,7 @@ const FIELD_MESSAGES = {
   address: 'Please enter your address.',
   city: 'Please select your city.',
   phone: 'Please enter your phone number.',
-  phoneInvalid: 'Enter 10 digits starting with 3, e.g. 3001234567.',
-  depositSlip: 'Please attach your deposit slip picture.',
-  referenceNo: 'Please enter the reference number.',
-  bankName: 'Please select your bank.'
+  phoneInvalid: 'Enter 10 digits starting with 3, e.g. 3001234567.'
 };
 
 const COUNTRIES = [
@@ -567,8 +522,6 @@ const ViewChar = () => {
         city: formData.get('city') || '',
         phone: formData.get('phone')?.trim() ? `+92${formData.get('phone').trim()}` : '',
         shippingMethod: formData.get('shippingMethod')?.trim() || '',
-        bankName: formData.get('bankName')?.trim() || '',
-        referenceNo: formData.get('referenceNo')?.trim() || '',
         depositSlip: depositSlip?.dataUrl || '',
         wantsEmails: formData.get('wantsEmails') === 'on',
         saveInfo: formData.get('saveInfo') === 'on',
@@ -593,9 +546,6 @@ const ViewChar = () => {
       if (!payload.city) errors.city = FIELD_MESSAGES.city;
       if (!phoneDigits) errors.phone = FIELD_MESSAGES.phone;
       else if (!/^3\d{9}$/.test(phoneDigits)) errors.phone = FIELD_MESSAGES.phoneInvalid;
-      if (!payload.depositSlip) errors.depositSlip = FIELD_MESSAGES.depositSlip;
-      if (!payload.referenceNo) errors.referenceNo = FIELD_MESSAGES.referenceNo;
-      if (!payload.bankName) errors.bankName = FIELD_MESSAGES.bankName;
 
       setFieldErrors(errors);
       if (Object.keys(errors).length) {
@@ -840,7 +790,7 @@ const ViewChar = () => {
                 </label>
 
                 <div className="viewchar-field">
-                  <span>Deposit slip picture</span>
+                  <span>Deposit slip picture (optional)</span>
                   <label className={`viewchar-slip${depositSlip ? ' has-file' : ''}${fieldErrors.depositSlip ? ' has-error' : ''}`}>
                     <input type="file" accept="image/*" onChange={handleSlipChange} />
                     {depositSlip ? (
@@ -862,34 +812,6 @@ const ViewChar = () => {
                 </div>
 
                 <label className="viewchar-field">
-                  <span>Reference No</span>
-                  <input
-                    name="referenceNo"
-                    type="text"
-                    className={inputClass('referenceNo')}
-                    placeholder="Transaction / reference number on the slip"
-                    maxLength={100}
-                    required
-                  />
-                  {fieldError('referenceNo')}
-                </label>
-
-                <label className="viewchar-field">
-                  <span>Bank name</span>
-                  <select name="bankName" className={inputClass('bankName', 'viewchar-select')} defaultValue="" required>
-                    <option value="" disabled>
-                      Select your bank
-                    </option>
-                    {PAKISTAN_BANKS.map((bank) => (
-                      <option key={bank} value={bank}>
-                        {bank}
-                      </option>
-                    ))}
-                  </select>
-                  {fieldError('bankName')}
-                </label>
-
-                <label className="viewchar-field">
                   <span>Remarks</span>
                   <textarea
                     name="remarks"
@@ -906,17 +828,6 @@ const ViewChar = () => {
               </section>
 
               <section className="viewchar-section">
-                <div className="viewchar-section-header">
-                  <h3 className="viewchar-section-title">Payment</h3>
-                </div>
-                <p className="viewchar-section-subtitle">All transactions are secure and encrypted.</p>
-                <div className="viewchar-payment-info">
-                  <p>Payment via Credit/Debit Cards, UnionPay, Bank Account and Digital Wallets</p>
-                  <p>
-                    After clicking “Pay now”, you will be redirected to Payment via Credit/Debit Cards, UnionPay, Bank
-                    Account and Digital Wallets to complete your purchase securely.
-                  </p>
-                </div>
                 {sendStatus.state !== 'idle' && (
                   <div className={`viewchar-status viewchar-status--${sendStatus.state}`} role="alert">
                     {sendStatus.message}
