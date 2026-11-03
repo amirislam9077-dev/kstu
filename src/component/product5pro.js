@@ -98,6 +98,14 @@ const Product5Pro = ({ items = product5Items, collectionName = 'Product5', disco
   }, [product]);
 
   const [activeImage, setActiveImage] = React.useState(() => galleryImages[0] || '');
+
+  // Pictures, then the clip: what the ‹ › arrows step through (wrapping around)
+  const galleryMedia = product?.video ? [...galleryImages, product.video] : galleryImages;
+  const stepMedia = (direction) => {
+    const index = galleryMedia.indexOf(activeImage);
+    const next = (index + direction + galleryMedia.length) % galleryMedia.length;
+    setActiveImage(galleryMedia[next]);
+  };
   const [isCartOpen, setCartOpen] = React.useState(false);
   const [cartItems, setCartItems] = React.useState(readStoredCartItems);
   const [qty, setQty] = React.useState(1);
@@ -229,22 +237,44 @@ const Product5Pro = ({ items = product5Items, collectionName = 'Product5', disco
 
       <div className="formal-pro-content">
         <div className="formal-pro-gallery">
-          {product.video && activeImage === product.video ? (
-            <div className="formal-pro-main-image">
-              <video
-                src={product.video}
-                poster={galleryImages[0]}
-                className="formal-pro-main-video"
-                controls
-                autoPlay
-                muted
-                loop
-                playsInline
-              />
-            </div>
-          ) : (
-            <ZoomImage src={activeImage} alt={product.title} />
-          )}
+          <div className="formal-pro-main-wrap">
+            {product.video && activeImage === product.video ? (
+              <div className="formal-pro-main-image">
+                <video
+                  src={product.video}
+                  poster={galleryImages[0]}
+                  className="formal-pro-main-video"
+                  controls
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                />
+              </div>
+            ) : (
+              <ZoomImage src={activeImage} alt={product.title} />
+            )}
+            {galleryMedia.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  className="formal-pro-arrow formal-pro-arrow--prev"
+                  onClick={() => stepMedia(-1)}
+                  aria-label="Previous picture"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  className="formal-pro-arrow formal-pro-arrow--next"
+                  onClick={() => stepMedia(1)}
+                  aria-label="Next picture"
+                >
+                  ›
+                </button>
+              </>
+            )}
+          </div>
           {(galleryImages.length > 1 || product.video) && (
             <div className="formal-pro-thumbnails">
               {galleryImages.map((imageUrl) => (

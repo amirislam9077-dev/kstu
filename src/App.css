@@ -8356,3 +8356,74 @@ a.collection-tagline:hover {
     font-size: 15px;
   }
 }
+
+/* Product page: ‹ › arrows on the big picture */
+.formal-pro-main-wrap {
+  position: relative;
+}
+
+.formal-pro-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 4px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  color: #111;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(-50%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.formal-pro-arrow:hover {
+  background: #111;
+  color: #fff;
+}
+
+.formal-pro-arrow--prev {
+  left: 12px;
+}
+
+.formal-pro-arrow--next {
+  right: 12px;
+}
+
+/* Product pages: "← Back" (to the last page) shows below the menu bar as a
+   clear button, like the collection pages' Back */
+.formal-pro-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  background: #fff;
+  color: #222;
+  font-family: 'Montserrat', 'Segoe UI', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.formal-pro-back:hover {
+  background: #111;
+  border-color: #111;
+  color: #fff;
+}
+
+@media (min-width: 1200px) {
+  .formal-pro-page {
+    padding-top: 96px;
+  }
+}

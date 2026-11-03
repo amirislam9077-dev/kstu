@@ -380,9 +380,9 @@ export const readyToWearItems = [
     code: 'MS3101A-SML-00A',
     description:
       'Color: Maroon Shirt Printed Straight Shirt Band Colllar Neckline With Dori Detailing Embroidered Lace Finished Border Printed Sleeves With Embroidered Velvet Border Pearl Drops Hanging On Sleeves & Border Fabric: Linen C',
-    image: '/images/ready-to-wear/mps-3101-a.jpg',
+    image: '/images/ready-to-wear/mps-3101-a-main.jpg',
     hoverVideo: '/videos/ready-to-wear.mp4',
-    gallery: ['/images/ready-to-wear/mps-3101-a.jpg', '/images/ready-to-wear/mps-3101-a-2.jpg'],
+    gallery: ['/images/ready-to-wear/mps-3101-a-main.jpg', '/images/ready-to-wear/mps-3101-a-2.jpg', '/images/ready-to-wear/mps-3101-a-3.jpg'],
     video: '/videos/ready-to-wear.mp4',
     price: 'Rs.19,990',
     availability: 'In stock',
